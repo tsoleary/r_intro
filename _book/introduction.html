@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Introduction | UVM ThermoFly REU Crew</title>
+  <meta name="description" content="An incomplete introductory workshop to data science and R." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Introduction | UVM ThermoFly REU Crew" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Introduction | UVM ThermoFly REU Crew" />
+  
+  <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
+  
+
+<meta name="author" content="TS O’Leary" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-science-workshop.html"/>
+<link rel="next" href="first-principles.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="data-science-workshop.html"><a href="data-science-workshop.html"><i class="fa fa-check"></i><strong>Data Science Workshop</strong></a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> <strong>Introduction</strong></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#goals"><i class="fa fa-check"></i><b>1.1</b> Goals</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#agenda"><i class="fa fa-check"></i><b>1.2</b> Agenda</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#disclaimer"><i class="fa fa-check"></i><b>1.3</b> Disclaimer</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#alternative-resources"><i class="fa fa-check"></i><b>1.4</b> Alternative resources</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#stolen-advice"><i class="fa fa-check"></i><b>1.5</b> Stolen advice</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="first-principles.html"><a href="first-principles.html"><i class="fa fa-check"></i><b>2</b> <strong>First principles</strong></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-principles.html"><a href="first-principles.html#r-rstudio"><i class="fa fa-check"></i><b>2.1</b> R &amp; RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-principles.html"><a href="first-principles.html#download-links"><i class="fa fa-check"></i><b>2.1.1</b> Download links</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="first-principles.html"><a href="first-principles.html#lets-start-coding"><i class="fa fa-check"></i><b>2.2</b> Let’s start coding</a></li>
+<li class="chapter" data-level="2.3" data-path="first-principles.html"><a href="first-principles.html#basic-math"><i class="fa fa-check"></i><b>2.3</b> Basic math</a></li>
+<li class="chapter" data-level="2.4" data-path="first-principles.html"><a href="first-principles.html#creating-objects"><i class="fa fa-check"></i><b>2.4</b> Creating objects</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="first-principles.html"><a href="first-principles.html#naming-objects"><i class="fa fa-check"></i><b>2.4.1</b> Naming objects</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="first-principles.html"><a href="first-principles.html#the-snake-camel"><i class="fa fa-check"></i><b>2.4.1.1</b> The snake &amp; camel</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="first-principles.html"><a href="first-principles.html#forbidden-characters"><i class="fa fa-check"></i><b>2.4.1.2</b> Forbidden characters</a></li>
+<li class="chapter" data-level="2.4.1.3" data-path="first-principles.html"><a href="first-principles.html#characters-to-avoid"><i class="fa fa-check"></i><b>2.4.1.3</b> Characters to avoid</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="first-principles.html"><a href="first-principles.html#data-types"><i class="fa fa-check"></i><b>2.5</b> Data types</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="first-principles.html"><a href="first-principles.html#object-class"><i class="fa fa-check"></i><b>2.5.1</b> Object class</a></li>
+<li class="chapter" data-level="2.5.2" data-path="first-principles.html"><a href="first-principles.html#vectors-indexing"><i class="fa fa-check"></i><b>2.5.2</b> Vectors &amp; Indexing</a>
+<ul>
+<li class="chapter" data-level="2.5.2.1" data-path="first-principles.html"><a href="first-principles.html#concatenate-c-function"><i class="fa fa-check"></i><b>2.5.2.1</b> Concatenate <code>c()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5.3" data-path="first-principles.html"><a href="first-principles.html#indexing"><i class="fa fa-check"></i><b>2.5.3</b> Indexing</a></li>
+<li class="chapter" data-level="2.5.4" data-path="first-principles.html"><a href="first-principles.html#accessing-equality"><i class="fa fa-check"></i><b>2.5.4</b> Accessing equality</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="first-principles.html"><a href="first-principles.html#data-frames"><i class="fa fa-check"></i><b>2.6</b> Data frames</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="first-principles.html"><a href="first-principles.html#creating-a-data-frame"><i class="fa fa-check"></i><b>2.6.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="2.6.2" data-path="first-principles.html"><a href="first-principles.html#sneak-peak-at-data-visualization-with-baseplot."><i class="fa fa-check"></i><b>2.6.2</b> Sneak peak at data visualization with <code>base::plot</code>.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="first-principles.html"><a href="first-principles.html#guinea-pigs-tooth-growth"><i class="fa fa-check"></i><b>2.7</b> Guinea pigs’ tooth growth</a></li>
+<li class="chapter" data-level="2.8" data-path="first-principles.html"><a href="first-principles.html#functions"><i class="fa fa-check"></i><b>2.8</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="first-principles.html"><a href="first-principles.html#creating-functions"><i class="fa fa-check"></i><b>2.8.1</b> Creating functions</a>
+<ul>
+<li class="chapter" data-level="2.8.1.1" data-path="first-principles.html"><a href="first-principles.html#try-it-out"><i class="fa fa-check"></i><b>2.8.1.1</b> Try it out</a></li>
+<li class="chapter" data-level="2.8.1.2" data-path="first-principles.html"><a href="first-principles.html#favorite-equation-challenge"><i class="fa fa-check"></i><b>2.8.1.2</b> <strong>Favorite Equation Challenge</strong></a></li>
+<li class="chapter" data-level="2.8.1.3" data-path="first-principles.html"><a href="first-principles.html#hello-challenge"><i class="fa fa-check"></i><b>2.8.1.3</b> <strong>Hello Challenge</strong></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html"><i class="fa fa-check"></i><b>3</b> <strong>More <code>base</code>-ics in R</strong></a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#freeform-data-challenge"><i class="fa fa-check"></i><b>3.0.1</b> Freeform Data Challenge</a></li>
+<li class="chapter" data-level="3.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#freeform"><i class="fa fa-check"></i><b>3.1</b> Freeform</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#loops-if-else"><i class="fa fa-check"></i><b>3.1.1</b> Loops &amp; <code>if else</code></a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#for-loops"><i class="fa fa-check"></i><b>3.1.1.1</b> <code>for</code> loops</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> <strong>Tidyverse</strong></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tidyverse.html"><a href="tidyverse.html#tidyverse-specific-resources"><i class="fa fa-check"></i><b>4.1</b> <code>tidyverse</code>-specific resources</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="tidyverse.html"><a href="tidyverse.html#cheat-sheets"><i class="fa fa-check"></i><b>4.1.1</b> Cheat sheets</a>
+<ul>
+<li class="chapter" data-level="4.1.1.1" data-path="tidyverse.html"><a href="tidyverse.html#core-tidyverse"><i class="fa fa-check"></i><b>4.1.1.1</b> Core tidyverse</a></li>
+<li class="chapter" data-level="4.1.1.2" data-path="tidyverse.html"><a href="tidyverse.html#other-useful-tidyverse-packages"><i class="fa fa-check"></i><b>4.1.1.2</b> Other useful tidyverse packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html#tidy-data"><i class="fa fa-check"></i><b>4.2</b> Tidy data</a></li>
+<li class="chapter" data-level="4.3" data-path="tidyverse.html"><a href="tidyverse.html#messy-data"><i class="fa fa-check"></i><b>4.3</b> Messy data</a></li>
+<li class="chapter" data-level="4.4" data-path="tidyverse.html"><a href="tidyverse.html#lets-tidy-it"><i class="fa fa-check"></i><b>4.4</b> Let’s tidy it</a></li>
+<li class="chapter" data-level="4.5" data-path="tidyverse.html"><a href="tidyverse.html#tidy-iris-challenge"><i class="fa fa-check"></i><b>4.5</b> Tidy <code>iris</code> challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="wrangling-data.html"><a href="wrangling-data.html"><i class="fa fa-check"></i><b>5</b> <strong>Wrangling data</strong></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="wrangling-data.html"><a href="wrangling-data.html#dplyr-functions"><i class="fa fa-check"></i><b>5.1</b> <code>dplyr</code> functions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="wrangling-data.html"><a href="wrangling-data.html#rows"><i class="fa fa-check"></i><b>5.1.1</b> Rows</a></li>
+<li class="chapter" data-level="5.1.2" data-path="wrangling-data.html"><a href="wrangling-data.html#columns"><i class="fa fa-check"></i><b>5.1.2</b> Columns</a></li>
+<li class="chapter" data-level="5.1.3" data-path="wrangling-data.html"><a href="wrangling-data.html#groups-of-rows"><i class="fa fa-check"></i><b>5.1.3</b> Groups of rows</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="wrangling-data.html"><a href="wrangling-data.html#pipe-operator"><i class="fa fa-check"></i><b>5.2</b> Pipe <code>%&gt;%</code> operator</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="wrangling-data.html"><a href="wrangling-data.html#a-fun-example-from-r-for-data-science"><i class="fa fa-check"></i><b>5.2.1</b> A fun example from <span>R for data science</span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="wrangling-data.html"><a href="wrangling-data.html#arrange"><i class="fa fa-check"></i><b>5.3</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="5.4" data-path="wrangling-data.html"><a href="wrangling-data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> <code>summarise</code></a></li>
+<li class="chapter" data-level="5.5" data-path="wrangling-data.html"><a href="wrangling-data.html#group_by"><i class="fa fa-check"></i><b>5.5</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="5.6" data-path="wrangling-data.html"><a href="wrangling-data.html#challenge-time-with-tidyverse-data"><i class="fa fa-check"></i><b>5.6</b> CHALLENGE TIME WITH TIDYVERSE DATA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> <strong>Data Visualization</strong></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#principles-of-data-visualization"><i class="fa fa-check"></i><b>6.1</b> Principles of Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-visualization.html"><a href="data-visualization.html#principles-of-story-telling"><i class="fa fa-check"></i><b>6.1.1</b> Principles of story telling</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#ggplot2"><i class="fa fa-check"></i><b>6.2</b> <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html"><i class="fa fa-check"></i><b>7</b> <strong>Statistics &amp; experimental design</strong></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#pca"><i class="fa fa-check"></i><b>7.1</b> PCA</a></li>
+<li class="chapter" data-level="7.2" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#hypothesis-tests"><i class="fa fa-check"></i><b>7.2</b> Hypothesis tests</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#t-test"><i class="fa fa-check"></i><b>7.2.1</b> t-test</a></li>
+<li class="chapter" data-level="7.2.2" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#analysis-of-variance"><i class="fa fa-check"></i><b>7.2.2</b> Analysis of Variance</a></li>
+<li class="chapter" data-level="7.2.3" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#rnorm"><i class="fa fa-check"></i><b>7.2.3</b> <code>rnorm()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="creating-a-script.html"><a href="creating-a-script.html"><i class="fa fa-check"></i><b>8</b> <strong>Creating a script</strong></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="creating-a-script.html"><a href="creating-a-script.html#pseudo-script-form"><i class="fa fa-check"></i><b>8.1</b> Pseudo-script form</a></li>
+<li class="chapter" data-level="8.2" data-path="creating-a-script.html"><a href="creating-a-script.html#fun-data-challenge"><i class="fa fa-check"></i><b>8.2</b> Fun data challenge</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="creating-a-script.html"><a href="creating-a-script.html#load-data"><i class="fa fa-check"></i><b>8.2.1</b> Load data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="creating-a-script.html"><a href="creating-a-script.html#wrangle-data"><i class="fa fa-check"></i><b>8.2.2</b> Wrangle data</a></li>
+<li class="chapter" data-level="8.2.3" data-path="creating-a-script.html"><a href="creating-a-script.html#analyze-data"><i class="fa fa-check"></i><b>8.2.3</b> Analyze data</a></li>
+<li class="chapter" data-level="8.2.4" data-path="creating-a-script.html"><a href="creating-a-script.html#visualize-data"><i class="fa fa-check"></i><b>8.2.4</b> Visualize data</a></li>
+<li class="chapter" data-level="8.2.5" data-path="creating-a-script.html"><a href="creating-a-script.html#report-results"><i class="fa fa-check"></i><b>8.2.5</b> Report results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>9</b> <strong>R markdown</strong></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="r-markdown.html"><a href="r-markdown.html#links"><i class="fa fa-check"></i><b>9.1</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html"><i class="fa fa-check"></i><b>10</b> <strong>Workshop Part II</strong></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#review-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Review fundamentals</a></li>
+<li class="chapter" data-level="10.2" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#wrangling-collected-data"><i class="fa fa-check"></i><b>10.2</b> Wrangling collected data</a></li>
+<li class="chapter" data-level="10.3" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#analyzing-data"><i class="fa fa-check"></i><b>10.3</b> Analyzing data</a></li>
+<li class="chapter" data-level="10.4" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#visualizing-data"><i class="fa fa-check"></i><b>10.4</b> Visualizing data</a></li>
+<li class="chapter" data-level="10.5" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#advanced-skills"><i class="fa fa-check"></i><b>10.5</b> Advanced skills</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#advanced-tidyverse"><i class="fa fa-check"></i><b>10.5.1</b> Advanced <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#version-control"><i class="fa fa-check"></i><b>10.6</b> Version control</a></li>
+<li class="chapter" data-level="10.7" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#code-snippets"><i class="fa fa-check"></i><b>10.7</b> Code snippets</a></li>
+<li class="chapter" data-level="10.8" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#publishing"><i class="fa fa-check"></i><b>10.8</b> Publishing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="challenge-solutions.html"><a href="challenge-solutions.html"><i class="fa fa-check"></i><b>11</b> <strong>Challenge Solutions</strong></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="challenge-solutions.html"><a href="challenge-solutions.html#hello"><i class="fa fa-check"></i><b>11.1</b> Hello</a></li>
+<li class="chapter" data-level="11.2" data-path="challenge-solutions.html"><a href="challenge-solutions.html#loop"><i class="fa fa-check"></i><b>11.2</b> Loop</a></li>
+<li class="chapter" data-level="11.3" data-path="challenge-solutions.html"><a href="challenge-solutions.html#tidy-iris"><i class="fa fa-check"></i><b>11.3</b> Tidy <code>iris</code></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">UVM ThermoFly REU Crew</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> <strong>Introduction</strong><a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goals" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Goals<a href="introduction.html#goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Learn good data handling and coding practices.</li>
+<li>Develop skills necessary to analyze &amp; visualize collected data.</li>
+<li>Learn enough of the basics to allow you to develop and troubleshoot your own code.</li>
+<li>Develop the independence and confidence to tackle any project.</li>
+<li>Get super hyped about R.</li>
+</ol>
+</div>
+<div id="agenda" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Agenda<a href="introduction.html#agenda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Introduction to programming principles</li>
+<li>R <code>base</code>-ics &amp; the <code>tidyverse</code></li>
+<li>Principles of data visualization</li>
+<li>Statistics &amp; experimental design</li>
+<li>Build something fun</li>
+</ol>
+</div>
+<div id="disclaimer" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Disclaimer<a href="introduction.html#disclaimer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Opinions are like assholes. Everyone has them and they all stink… Except, obviously, for my opinions, which are unmatched in the quality of fragrance. – Thomas Samuel O’Leary</p>
+</blockquote>
+<p><strong>Warning</strong>: The following workshop contains my opinions on learning R and programming in general – I have a bad habit of collecting opinions on things. I am by no means an expert in anything, including this (<em>i.e.</em> coding, statistics, science, teaching, life, <em>etc.</em>). So please feel free to disagree with any and all of the opinions in this document. In fact, one of my opinions is that informed disagreement is pivotal to becoming an independent thinker! So the way I think about it, the more you disagree with me, the better I taught you. <em>Try disagreeing with that one!</em> I’ve got you in a Catch 22.</p>
+<p>This workshop is designed to give you some exposure to the wide variety of tools that are available in R and Data Science in general. It is almost by necessity incomplete. My goal with this workshop is that by providing you with some exposure to these topics, you can go out into the world wide web and collect more tools.</p>
+<p>Very little – if any – of this workshop is uniquely mine. Instead, I have basically compiled a bunch of useful nuggets of information and tips from other places. I have packaged those nuggets here to fit within the scope this workshop. But, I strongly encourage you to check out those alternative<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> resources. They are linked below and throughout this document. Thus, this tutorial will be useful – if through nothing else – as a portal to more useful parts of the internet.</p>
+</div>
+<div id="alternative-resources" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Alternative resources<a href="introduction.html#alternative-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://www.google.com/">Google</a> – when in doubt, Google it out</li>
+<li><a href="https://r4ds.had.co.nz/index.html">R for data science</a> – a wonderfully thorough and useful book that emphasizes the tidyverse</li>
+<li><a href="https://bookdown.org/yih_huynh/Guide-to-R-Book/">R for Graduate Students</a> – very accessible introduction to R &amp; the tidyverse</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> – fun take on learning mostly base R</li>
+<li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization</a> – “A guide to making visualizations that accurately reflect the data, tell a story, and look professional.” by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.</li>
+<li><a href="https://adv-r.hadley.nz/index.html">Advanced R</a> – R with the nitty-gritty details for the super nerds out there.</li>
+<li><a href="https://ggplot2-book.org/"><code>ggplot2</code> book</a> – detailed introduction to plotting with <code>ggplot2</code></li>
+<li><a href="https://learningstatisticswithr.com/book/">Learning Statistics with R</a> – there is also a <a href="http://tidylsr.djnavarro.net/index.html">newer version</a> that is in development that emphasizes the tidyverse.</li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a> – great overview of the features of R Markdown</li>
+<li><a href="https://bookdown.org/yihui/rmarkdown-cookbook/">R Markdown Cookbook</a> – additional R Markdown guide</li>
+<li><a href="https://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a> – resource for version control</li>
+<li><a href="https://gotellilab.github.io/Bio381/">Nick Gotelli’s Computational Biology</a> – a wonderful course on R taught by Nick Gotelli at UVM. Shout out to TA Lauren Ash.</li>
+</ul>
+</div>
+<div id="stolen-advice" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Stolen advice<a href="introduction.html#stolen-advice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><strong>Stand on the shoulders of giants.</strong> – <em>Issac Newton</em>
+<ul>
+<li>If Issac Newton did it, then it’s not cheating. Other people have probably tried something close to what you are about to do. Find it. Use it. Build on it.</li>
+</ul></li>
+<li><strong>Move fast and break things.</strong> – <em>Facebook</em>
+<ul>
+<li>While perhaps a terrible motto for one of the most powerful companies ever created on the planet, it’s not bad advice for coding. Just try stuff out. See what works. See what doesn’t. Make it your own. Break it. Move on and try something else.</li>
+</ul></li>
+<li><strong>If you can dream it. You can do it.</strong> – <em>Walt Disney</em> – or at least some guy that worked in marketing for Walt Disney’s company after he died – whatever.
+<ul>
+<li>Be creative. Think up your dream data analysis and visualization and make it happen. Sketch it out, erase it, and turn it into Mickey Mouse.</li>
+</ul></li>
+<li><strong>Whatever you do, do it with intention.</strong> – <em>Embroidered throw pillow in my aunt’s beach house.</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+<ul>
+<li>Think about your decisions and have a reason for each choice. Why this statistical analysis? Why this line of code? Why use this argument in this function? Why this package? Why this visualization? Why this color? Why this theme? Have an answer. Make deliberate and defensible choices.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>read: better<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Not really – I just made this up – but it is just a good clean joke.<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-science-workshop.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="first-principles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

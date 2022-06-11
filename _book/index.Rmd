@@ -1,0 +1,1589 @@
+---
+title: "UVM ThermoFly REU Crew"
+author: "TS O'Leary"
+date: "Summer 2022"
+description: "An incomplete introductory workshop to data science and R."
+output:
+  bookdown::gitbook:
+    number_sections: true
+    split_by: chapter
+    toc_depth: 4
+    toc_collapse: true
+documentclass: book
+---
+
+```{r setup, include = FALSE}
+# Don't show a comment marker in the output
+knitr::opts_chunk$set(comment = "", collapse = TRUE)
+```
+
+# **Data Science Workshop** {-}
+
+![](~/R/r_intro/_book/r_fly.jpg)
+
+# **Introduction**
+
+## Goals
+
+1. Learn good data handling and coding practices.
+2. Develop skills necessary to analyze & visualize collected data.
+3. Learn enough of the basics to allow you to develop and troubleshoot your own code.
+4. Develop the independence and confidence to tackle any project.
+5. Get super hyped about R.
+
+## Agenda
+
+1.  Introduction to programming principles
+2.  R `base`-ics & the `tidyverse`
+3.  Principles of data visualization
+4.  Statistics & experimental design
+5.  Build something fun
+
+## Disclaimer
+
+> Opinions are like assholes. Everyone has them and they all stink... Except, obviously, for my opinions, which are unmatched in the quality of fragrance. -- Thomas Samuel O'Leary
+
+**Warning**: The following workshop contains my opinions on learning R and programming in general -- I have a bad habit of collecting opinions on things. I am by no means an expert in anything, including this (_i.e._ coding, statistics, science, teaching, life, _etc._). So please feel free to disagree with any and all of the opinions in this document. In fact, one of my opinions is that informed disagreement is pivotal to becoming an independent thinker! So the way I think about it, the more you disagree with me, the better I taught you. _Try disagreeing with that one!_ I've got you in a Catch 22.
+
+This workshop is designed to give you some exposure to the wide variety of tools that are available in R and Data Science in general. It is almost by necessity incomplete. My goal with this workshop is that by providing you with some exposure to these topics, you can go out into the world wide web and collect more tools.
+
+Very little -- if any -- of this workshop is uniquely mine. Instead, I have basically compiled a bunch of useful nuggets of information and tips from other places. I have packaged those nuggets here to fit within the scope this workshop. But, I strongly encourage you to check out those alternative^[read: better] resources. They are linked below and throughout this document. Thus, this tutorial will be useful -- if through nothing else -- as a portal to more useful parts of the internet.
+
+## Alternative resources
+
+  - [Google](https://www.google.com/) -- when in doubt, Google it out
+  - [R for data science](https://r4ds.had.co.nz/index.html) -- a wonderfully thorough and useful book that emphasizes the tidyverse
+  - [R for Graduate Students](https://bookdown.org/yih_huynh/Guide-to-R-Book/) -- very accessible introduction to R & the tidyverse
+  - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) -- fun take on learning mostly base R
+  - [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) -- "A guide to making visualizations that accurately reflect the data, tell a story, and look professional." by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.
+  - [Advanced R](https://adv-r.hadley.nz/index.html) -- R with the nitty-gritty details for the super nerds out there.
+  - [`ggplot2` book](https://ggplot2-book.org/) -- detailed introduction to plotting with `ggplot2`
+  - [Learning Statistics with R](https://learningstatisticswithr.com/book/) -- there is also a [newer version](http://tidylsr.djnavarro.net/index.html) that is in development that emphasizes the tidyverse.
+  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) -- great overview of the features of R Markdown
+  - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) -- additional R Markdown guide
+  - [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) -- resource for version control
+  - [Nick Gotelli's Computational Biology](https://gotellilab.github.io/Bio381/) -- a wonderful course on R taught by Nick Gotelli at UVM. Shout out to TA Lauren Ash.
+  
+
+## Stolen advice
+
+1.  **Stand on the shoulders of giants.** -- _Issac Newton_
+    - If Issac Newton did it, then it's not cheating. Other people have probably tried something close to what you are about to do. Find it. Use it. Build on it.
+
+2.  **Move fast and break things.** -- _Facebook_
+    - While perhaps a terrible motto for one of the most powerful companies ever created on the planet, it's not bad advice for coding. Just try stuff out. See what works. See what doesn't. Make it your own. Break it. Move on and try something else.
+
+3.  **If you can dream it. You can do it.** -- _Walt Disney_ -- or at least some guy that worked in marketing for Walt Disney's company after he died -- whatever.
+    - Be creative. Think up your dream data analysis and visualization and make it happen. Sketch it out, erase it, and turn it into Mickey Mouse.
+
+4.  **Whatever you do, do it with intention.** -- _Embroidered throw pillow in my aunt's beach house._^[Not really -- I just made this up -- but it is just a good clean joke.]
+    - Think about your decisions and have a reason for each choice. Why this statistical analysis? Why this line of code? Why use this argument in this function? Why this package? Why this visualization? Why this color? Why this theme? Have an answer. Make deliberate and defensible choices.
+
+# **First principles**
+
+There are many languages in which you can program (*e.g.* python, java, C++), but here we are going to use R.
+
+## R & RStudio
+
+[R](https://en.wikipedia.org/wiki/R_(programming_language)) is primarily used for statistical programming and data visualization. It comes with a minimal **R terminal** -- which is just a place that allows you to execute the code. However, we are going to use [RStudio](https://en.wikipedia.org/wiki/RStudio) as our integrated development environment (IDE). 
+
+If coding is like painting, then you can think of _R_ as the raw materials -- primary paint colors and a few paint brushes; painting would be impossible without these basic tools. However, _RStudio_ -- aptly named -- is like a painting studio. It is not necessary to the task of painting, but it is immensely helpful. In this studio, you will find a drafting table, canvas, easel, and a palette. And finally at risk of extending this metaphor to its breaking point -- there is also a world of skilled painters who have developed specialized sets of paint brushes and other tools. And they have made them available to you for free. These are called packages. We will get into this later!
+
+### Download links
+
+-   [R](https://www.r-project.org/)
+-   [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+## Let's start coding
+
+**Step 1**: Open RStudio and get a lay of the land.
+
+RStudio has four main panels: (i) source, (ii) console (iii) environment & history, (iv) files, plots, packages, & help information.
+
+  - The **source** panel is where you will create and save your code.
+  - The **console** actually executes the code. 
+  - The **environment** shows objects that you have assigned or added to your working space. **History** shows previously executed code. 
+  - **Files** shows the directories (_i.e._ folders) on your computer. **Plots** is where your plots will be visualized. **Packages** and **Help** tabs give you useful documentation related to packages and functions, _etc._
+  
+I like to use [RStudio projects](https://r4ds.had.co.nz/workflow-projects.html) to store my data, scripts, results, and figures. This helps keep a good directory structure^[Obviously, the project itself does not create this orderly directory structure, but it just fosters the environment where you can build a good directory structure.] -- example below -- so that everything related to the project is in the same place in an orderly fashion.
+
+> Save your files with useful names in an ordered nested directory structure.
+>    -   `project_name/scripts/load_clean_data.R`
+>    -   `project_name/scripts/analyze_data.R`
+>    -   `project_name/data/raw_data.csv`
+>    -   `project_name/figures/fig_1.pdf`
+
+> It is a good idea to avoid using the `.RData` file that comes with your project to save the objects in your working environment. You want your self-contained script to you can change that in your RStudio settings [like so](https://r4ds.had.co.nz/workflow-projects.html#:~:text=To%20foster%20this%20behaviour%2C%20I%20highly%20recommend%20that%20you%20instruct%20RStudio%20not%20to%20preserve%20your%20workspace%20between%20sessions%3A). This section of does a good job of explaining why this is good practice.
+
+**Step 2**: Create a new R script!
+
+It is good practice to include useful information at the top of the script. This will help both your future-self and a potential collaborator recognize quickly what the script is all about. An example is below:
+
+```{r}
+# ------------------------------------------------------------------------------
+# REU Data Science Workshop Summer 2022 -- Learning some R basics today
+# June 13, 2022
+# TS O'Leary
+# ------------------------------------------------------------------------------
+
+# Comments are useful throughout the document
+# The #-symbol indicates that the following is merely text and
+#    R will not interpret it as code
+
+# I am getting a little a head of myself -- but below is math.
+3 + 3 # You can comment on the right of executable code, but I think it's ugly.
+```
+
+Now that we have a script open, we will begin learning some R `r emo::ji("smile")`.
+
+**Step 3**: Code...
+
+## Basic math
+
+```{r}
+# Try adding
+2 + 3
+
+# Or multiplying
+2 * 3
+
+# Or something more complicated
+(2 * 3)^2
+```
+
+This is great, but it just makes R seem like a really fancy calculator. The real utility of R comes from the fact that you can create scripts, objects, and functions to reproducibly analyze your data.
+
+## Creating objects
+
+In R, you can create _variables_ (or objects) which are place-holders for some _value_ that may change. These variables are assigned with the `<-` operator. For example, if you had two variables x & y, you could assign their respective values together with the following code:
+
+```{r}
+# Assign values to variables
+x <- 2
+y <- 3
+```
+
+Then, you can perform some math on them: 
+
+```{r}
+# Add together values
+x + y
+```
+
+> **Quick note** on the alternative `=` operator. It is possible to assign values to objects using the equal sign (_e.g._ `x = 2`). But I think it is best to avoid this notation for reasons that are best explained later. But at risk of overexplaining I will say now that using `<-` avoids confusion with the `==` function which accesses equality. It also reserves the equal sign for the assignment of argument values within a function. Additionally, I think the `<-` operator is a better visualization of what the operator is actually doing (_i.e._ in the case of `x <- 2` you are assigning the integer `2` to the variable `x`). If that doesn't make any sense, that's okay. We'll get to that stuff later.
+
+### Naming objects
+
+It is good practice to be careful and deliberate when you are naming variables within your code. You want the variables to be both **short** -- so they are easy to type and read -- and also **descriptive** -- so you remember what they represent.
+
+You are allowed to use letters, numbers, and underscores (`_`) in variable naming.
+
+```{r}
+# Set variable values
+greet <- "Hello"
+name <- "Tom"
+```
+
+> `greet` and `name` are both descriptive and short variable names for the values that they represent. 
+
+Then you can print them out together like this:
+
+```{r}
+# Print both variables 
+print(c(greet, name))
+```
+
+Or even paste it together to make a sentence:
+
+```{r}
+# Paste together
+paste(greet, name, ", nice to meet you")
+```
+
+> Quick challenge: Find a way to get rid of that pesky space before the comma.
+
+#### The snake & camel
+
+There are two "cases" that are widely used in naming things in programming.
+
+  - `snake_case` -- which uses underscores (`_`) between words.
+    - This is my preferred case.
+  - `camelCase` -- which starts with a lower case and each subsequent word begins with a capital letter.
+
+> `chaoscasevariablenaming` -- You can name things without marking the separation between words. But this method obviously stinks.
+  
+#### Forbidden characters
+
+  - `_` underscore at the beginning of the variable name
+    - _e.g._ `_variable_name`
+  - a number at the beginning 
+    - _e.g._ `1_variable`
+
+#### Characters to avoid
+
+  - `.` -- dots (or periods) are allowed, but it is better to reserve the dot for [other stuff](https://style.tidyverse.org/syntax.html#:~:text=Base%20R%20uses,data.frame()).
+  
+> Final Note: I like to make my function names with verbs. A function performs a specific action, so you can make that clear with a descriptive verb.
+
+
+## Data types
+
+There are a several fundamental data types in R and it is worthwhile taking a moment to distinguish them.
+
+  - **Atomic vectors** are one-dimensional array of a single object type. 
+  - **Lists** are a one-dimensional group of different object types. 
+  - A **matrix** is a two-dimensional array of a single object type. 
+  - A **data frame** is a two dimensional grouping of different object types.
+  
+The relationship of these terms to each other is summarized in the table below. 
+
+Dimensions	| Homogenous |	Heterogeneous
+|:---:|:---:|:---:|
+|1-D |	atomic vector |	list|
+|2-D |	matrix |	data frame|
+
+If it seems abstract now, don't fret, we will talk about each of these data types in detail now.
+
+### Object class
+
+- character strings
+- numeric
+    - integers
+    - double
+- logical
+- factor
+- vector of lists
+
+```{r}
+# Character
+char <- "letters or anything -- 1 $ % !"
+char
+
+# Check the class 
+# class() is a function in base R that checks the class of an object
+?class() # the question mark asks RStudio to give you the Help info on that function
+class(char)
+```
+
+```{r}
+# Numeric
+num <- 1
+num
+class(num)
+```
+
+```{r}
+# Logical
+log <- FALSE
+log
+class(log) 
+```
+
+> We just stumbled into another no-no for variable naming. It is bad practice to use variable names that are also functions. `log()` is actually the natural logarithm function. The `log()` function will still work -- even with `log` being an object saved as FALSE in the environment -- but it gets messy.
+
+```{r}
+# log() is actually the natural logarithm function
+?log
+log(exp(1))
+```
+
+
+> Note: `TRUE` & `FALSE` can also be written short hand as `T` or `F`. But it is more clear to use the full word. Typing a few more characters will not kill you. 
+
+```{r}
+# Factor
+fac <- as.factor("cats")
+fac
+class(fac) 
+```
+
+> Notice how `fac` has `Levels: cats` which indicates that there is one level to the factor named cats. If this is confusing we will get to factors in more detail once we 
+
+### Vectors & Indexing
+
+#### Concatenate `c()` function
+
+The `c()` function combines arguments to form a vector.
+
+For example:
+
+```{r}
+# Set x as a numerical vector 
+vec <- c(1, 4, 2, 7)
+
+vec
+```
+
+You can use other `base` functions to explore the properties of the object `x`.
+
+```{r}
+# Determine the class of vec
+class(vec)
+
+# Print out the length of vec
+length(vec)
+
+# Summary statistics of vec
+summary(vec)
+```
+
+### Indexing
+
+Indexing is just a fancy way of saying that you are accessing specific parts of a larger object. 
+
+For example:
+
+```{r}
+# Indexing the atomic vector vec at the first position
+vec[1] 
+```
+
+> It is worth noting that in R, indexing begins at `1`. For those of you unfamiliar with programing in another language that may seem like a ridicuolous thing to say, but most languagues (_e.g._ python, MatLab) begin indexing at `0`.
+
+You can index multiple objects at once:
+
+```{r}
+# Indexing the atomic vector vec at the second and third position
+vec[c(2, 3)] 
+```
+
+Or you can index based on a logical statement
+
+```{r}
+# Vector where the values are greater than 3
+vec[vec > 3]
+
+# Vector where the values are equal to 7
+vec[vec == 7]
+
+# There are also functions designed to do this
+subset(vec, vec == 7)
+```
+
+R also has cool short hand ways to create sequences.
+
+```{r}
+# The : operator sequences a vector by 1 from the left to the right side
+1:16
+
+16:1 # Produces the decreasing sequence
+
+# What if you want to exclude a number?
+c(1:4, 6:16)
+
+# Check out the seq function with ?seq and then use it
+seq(from = 1, to = 16, by = 1)
+seq(from = 1, to = 16, by = 2)
+seq(from = 1, by = 1, length.out = 16)
+```
+
+### Accessing equality
+
+Now we have two vectors `x` and `y` -- let's say we want to know what if any differences there are between the two vectors. There are several ways that you could do that
+
+```{r, echo = FALSE}
+# Create two vectors
+x <- sample(30:1, size = 30)
+y <- sample(c(1:6, 8:30), size = 29)
+```
+
+I have created two vectors x and y. In y, there is one missing number from one to thirty, but we don't know which. This is how you could find out with code.
+
+```{r}
+# Print the vectors
+x
+y
+
+# We know that they have different lengths
+length(x)
+length(y)
+
+# We could check one-by-one through indexing
+x[1] == y[1]
+x[1] == y[2] # But that would be a nightmare...
+
+# The %in% operator returns a logical vector that accesses whether each value 
+#   of x is present in y
+x %in% y
+
+# Similarly adding the ! operator returns a logical vector that accesses 
+#   each value of x that is not present in y
+!(x %in% y)
+
+# The which function gives the indices for which the logical vector is TRUE  
+which(!(x %in% y))
+
+# To figure out the value of x that is at position where the above logical is T
+x[which(!(x %in% y))]
+```
+
+## Data frames
+
+Most often I find that when I am working with data that I collected or generated, I am working with data frames -- which are tables. Data frames can contain different object classes (_e.g._ numeric, character, factor) and are useful for storing data that has multiple pieces of information associated with each observation.
+
+For the most part, those will be loaded into the environment in R from a text file (_e.g._ comma separated values, csv) with a function call like `read_csv("path/to/file.csv")`. We will talk about this in more detail later. But for now, we are going to make our own data frame and then play with some built in data.
+
+### Creating a data frame
+
+```{r}
+# Create vectors
+sample_id <- paste("sample", 1:16, sep = "_")
+x <- 1:16
+sqrt_x <- sqrt(x)
+
+# Merge together in a data frame
+df <- data.frame(sample_id = sample_id,
+                 x = x, 
+                 sqrt_x = sqrt_x)
+
+df
+
+class(df)
+```
+
+The `$` operator allows you to extract a specific column from a data frame. For example,
+
+```{r}
+# Returns the x column in a numeric vector
+df$x
+```
+
+If you want to add a new column with a `new_vector`, you can assign to a `new_col_name` with the `<-` operator, according to the following form `df$new_col_name <- new_vector`. For example,
+
+```{r}
+# Adding a column, x_2, with x-squared
+df$x_2 <- df$x^2
+
+# Adding a column, y, with 8.5 subtracted from x
+df$y <- df$x - 8.5
+
+df
+```
+
+### Sneak peak at data visualization with `base::plot`.
+```{r}
+plot(df$x, df$x_2)
+```
+
+We will get into this in much more detail in the [Data Visualization] section of the workshop!
+
+## Guinea pigs' tooth growth
+
+R comes with a bunch of built in data sets that are useful to explore when learning R, and also when sharing a question in R with a [minimal reproducible example (MRE)](https://stackoverflow.com/help/minimal-reproducible-example).
+
+Explore the data sets by typing `data()` into your R console.
+
+We are going to look at the `ToothGrowth` data which explores "The Effect of Vitamin C on Tooth Growth in Guinea Pigs".
+
+```{r}
+dat <- ToothGrowth
+
+# What is the length of the data.frame?
+length(dat) # This is interpreted as the number of rows
+
+# What are the dimensions of the data.frame
+nrow(dat)
+ncol(dat)
+dim(dat) # Always number of rows then numbers of columns
+# This can be useful to glance at
+str(dat)
+
+# Get some quick summary statistics of each column
+summary(dat)
+```
+
+> Notice how the summary is kinda useless for two of the columns `supp` and `dose`. And even the `len` column summary is of limited use because it doesn't break it down by group.
+
+```{r}
+# Quick per group average a group and treatment 
+mean(subset(dat, supp == "VC" & dose == 0.5)$len)
+```
+
+> There are much better ways to do this sort of thing! They `tidyverse` has a whole suite of functions that are built for this sort of activity. We will learn this soon. But it is important to understand that there are ways to get this information with `base` R functions.
+
+
+```{r}
+boxplot(formula = len ~ supp + dose, 
+        data = dat)
+```
+
+With `ggplot2`, you can create similar visualizations, but we will talk more about this later.
+
+```{r, echo = FALSE}
+require(tidyverse)
+dat %>%
+  ggplot() +
+  geom_boxplot(aes(x = as.factor(dose), 
+                   y = len, 
+                   fill = supp)) +
+  theme_classic()
+```
+
+We will come back to the `ToothGrowth` data as a way to explore some statistics, but for now let's dive deeper into what functions are.
+
+## Functions
+
+Let's take a moment to stop and talk about functions.
+
+Functions are the workhorse of R! They can group, average, model, and plot data -- and just about anything else. We have already used a bunch of them -- `mean`, `summary`, `length`.
+
+The vast majority of functions that you will use have already been created by other programmers and are available in `base` R or via other packages that can be be downloaded through [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/)^[As of June 6, 2022, there are 18,641 packages available through CRAN], which maintains R, or other alternative archives like [Bioconductor](https://www.bioconductor.org/)^[2,140 packages on Bioconductor as of June 6, 2022.], which has a bunch of great bioinformatic specific packages.
+
+Occasionally, you will find that you are doing a specific task several times over and are copy-and-pasting code and only changing a few variables at a time. When you find yourself doing this, it is best to stop and build a function -- or even better -- you should look to see if one already exists. Using functions for repeated tasks will enhance the readability and reproducibility of your code. 
+
+For example:
+
+```{r}
+# With base R copy and pasting
+mean(subset(dat, supp == "VC" & dose == 0.5)$len)
+mean(subset(dat, supp == "VC" & dose == 1)$len)
+mean(subset(dat, supp == "VC" & dose == 2)$len)
+mean(subset(dat, supp == "OJ" & dose == 0.5)$len)
+mean(subset(dat, supp == "OJ" & dose == 1)$len)
+mean(subset(dat, supp == "OJ" & dose == 2)$len)
+
+# With the tidyverse
+require(tidyverse)
+dat %>%
+  group_by(supp, dose) %>%
+  summarize(len_avg = mean(len))
+```
+
+> The `tidyverse` obviously makes this task much easier and more flexible. We will talk about the `tidyverse` more later. But I just introduce it here to emphasize how stopping when you are copy-and-pasting to search for useful functions, is worthwhile!
+
+Now, we are going to take a moment to learn the skill of how to make simple functions. This will help us understand what functions are at a deeper level -- so when we are using functions developed for us from other packages, we will understand more fully the proper mechanics, inputs, & outputs _etc._.
+
+### Creating functions
+
+The pseudocode anatomy of creating a function is as follows:
+
+```{r, eval = FALSE}
+function_name <- function(argument_1, argument_2) {
+  # Function body w/ some sort of manipulation of arguments or execution of code
+  result <- argument_1 + argument_2
+  # Return result
+  return(result)
+}
+```
+
+ - The function name is assigned on the left of the `<-` operator. 
+ - The arguments are set within the parenthesis of the `function`. 
+ - Within the curly brackets `{ }`, you define what code to execute during a function call.
+ - The `return` function defines what variable is the output.
+
+For example, say you were modeling something in R and you found yourself using the equation `(x + y)^x + (1 - y)^x` over and over. It would be easy to mistype an operator or variable. Addtionally, if you were copy-and-pasting and wanted to see if the equation `(x + y)^(x + 1) + (1 - y)^x` better described your data, you would need to go in a change the code line by line. However, if you stop and make yourself a function, you would need to only change one line of code, you would increase readability and reproducibility of the code, and avoid pesky copy-and-paste related mistakes.
+
+You can create the function with the following code:
+
+```{r}
+# Function: fancy_math_eqn -----
+# Description: Executes a fancy math equation
+# Inputs: x, y -- two numeric variables
+# Outputs: single numeric
+
+# Required packages
+# None
+
+# Example call
+# fancy_math_eqn(x = 2, y = 7)
+
+
+fancy_math_eqn <- function(x, y) {
+  (x + y)^x + (1 - y)^x
+} ## End function -----
+```
+
+ - Notice here you can avoid the `return` function if you don't define a variable.
+ - Writing the function name, description, inputs, and outputs as well as any required packages beyond `base` R is important. 
+ - You can set a handy outline for this function backbone with [Snippets] -- we may talk more about this later.
+
+#### Try it out
+
+```{r}
+# You can have the arguments implied by the order in the function call
+fancy_math_eqn(4, 3)
+
+# Or you can explicitly name each argument
+fancy_math_eqn(x = 4, y = 3)
+
+# Which allows you to write it in a different order
+fancy_math_eqn(y = 3, x = 4)
+```
+
+
+#### **Favorite Equation Challenge**
+
+Create a function that performs your favorite equation!
+
+
+#### **Hello Challenge** {.tabset .tabset-pills}
+
+Alter the original `hello_world()` function, to create a new function `hello_world_name()` that takes a name as an argument and has the following desired behavior.
+
+```{r, echo = FALSE, include = FALSE}
+# Function: hello_world_name -----
+# Description: Prints "Hello World"
+# Inputs: name - character string
+# Outputs: Character string "Hello World, my name is _____!"
+
+# Required packages
+# None
+
+# Example call
+# hello_world("Thomas")
+
+
+hello_world_name <- function(name = "_____") {
+  # Function body
+  print(paste0("Hello world, my name is ", name, "!"))
+} ## End function -----
+```
+
+```{r}
+hello_world_name(name = "Thomas")
+```
+
+##### Original
+
+```{r}
+# Function: hello_world -----
+# Description: Prints "Hello World"
+# Inputs: name - character string
+# Outputs: Character string "Hello World!"
+
+# Required packages
+# None
+
+# Example call
+# hello_world()
+
+hello_world <- function() {
+  # Function body
+  print("Hello world!")
+} ## End function -----
+```
+
+Click [Hello] for solution.
+
+# **More `base`-ics in R**
+
+When I am coding for myself, I am often using the `tidyverse` and other packages built specifically for the task I am trying to do. But there is some reason to think that jumping directly into teaching the `tidyverse` to new coders is [a bad idea](https://github.com/matloff/TidyverseSkeptic). I learned the principles of `base` R first, and have found them immensely helpful -- so we will spend a bit more time exploring those principles before we jump into the `tidyverse`.
+
+There are a bunch of functions that come by default with R in the `base` package.
+
+```{r}
+# List 20 random objects in the base package in R
+sample(ls("package:base"), size = 20)
+
+# How many are there?
+length(ls("package:base"))
+
+length(ls("package:stats"))
+```
+
+These include some of the useful functions that we have looked at so far, `class()`, `length()`, `summary()`, as well as a bunch of others.
+
+These are super useful functions with which to get acquainted -- because it is important to fully understand the fundamental properties of your data before you go on to do any statiscs or data visualization. 
+
+- How many observations are there in each group?
+- Which are the dependent variables and which are the independent variables?
+- What does the distribution of the data look like for the dependent variables?
+- Are there any observations with missing values (_i.e._ `NA`s)?
+
+> When you are collecting your own data, it is likely that you already have a good answer for these questions. You likely already know your sample sizes, your variables, and if any missing values are present. But it is good practice to confirm that your loaded data match your expectations. And it is obviously necessary if you are exploring someone else's data set.
+
+
+### Freeform Data Challenge
+
+Use the `data()` function in the console to explore the pre-loaded R data sets. Look at the data. Try to extract some useful information. Number of observations in each group. Average values for the dependent variables. Distribution of the data. Use some of the skills we have learned so far to do this. And feel free to Google and add a few skills to your toolbox along the way.
+
+[Freeform] Solution Example
+
+
+## Freeform
+
+Exploring the `iris` data set
+
+```{r}
+iris
+
+dim(iris)
+
+str(iris)
+
+# Distribution statistics in iris data
+summary(iris)
+
+# There are better ways to do this in the tidyverse
+summary(iris$Sepal.Length[iris$Species == "setosa"])
+summary(iris$Sepal.Length[iris$Species == "setosa"])
+summary(iris$Sepal.Length[iris$Species == "setosa"])
+
+# Histogram of Petal.Length
+hist(iris$Petal.Length)
+```
+
+### Loops & `if else`
+
+The `tidyverse` has gotten rid of some of the need for loops and 
+
+
+#### `for` loops
+
+Loops in R can be a useful skill to understand. There are functions that are faster than loops, but understanding the mechanics of a loop is useful.
+
+The general pseudostructure of a loop is as follows:
+
+```{r, eval = FALSE}
+# Set up the vector the variable will loop though
+for (var in vector) {
+  # Utilize the variable on that iteration of the loop 
+  print(var)
+}
+```
+
+```{r}
+for (i in 1:10) {
+  print(paste("loop #", i))
+}
+```
+
+Predict the output of this for loop.
+
+```{r, eval = FALSE}
+vector <- c("hello", "this", "is", "a", "character", "vector")
+for (i in 1:length(vector)) {
+  print(paste("loop #", i))
+}
+```
+
+##### Loop Challenge 
+
+How can you change this loop to make the character strings in the vector print out like below
+
+
+```{r, echo = FALSE}
+vector <- c("hello", "this", "is", "a", "character", "vector")
+vec <- NULL
+for (i in 1:length(vector)) {
+  print(paste("loop #", i))
+  vec <- paste(vec, vector[i])
+  print(vec)
+}
+```
+
+Click for [Loop] Challenge Solution
+
+
+# **Tidyverse**
+
+This first package in R that we will talk about is actually a suite of packages that have a common syntax, called the `tidyverse`. They actually call it a dialect of the R language, which is kinda fun!
+
+There are eight core packages in the tidyverse.
+
+
+```{r, eval = FALSE}
+# You can install individual packages in the tidyverse like this
+install.packages("dplyr")
+```
+
+```{r, eval = FALSE}
+# But I like to use the tidyverse package that allows you to easily install and 
+#   load the tidyverse
+install.packages("tidyverse")
+```
+
+```{r}
+# Then the package must be attached so that we have access to the functions
+library(tidyverse) # Note that you don't need the quotation marks here
+```
+
+```{r}
+# Print out the tidyverse packages
+tidyverse::tidyverse_packages()
+```
+
+There are a bunch of tidyverse packages, but only the core eight are loaded with the `library(tidyverse)` function call, each other package must be loaded individually (_e.g._ `library(broom)`).
+
+Each of these packages has a set of functions that it comes with.
+
+```{r}
+# List several random functions from the dplyr package
+ls("package:dplyr")[sample(1:length(ls("package:dplyr")), size = 20)]
+```
+
+> For fun, let's break down how I am getting the random functions from each package. This is a good example of how you can break something down into it's smallest components to understand what it is doing.
+
+```{r}
+# Get the help page for a specific package
+help(package = dplyr)
+```
+> You can also navigate to this page with the Help panel on RStudio.
+
+## `tidyverse`-specific resources
+
+-   [tidyverse website](https://www.tidyverse.org/) -- poke around this website and you can stumble on some good stuff
+-   [The tidy tools manifesto](https://mran.microsoft.com/web/packages/tidyverse/vignettes/manifesto.html) -- who doesn't love a good manifesto? My favorite part of the tidyverse is the final principle, which is: 4. Design for humans. "Programs must be written for people to read, and only incidentally for machines to execute." --- Hal Abelson
+-   [The tidyverse style guide](https://style.tidyverse.org/index.html) -- "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread." Honestly, I think that joke vastly underestimates how important it is to have good coding style. You can actually read "butitsuremakesthingseasiertoread" pretty easily because you are an **expert** reader -- you've been at it every day for years, maybe decades -- coding, not so much. I don't think can overstate how important I think it is to write visually pleasing code. It is good practice for your future self as much as it is for your collaborators.
+
+### Cheat sheets^[Warning: I have downloaded these cheat sheets and saved them for my quick access, but they may not be the most current version of the cheat sheet.]
+
+#### Core tidyverse
+
+-   [`readr`](https://tsoleary.github.io/comp_bio/CheatSheets/readr.pdf) -- **import your data**. Need to import data? Cool kids = `read_csv()`.
+-   [`tidyr`](https://tsoleary.github.io/comp_bio/CheatSheets/tidyr.pdf) -- **tidy your data**. Helps you tidy your data quick. What does tidy data mean? Keep reading...
+-   `tibble` -- **a new data.frame** -- doesn't have a cheat sheet, just works in the shadows.
+-   [`dplyr`](https://tsoleary.github.io/comp_bio/CheatSheets/dplyr.pdf) -- **wrangle your data**. Need to get a mean? Find a standard deviation? Look no further.
+-   [`ggplot2`](https://tsoleary.github.io/comp_bio/CheatSheets/ggplot2.pdf) -- **plot your data** -- you already know ggplot.
+-   [`stringr`](https://tsoleary.github.io/comp_bio/CheatSheets/stringr.pdf) -- **maipulate strings**. Have a bunch of strings for some reason? Use `stringr`.
+-   [`purrr`](https://tsoleary.github.io/comp_bio/CheatSheets/purrr.pdf) -- **functional programming**. Wanna conserve energy like a cat? Replace `for()` with `map()`.
+-   [`forcats`](https://tsoleary.github.io/comp_bio/CheatSheets/forcats.pdf) -- **manipulate factors**-- Using a bunch of factors? Reorder them with `forcats`.
+
+#### Other useful tidyverse packages
+
+-   `broom` -- **clean model output** -- technically a subpackage of `tidymodels` a cousin of the tidyverse
+-   `rvest` -- **web scraping** -- mining data from a website
+-   `modelr` -- **modelling** -- support for modelling data in the tidyverse
+
+## Tidy data
+
+The tidyverse gets its name from the type of data that it is designed to interact with -- **tidy data**. So let's quickly define [tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
+
+1.  Every column is a variable.
+2.  Every row is an observation.
+3.  Every cell is a single value.
+
+Yikes. That's abstract...
+
+## Messy data
+
+An example of some messy data.
+
+```{r}
+# Make up some random data
+mdh_df <- tibble(gill = rnorm(15, mean = 12, sd = 2),
+                 adductor = rnorm(15, mean = 18, sd = 2.5),
+                 mantle = rnorm(15, mean = 6, sd = 3))
+
+# Print the data
+mdh_df
+```
+
+## Let's tidy it
+
+```{r}
+mdh_df <- mdh_df %>%
+  pivot_longer(everything(),
+               names_to = "tissue",
+               values_to = "iu_gfw")
+
+mdh_df
+```
+
+> **BAM**! That is tidy data. 1. Every column is a variable -- tissue and enzyme activity. 2. Every row is an observation -- enzyme activity in I.U./g f.w.. 3. Every cell is a single value.
+
+We will talk about tidy data more when we get to our own data sets later in the workshop, but for now, let's continue to talk about the functions from the core tidyverse
+
+## Tidy `iris` challenge
+
+Take the built in `iris` data set and convert it to tidy data format.
+
+```{r}
+# First 6 rows of the iris data set
+iris %>%
+  head()
+```
+
+Click for [Tidy `iris`] solultion.
+
+```{r}
+# Correlation b/w sepal width and length
+iris %>%
+  ggplot(aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_point()
+
+# Correlation b/w petal width and length
+iris %>%
+  ggplot(aes(x = Petal.Width, y = Petal.Length)) +
+  geom_point()
+```
+
+# **Wrangling data**
+
+## `dplyr` functions
+
+`dplyr` has a few core functions that help organize, and analyse
+
+Taken from the [`dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html).
+
+### Rows
+
+-   `filter()` chooses rows based on column values.
+-   `slice()` chooses rows based on location.
+-   `arrange()` changes the order of the rows.
+
+### Columns
+
+-   `select()` changes whether or not a column is included.
+-   `rename()` changes the name of columns.
+-   `mutate()` changes the values of columns and creates new columns.
+-   `relocate()` changes the order of the columns.
+
+### Groups of rows
+
+-   `summarise()` collapses a group into a single row.
+
+## Pipe `%>%` operator
+
+The `%>%` operator is called a pipe and it basically works by taking what is on the left of the pipe and inserting it as the first argument on the function on the right.
+
+For example, from the [`magrittr`](https://magrittr.tidyverse.org/index.html) page:
+
+-   `x %>% f` is equivalent to `f(x)`
+-   `x %>% f(y)` is equivalent to `f(x, y)`
+-   `x %>% f %>% g %>% h` is equivalent to `h(g(f(x)))`
+
+Sometimes for functions with multiple arguments it is necessary to pipe the left-hand-side into other arguments of the function beyond the first argument. In that case you can use the argument placeholder `.`, as follows:
+
+-   `x %>% f(y, .)` is equivalent to `f(y, x)`
+-   `x %>% f(y, z = .)` is equivalent to `f(y, z = x)`
+
+### A fun example from [R for data science](https://r4ds.had.co.nz/pipes.html)
+
+There are a few ways to run multi-line code
+
+Nested it would look like this:
+
+```{r, eval = FALSE}
+# This is almost unreadable
+bop(scoop(hop(little_bunny(), through = forest), up = field_mice), on = head)
+```
+
+With saving intermediate variables it would look like this:
+
+```{r, eval = FALSE}
+# This is slightly more readable, but has a bunch of meaningless intermediates
+foo_foo <- little_bunny()
+foo_foo_1 <- hop(foo_foo, through = forest)
+foo_foo_2 <- scoop(foo_foo_1, up = field_mice)
+foo_foo_3 <- bop(foo_foo_2, on = head)
+```
+
+And finally, with the `%>%` operator it would look like this:
+
+```{r, eval = FALSE}
+# This is more readable and avoids needless intermediates
+foo_foo %>%
+  hop(through = forest) %>%
+  scoop(up = field_mice) %>%
+  bop(on = head)
+```
+
+> We will practice piping together in a moment.
+
+
+starwars data set.
+
+## `arrange`
+
+```{r}
+# Arrange the tibble by height
+starwars %>%
+  arrange(height)
+```
+
+By default it arranges height ascending from low to high. You can change that behavoir by wrapping the variable you want to arrange by in the `desc()` function like below:
+
+```{r}
+# Arrange the tibble by height descending
+starwars %>%
+  arrange(desc(height))
+```
+
+You can combine `tidyverse` fucntions with `base` R functions like below
+
+```{r}
+# The head function will print out the top n number of individuals
+starwars %>%
+  arrange(desc(height)) %>%
+  head(n = 20)
+```
+
+There is also a tidyverse way to do that which is a bit shorter
+
+```{r}
+# slice_max will order by a variable and take the top n
+starwars %>%
+  slice_max(order_by = height, n = 20)
+```
+
+## `summarise`
+
+There are a few ways to get the average height of the Star Wars characters
+
+In `base` R:
+
+```{r, echo = FALSE}
+# Print out all the heights listed in the starwars data frame
+starwars$height
+
+# If the vector contains NAs the mean function will by deault print NA
+mean(starwars$height)
+
+# You need to tell it to remove the NAs to get an average of the known heights
+mean(starwars$height, na.rm = TRUE)
+```
+
+```{r}
+starwars %>%
+  summarise(height_avg = mean(height, na.rm = TRUE))
+```
+
+## `group_by`
+
+Let's say you wanted to know what the average height of each sex was
+
+```{r}
+mdh_df %>%
+  group_by(tissue) %>%
+  summarise(iu_gfw_avg = mean(iu_gfw),
+            iu_gfw_sd = sd(iu_gfw))
+```
+
+**Warning**: you must be careful about the order when reusing variable names.
+
+```{r}
+# Bad order
+mdh_df %>%
+  group_by(tissue) %>%
+  summarise(iu_gfw = mean(iu_gfw),
+            sd = sd(iu_gfw))
+```
+
+## CHALLENGE TIME WITH TIDYVERSE DATA
+
+```{r}
+# This order works because it collapses the data into a mean last
+mdh_df %>%
+  group_by(tissue) %>%
+  summarise(sd = sd(iu_gfw),
+            iu_gfw = mean(iu_gfw))
+```
+
+
+
+
+
+# **Data Visualization**
+
+There are a two main types of data visualization: (i) **exploratory** and (ii) **expository**. In exploratory data visualization, you are just checking out your data -- you just want to see what it looks like -- you are just making something for yourself or close collaborators. It is okay for these graphics to be imperfect, but they still must be unambiguous. However, in expository data visualization, you already know the main takeaways of your results, and therefore, you are attempting to describe something specific to your audience. This is an entirely different skill and requires a draft and revision process. 
+
+In this tutorial we will talk a little about both types of data visualization.
+
+However, when you are sharing your final data with others (_e.g._ in a manuscript, poster, or presentation). You should take the extra time to 
+
+## Principles of Data Visualization
+
+I cannot recommend the 
+
+> Data visualization is part art and part science. The challenge is to get the art right without getting the science wrong and vice versa. A data visualization first and foremost has to accurately convey the data. It must not mislead or distort. If one number is twice as large as another, but in the visualization they look to be about the same, then the visualization is wrong. At the same time, a data visualization should be aesthetically pleasing. Good visual presentations tend to enhance the message of the visualization. If a figure contains jarring colors, imbalanced visual elements, or other features that distract, then the viewer will find it harder to inspect the figure and interpret it correctly. \newline\newline In my experience, scientists frequently (though not always!) know how to visualize data without being grossly misleading. However, they may not have a well developed sense of visual aesthetics, and they may inadvertantly make visual choices that detract from their desired message. Designers, on the other hand, may prepare visualizations that look beautiful but play fast and loose with the data. It is my goal to provide useful information to both groups.
+
+### Principles of story telling
+
+## `ggplot2`
+
+The `ggplot2` package is likely one of the most popular packages in R. It is actually the reason why some researchers use R -- to make publication-ready figures. 
+
+For a complete introduction to `ggplot2`, check out the [`ggplot2`: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html) book.
+
+`ggplot2` creates things in a specific order of layers.
+
+We will bve
+
+```{r}
+glimpse(starwars)
+```
+
+```{r}
+starwars %>%
+  ggplot(aes(x = sex, y = height)) +
+  geom_point() +
+  geom_boxplot() +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  ggplot(aes(x = sex, y = height)) +
+  geom_boxplot() +
+  geom_point() +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  ggplot(aes(x = sex, y = height)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2) +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  ggplot(aes(x = sex, y = height)) +
+  geom_hline(aes(yintercept = 188), 
+             linetype = 2, 
+             color = "grey20") +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.1, 
+              size = 2,
+              alpha = 0.8,
+              shape = 21, 
+              color = "grey20", 
+              fill = "grey50") +
+  scale_y_continuous(breaks = c(100, 150, 188, 200, 250),
+                     labels = c("100", "150", "Thomas", "200", "250"),
+                     name = "Height") +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  filter(sex %in% c("male", "female")) %>%
+  ggplot(aes(x = sex, y = height)) +
+  geom_violin(fill = "azure2",
+              color = "grey20") +
+  geom_boxplot(fill = "azure2",
+               width = 0.2,
+               color = "grey20") +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  filter(birth_year < 200) %>%
+  ggplot() +
+  geom_histogram(aes(x = birth_year), 
+                 binwidth = 10)
+```
+
+```{r}
+starwars %>%
+  filter(birth_year < 200) %>%
+  ggplot() +
+  geom_histogram(aes(x = birth_year),
+                 color = "grey20",
+                 fill = "grey50",
+                 binwidth = 10) +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  filter(birth_year < 200) %>%
+  ggplot() +
+  geom_histogram(aes(x = birth_year),
+                 color = "grey20",
+                 fill = "grey50",
+                 binwidth = 10) +
+  geom_density(aes(x = birth_year, 
+                   y =  10 * ..count..),
+               color = "grey20") +
+  ylab("count") +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  filter(mass < 1000) %>%
+  mutate(species_h = ifelse(species == "Human",  "Human", "Other")) %>%
+  ggplot() +
+  geom_point(aes(x = height, 
+                 y = mass, 
+                 fill = species_h),
+             size = 5,
+             alpha = 0.8,
+             color = "grey50",
+             shape = 21) +
+  theme_classic()
+```
+
+```{r}
+starwars %>%
+  filter(mass < 1000) %>%
+  mutate(species_h = ifelse(species == "Human",  "Human", "Other")) %>%
+  arrange(desc(species_h)) %>%
+  ggplot() +
+  geom_point(aes(x = height, 
+                 y = mass, 
+                 fill = species_h),
+             size = 5,
+             alpha = 0.8,
+             color = "grey50",
+             shape = 21) +
+  theme_classic()
+```
+
+```{r}
+starwars_h <- starwars %>%
+  filter(mass < 1000) %>%
+  mutate(species_h = ifelse(species == "Human",  "Human", "Other")) %>%
+  arrange(desc(species_h))
+
+
+p <- ggplot() +
+  geom_point(data = starwars_h %>%
+               filter(species_h != "Human"),
+             aes(x = height, 
+                 y = mass, 
+                 fill = species_h),
+             size = 1,
+             alpha = 0.8,
+             color = "grey50",
+             shape = 21) +
+    geom_point(data = starwars_h %>%
+               filter(species_h == "Human"),
+               aes(x = height, 
+                 y = mass, 
+                 fill = species_h),
+             size = 3,
+             alpha = 0.8,
+             color = "grey50",
+             shape = 21) +
+  scale_fill_manual(values = c("#d66666", "#222222")) +
+  theme_classic()
+
+p
+```
+
+```{r}
+plotly::ggplotly(p, text = "text")
+```
+
+```{r}
+friends <- c("Luke Skywalker", 
+             "Leia Organa",
+             "Han Solo",
+             "Chewbacca",
+             "C-3PO",
+             "R2-D2",
+             "Obi-Wan Kenobi")
+
+ggplot() +
+  geom_point(data = starwars_h, 
+             aes(x = height, 
+                 y = mass,
+                 fill = species_h),
+             size = 5,
+             alpha = 0.8,
+             color = "grey50",
+             shape = 21) +
+  ggrepel::geom_label_repel(data = starwars_h %>%
+                              filter(name %in% friends),
+                            aes(x = height, 
+                                y = mass,
+                                label = name),
+                            min.segment.length = 0.01) +
+  theme_classic()
+```
+
+# **Statistics & experimental design**
+
+This book is going to assume some solid base knowledge of statistics. If your memory is a bit fuzzy on the details, there are plenty of resources available that discuss statistics in a more formal and informative manner. 
+
+If you are relatively new to statistics, I encourage you to take a course on it.
+
+Check out these resources:
+
+  - [Handbook of Biological Statistics](http://www.biostathandbook.com/index.html) -- covers 
+    - [R Companion for the Handbook of Biological Statiscs](https://rcompanion.org/rcompanion/)
+
+  - [Learning statistics with R](https://learningstatisticswithr.com/book/) -- this book is written from a physcology or social science sort of lens. But it is immensely useful and clear.
+
+
+
+It is important to note that statistics and hypothesis tests are only as valuable or informative as your experimental design allows.
+
+It is similarly true then that you can obtain a p-value or a result about 
+
+
+
+## PCA
+
+## Hypothesis tests
+
+### t-test
+
+### Analysis of Variance
+
+
+
+### `rnorm()`
+
+The `rnorm()` function draws a `x` amount random numbers from a normal distribution with a specific mean and standard deviation.
+
+```{r}
+?rnorm
+dist <- rnorm(100, mean = 15, sd = 7)
+dist
+
+# Get the mean and median
+mean(dist)
+median(dist)
+
+# Get multiple summary stats
+summary(dist)
+
+# Save summary stats as an object
+sum_dist <- summary(dist)
+
+sum_dist
+```
+
+You can explore, save, or extract specific elements of `sum_dist`.
+
+```{r}
+# Check out the properties of sum_dist object
+class(sum_dist)
+length(sum_dist)
+names(sum_dist)
+
+# There are several ways to index this object
+sum_dist["Mean"] 
+sum_dist[4]
+sum_dist[3:4]
+```
+
+# **Creating a script**
+
+Now that we have a bunch of fundamental skills, we are going to integrate them from top-to-bottom in the form of a brand new script. This will help us practice what it actually feels like to explore and analyze a data set on our own.
+
+-   Each saved script must be able to be run sequentially from top to bottom without failing.
+    -   `source()` function or the Source button should run without error.
+    -   The document should proceed in a rational order.
+
+## Pseudo-script form
+
+```{r, eval = FALSE}
+# ------------------------------------------------------------------------------
+# Title: The general form template of a script
+# Date
+# Author
+# ------------------------------------------------------------------------------
+
+# Load libraries
+require(tidyverse)
+
+# Load data
+df <- read_csv("file.csv")
+
+# Analyze data
+df %>%
+  group_by(groups) %>%
+  summarise(avg = mean(dep_var))
+
+# Visualize
+df %>%
+  ggplot() +
+  geom_boxplot(aes(x = ind_var, y = dep_var))
+
+# Statistics
+mod <- aov(dep_var ~ ind_var, data = df)
+```
+
+> This is just an example of a general structure of the script. When you are actually exploring your data, you should have more exploration, analysis, and visualization in your script.
+
+## Fun data challenge
+
+Today, we are going to explore fun data sets -- you can either search online for a publicly available data set -- or you can use something you have collected yourself. It can be data about anything that interests you.
+
+There are a bunch of resources out there that store publicly available data in a useful format -- check out [Google Dataset Search](https://datasetsearch.research.google.com/).
+
+I would like you to do this activity either individually or in small teams of two. And then we will report back to each other what we have done.
+
+I am going to explore a Harry Potter data set.
+
+### Load data
+
+Depending on where you get the data. There may be several ways that you can import the data into your working environment.
+
+### Wrangle data
+
+### Analyze data
+
+### Visualize data
+
+### Report results
+
+
+
+
+# **R markdown**
+
+When you are ready to report your results to colleagues or the world, it can be useful to have all of your analysis and figures in one single document.
+
+The `script_file.R` that you have created is extremely useful in that it should be a reproducible record of all of your analysis. But at the end of the day. It is a very one-dimensional document -- it is just a specific type of text file after all!
+
+Luckily, R & RStudio has ways that we can create more multimedia or even interactive documents. 
+
+R markdown documents `.Rmd` can be used to create `.html` pages or `.pdf` documents. 
+
+
+## Links 
+
+  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) -- great overview of the features of R Markdown
+  - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) -- additional R Markdown guide
+
+Print out a pretty table using `kableExtra`.
+
+```{r}
+mdh_df %>%
+  group_by(tissue) %>%
+  summarise(iu_gfw_avg = mean(iu_gfw),
+            iu_gfw_sd = sd(iu_gfw)) %>%
+  mutate(`I.U. / g f.w.` = paste(round(iu_gfw_avg, 2), 
+                                 "±", 
+                                 round(iu_gfw_sd, 2))) %>%
+  select(tissue, `I.U. / g f.w.`) %>%
+  rename("Tissue" = "tissue",
+         `MDH Activity (I.U. / g f.w.)` = `I.U. / g f.w.`) %>%
+  mutate(Tissue = str_to_sentence(Tissue)) %>%
+  kableExtra::kable()
+```
+
+# **Workshop Part II**
+
+![Under construction](~/R/r_intro/_book/construction.jpeg)
+
+## Review fundamentals
+
+## Wrangling collected data
+
+## Analyzing data
+
+## Visualizing data
+
+## Advanced skills
+
+### Advanced `tidyverse`
+
+<!-- ## `nest` -->
+
+<!-- ```{r} -->
+<!-- ChickWeight %>% -->
+<!--   glimpse() -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- ChickWeight %>% -->
+<!--   group_by(Chick, Diet) %>% -->
+<!--   nest()  -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- ChickWeight_nest <- ChickWeight %>% -->
+<!--   group_by(Chick, Diet) %>% -->
+<!--   nest()  -->
+
+<!-- ChickWeight_nest$data[1:2] -->
+<!-- ``` -->
+
+<!-- ## `broom` -->
+
+<!-- ```{r} -->
+<!-- # Load libraries -->
+<!-- require(broom) -->
+<!-- ``` -->
+
+<!-- Check out the [`broom` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom.html). -->
+
+<!-- \[And the `broom` and `dplyr` vignette\] (<https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html>). -->
+
+<!-- `tidy`: constructs a tibble that summarizes the model's statistical findings. This includes coefficients and p-values for each term in a regression, per-cluster information in clustering applications, or per-test information for multtest functions. -->
+
+<!-- `glance`: construct a concise one-row summary of the model. This typically contains values such as R\^2, adjusted R\^2, and residual standard error that are computed once for the entire model. -->
+
+<!-- ```{r} -->
+<!-- ChickWeight %>% -->
+<!--   group_by(Chick, Diet) %>% -->
+<!--   nest() %>% -->
+<!--   mutate( -->
+<!--     fit = map(data, ~ lm(weight ~ Time, data = .x)), -->
+<!--     tidied = map(fit, tidy), -->
+<!--     glanced = map(fit, glance) -->
+<!--   ) %>%  -->
+<!--   unnest(tidied)  -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- ChickWeight %>% -->
+<!--   ggplot() + -->
+<!--   geom_line(aes(x = Time,  -->
+<!--                  y = weight,  -->
+<!--                  color = Chick)) + -->
+<!--   facet_wrap(~ Diet) -->
+<!-- ``` -->
+
+
+## Version control
+
+## Code snippets
+
+## Publishing
+
+<!-- - [R Packages](https://r-pkgs.org/index.html) book. -->
+
+# **Challenge Solutions**
+
+> There is way more than one way to solve these challenges. Notice the differences between my solution and yours. In what ways is your solution better? In what ways is mine better? 
+
+## Hello
+
+```{r}
+# Function: hello_world_name -----
+# Description: Prints "Hello World"
+# Inputs: name - character string
+# Outputs: Character string "Hello World, my name is _____!"
+
+# Required packages
+# None
+
+# Example call
+# hello_world("Thomas")
+
+
+hello_world_name <- function(name = "_____") {
+  # Function body
+  print(paste0("Hello world, my name is ", name, "!"))
+} ## End function -----
+```
+
+```{r}
+hello_world_name(name = "Thomas")
+```
+
+## Loop
+
+```{r}
+vector <- c("hello", "this", "is", "a", "character", "vector")
+vec <- NULL
+for (i in 1:length(vector)) {
+  print(paste("loop #", i))
+  vec <- paste(vec, vector[i])
+  print(vec)
+}
+```
+
+## Tidy `iris`
+
+```{r}
+iris_dat <- iris %>%
+  # Save with individual samples go together by saving the row name
+  rownames_to_column(var = "sample") %>%
+  # Pivot the variables 
+  pivot_longer(c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width),
+               names_to = "measurement",
+               values_to = "cm")
+```
+
+

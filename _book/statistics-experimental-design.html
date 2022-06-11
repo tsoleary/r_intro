@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Statistics &amp; experimental design | UVM ThermoFly REU Crew</title>
+  <meta name="description" content="An incomplete introductory workshop to data science and R." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Statistics &amp; experimental design | UVM ThermoFly REU Crew" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Statistics &amp; experimental design | UVM ThermoFly REU Crew" />
+  
+  <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
+  
+
+<meta name="author" content="TS O’Leary" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-visualization.html"/>
+<link rel="next" href="creating-a-script.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="data-science-workshop.html"><a href="data-science-workshop.html"><i class="fa fa-check"></i><strong>Data Science Workshop</strong></a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> <strong>Introduction</strong></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#goals"><i class="fa fa-check"></i><b>1.1</b> Goals</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#agenda"><i class="fa fa-check"></i><b>1.2</b> Agenda</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#disclaimer"><i class="fa fa-check"></i><b>1.3</b> Disclaimer</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#alternative-resources"><i class="fa fa-check"></i><b>1.4</b> Alternative resources</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#stolen-advice"><i class="fa fa-check"></i><b>1.5</b> Stolen advice</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="first-principles.html"><a href="first-principles.html"><i class="fa fa-check"></i><b>2</b> <strong>First principles</strong></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-principles.html"><a href="first-principles.html#r-rstudio"><i class="fa fa-check"></i><b>2.1</b> R &amp; RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-principles.html"><a href="first-principles.html#download-links"><i class="fa fa-check"></i><b>2.1.1</b> Download links</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="first-principles.html"><a href="first-principles.html#lets-start-coding"><i class="fa fa-check"></i><b>2.2</b> Let’s start coding</a></li>
+<li class="chapter" data-level="2.3" data-path="first-principles.html"><a href="first-principles.html#basic-math"><i class="fa fa-check"></i><b>2.3</b> Basic math</a></li>
+<li class="chapter" data-level="2.4" data-path="first-principles.html"><a href="first-principles.html#creating-objects"><i class="fa fa-check"></i><b>2.4</b> Creating objects</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="first-principles.html"><a href="first-principles.html#naming-objects"><i class="fa fa-check"></i><b>2.4.1</b> Naming objects</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="first-principles.html"><a href="first-principles.html#the-snake-camel"><i class="fa fa-check"></i><b>2.4.1.1</b> The snake &amp; camel</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="first-principles.html"><a href="first-principles.html#forbidden-characters"><i class="fa fa-check"></i><b>2.4.1.2</b> Forbidden characters</a></li>
+<li class="chapter" data-level="2.4.1.3" data-path="first-principles.html"><a href="first-principles.html#characters-to-avoid"><i class="fa fa-check"></i><b>2.4.1.3</b> Characters to avoid</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="first-principles.html"><a href="first-principles.html#data-types"><i class="fa fa-check"></i><b>2.5</b> Data types</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="first-principles.html"><a href="first-principles.html#object-class"><i class="fa fa-check"></i><b>2.5.1</b> Object class</a></li>
+<li class="chapter" data-level="2.5.2" data-path="first-principles.html"><a href="first-principles.html#vectors-indexing"><i class="fa fa-check"></i><b>2.5.2</b> Vectors &amp; Indexing</a>
+<ul>
+<li class="chapter" data-level="2.5.2.1" data-path="first-principles.html"><a href="first-principles.html#concatenate-c-function"><i class="fa fa-check"></i><b>2.5.2.1</b> Concatenate <code>c()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5.3" data-path="first-principles.html"><a href="first-principles.html#indexing"><i class="fa fa-check"></i><b>2.5.3</b> Indexing</a></li>
+<li class="chapter" data-level="2.5.4" data-path="first-principles.html"><a href="first-principles.html#accessing-equality"><i class="fa fa-check"></i><b>2.5.4</b> Accessing equality</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="first-principles.html"><a href="first-principles.html#data-frames"><i class="fa fa-check"></i><b>2.6</b> Data frames</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="first-principles.html"><a href="first-principles.html#creating-a-data-frame"><i class="fa fa-check"></i><b>2.6.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="2.6.2" data-path="first-principles.html"><a href="first-principles.html#sneak-peak-at-data-visualization-with-baseplot."><i class="fa fa-check"></i><b>2.6.2</b> Sneak peak at data visualization with <code>base::plot</code>.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="first-principles.html"><a href="first-principles.html#guinea-pigs-tooth-growth"><i class="fa fa-check"></i><b>2.7</b> Guinea pigs’ tooth growth</a></li>
+<li class="chapter" data-level="2.8" data-path="first-principles.html"><a href="first-principles.html#functions"><i class="fa fa-check"></i><b>2.8</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="first-principles.html"><a href="first-principles.html#creating-functions"><i class="fa fa-check"></i><b>2.8.1</b> Creating functions</a>
+<ul>
+<li class="chapter" data-level="2.8.1.1" data-path="first-principles.html"><a href="first-principles.html#try-it-out"><i class="fa fa-check"></i><b>2.8.1.1</b> Try it out</a></li>
+<li class="chapter" data-level="2.8.1.2" data-path="first-principles.html"><a href="first-principles.html#favorite-equation-challenge"><i class="fa fa-check"></i><b>2.8.1.2</b> <strong>Favorite Equation Challenge</strong></a></li>
+<li class="chapter" data-level="2.8.1.3" data-path="first-principles.html"><a href="first-principles.html#hello-challenge"><i class="fa fa-check"></i><b>2.8.1.3</b> <strong>Hello Challenge</strong></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html"><i class="fa fa-check"></i><b>3</b> <strong>More <code>base</code>-ics in R</strong></a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#freeform-data-challenge"><i class="fa fa-check"></i><b>3.0.1</b> Freeform Data Challenge</a></li>
+<li class="chapter" data-level="3.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#freeform"><i class="fa fa-check"></i><b>3.1</b> Freeform</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#loops-if-else"><i class="fa fa-check"></i><b>3.1.1</b> Loops &amp; <code>if else</code></a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#for-loops"><i class="fa fa-check"></i><b>3.1.1.1</b> <code>for</code> loops</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> <strong>Tidyverse</strong></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tidyverse.html"><a href="tidyverse.html#tidyverse-specific-resources"><i class="fa fa-check"></i><b>4.1</b> <code>tidyverse</code>-specific resources</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="tidyverse.html"><a href="tidyverse.html#cheat-sheets"><i class="fa fa-check"></i><b>4.1.1</b> Cheat sheets</a>
+<ul>
+<li class="chapter" data-level="4.1.1.1" data-path="tidyverse.html"><a href="tidyverse.html#core-tidyverse"><i class="fa fa-check"></i><b>4.1.1.1</b> Core tidyverse</a></li>
+<li class="chapter" data-level="4.1.1.2" data-path="tidyverse.html"><a href="tidyverse.html#other-useful-tidyverse-packages"><i class="fa fa-check"></i><b>4.1.1.2</b> Other useful tidyverse packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html#tidy-data"><i class="fa fa-check"></i><b>4.2</b> Tidy data</a></li>
+<li class="chapter" data-level="4.3" data-path="tidyverse.html"><a href="tidyverse.html#messy-data"><i class="fa fa-check"></i><b>4.3</b> Messy data</a></li>
+<li class="chapter" data-level="4.4" data-path="tidyverse.html"><a href="tidyverse.html#lets-tidy-it"><i class="fa fa-check"></i><b>4.4</b> Let’s tidy it</a></li>
+<li class="chapter" data-level="4.5" data-path="tidyverse.html"><a href="tidyverse.html#tidy-iris-challenge"><i class="fa fa-check"></i><b>4.5</b> Tidy <code>iris</code> challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="wrangling-data.html"><a href="wrangling-data.html"><i class="fa fa-check"></i><b>5</b> <strong>Wrangling data</strong></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="wrangling-data.html"><a href="wrangling-data.html#dplyr-functions"><i class="fa fa-check"></i><b>5.1</b> <code>dplyr</code> functions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="wrangling-data.html"><a href="wrangling-data.html#rows"><i class="fa fa-check"></i><b>5.1.1</b> Rows</a></li>
+<li class="chapter" data-level="5.1.2" data-path="wrangling-data.html"><a href="wrangling-data.html#columns"><i class="fa fa-check"></i><b>5.1.2</b> Columns</a></li>
+<li class="chapter" data-level="5.1.3" data-path="wrangling-data.html"><a href="wrangling-data.html#groups-of-rows"><i class="fa fa-check"></i><b>5.1.3</b> Groups of rows</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="wrangling-data.html"><a href="wrangling-data.html#pipe-operator"><i class="fa fa-check"></i><b>5.2</b> Pipe <code>%&gt;%</code> operator</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="wrangling-data.html"><a href="wrangling-data.html#a-fun-example-from-r-for-data-science"><i class="fa fa-check"></i><b>5.2.1</b> A fun example from <span>R for data science</span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="wrangling-data.html"><a href="wrangling-data.html#arrange"><i class="fa fa-check"></i><b>5.3</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="5.4" data-path="wrangling-data.html"><a href="wrangling-data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> <code>summarise</code></a></li>
+<li class="chapter" data-level="5.5" data-path="wrangling-data.html"><a href="wrangling-data.html#group_by"><i class="fa fa-check"></i><b>5.5</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="5.6" data-path="wrangling-data.html"><a href="wrangling-data.html#challenge-time-with-tidyverse-data"><i class="fa fa-check"></i><b>5.6</b> CHALLENGE TIME WITH TIDYVERSE DATA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> <strong>Data Visualization</strong></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#principles-of-data-visualization"><i class="fa fa-check"></i><b>6.1</b> Principles of Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-visualization.html"><a href="data-visualization.html#principles-of-story-telling"><i class="fa fa-check"></i><b>6.1.1</b> Principles of story telling</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#ggplot2"><i class="fa fa-check"></i><b>6.2</b> <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html"><i class="fa fa-check"></i><b>7</b> <strong>Statistics &amp; experimental design</strong></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#pca"><i class="fa fa-check"></i><b>7.1</b> PCA</a></li>
+<li class="chapter" data-level="7.2" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#hypothesis-tests"><i class="fa fa-check"></i><b>7.2</b> Hypothesis tests</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#t-test"><i class="fa fa-check"></i><b>7.2.1</b> t-test</a></li>
+<li class="chapter" data-level="7.2.2" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#analysis-of-variance"><i class="fa fa-check"></i><b>7.2.2</b> Analysis of Variance</a></li>
+<li class="chapter" data-level="7.2.3" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#rnorm"><i class="fa fa-check"></i><b>7.2.3</b> <code>rnorm()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="creating-a-script.html"><a href="creating-a-script.html"><i class="fa fa-check"></i><b>8</b> <strong>Creating a script</strong></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="creating-a-script.html"><a href="creating-a-script.html#pseudo-script-form"><i class="fa fa-check"></i><b>8.1</b> Pseudo-script form</a></li>
+<li class="chapter" data-level="8.2" data-path="creating-a-script.html"><a href="creating-a-script.html#fun-data-challenge"><i class="fa fa-check"></i><b>8.2</b> Fun data challenge</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="creating-a-script.html"><a href="creating-a-script.html#load-data"><i class="fa fa-check"></i><b>8.2.1</b> Load data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="creating-a-script.html"><a href="creating-a-script.html#wrangle-data"><i class="fa fa-check"></i><b>8.2.2</b> Wrangle data</a></li>
+<li class="chapter" data-level="8.2.3" data-path="creating-a-script.html"><a href="creating-a-script.html#analyze-data"><i class="fa fa-check"></i><b>8.2.3</b> Analyze data</a></li>
+<li class="chapter" data-level="8.2.4" data-path="creating-a-script.html"><a href="creating-a-script.html#visualize-data"><i class="fa fa-check"></i><b>8.2.4</b> Visualize data</a></li>
+<li class="chapter" data-level="8.2.5" data-path="creating-a-script.html"><a href="creating-a-script.html#report-results"><i class="fa fa-check"></i><b>8.2.5</b> Report results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>9</b> <strong>R markdown</strong></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="r-markdown.html"><a href="r-markdown.html#links"><i class="fa fa-check"></i><b>9.1</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html"><i class="fa fa-check"></i><b>10</b> <strong>Workshop Part II</strong></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#review-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Review fundamentals</a></li>
+<li class="chapter" data-level="10.2" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#wrangling-collected-data"><i class="fa fa-check"></i><b>10.2</b> Wrangling collected data</a></li>
+<li class="chapter" data-level="10.3" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#analyzing-data"><i class="fa fa-check"></i><b>10.3</b> Analyzing data</a></li>
+<li class="chapter" data-level="10.4" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#visualizing-data"><i class="fa fa-check"></i><b>10.4</b> Visualizing data</a></li>
+<li class="chapter" data-level="10.5" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#advanced-skills"><i class="fa fa-check"></i><b>10.5</b> Advanced skills</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#advanced-tidyverse"><i class="fa fa-check"></i><b>10.5.1</b> Advanced <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#version-control"><i class="fa fa-check"></i><b>10.6</b> Version control</a></li>
+<li class="chapter" data-level="10.7" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#code-snippets"><i class="fa fa-check"></i><b>10.7</b> Code snippets</a></li>
+<li class="chapter" data-level="10.8" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#publishing"><i class="fa fa-check"></i><b>10.8</b> Publishing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="challenge-solutions.html"><a href="challenge-solutions.html"><i class="fa fa-check"></i><b>11</b> <strong>Challenge Solutions</strong></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="challenge-solutions.html"><a href="challenge-solutions.html#hello"><i class="fa fa-check"></i><b>11.1</b> Hello</a></li>
+<li class="chapter" data-level="11.2" data-path="challenge-solutions.html"><a href="challenge-solutions.html#loop"><i class="fa fa-check"></i><b>11.2</b> Loop</a></li>
+<li class="chapter" data-level="11.3" data-path="challenge-solutions.html"><a href="challenge-solutions.html#tidy-iris"><i class="fa fa-check"></i><b>11.3</b> Tidy <code>iris</code></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">UVM ThermoFly REU Crew</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistics-experimental-design" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> <strong>Statistics &amp; experimental design</strong><a href="statistics-experimental-design.html#statistics-experimental-design" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This book is going to assume some solid base knowledge of statistics. If your memory is a bit fuzzy on the details, there are plenty of resources available that discuss statistics in a more formal and informative manner.</p>
+<p>If you are relatively new to statistics, I encourage you to take a course on it.</p>
+<p>Check out these resources:</p>
+<ul>
+<li><a href="http://www.biostathandbook.com/index.html">Handbook of Biological Statistics</a> – covers
+<ul>
+<li><a href="https://rcompanion.org/rcompanion/">R Companion for the Handbook of Biological Statiscs</a></li>
+</ul></li>
+<li><a href="https://learningstatisticswithr.com/book/">Learning statistics with R</a> – this book is written from a physcology or social science sort of lens. But it is immensely useful and clear.</li>
+</ul>
+<p>It is important to note that statistics and hypothesis tests are only as valuable or informative as your experimental design allows.</p>
+<p>It is similarly true then that you can obtain a p-value or a result about</p>
+<div id="pca" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> PCA<a href="statistics-experimental-design.html#pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="hypothesis-tests" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Hypothesis tests<a href="statistics-experimental-design.html#hypothesis-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="t-test" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> t-test<a href="statistics-experimental-design.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="analysis-of-variance" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Analysis of Variance<a href="statistics-experimental-design.html#analysis-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="rnorm" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> <code>rnorm()</code><a href="statistics-experimental-design.html#rnorm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>rnorm()</code> function draws a <code>x</code> amount random numbers from a normal distribution with a specific mean and standard deviation.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="statistics-experimental-design.html#cb77-1" aria-hidden="true" tabindex="-1"></a>?rnorm</span>
+<span id="cb77-2"><a href="statistics-experimental-design.html#cb77-2" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">7</span>)</span>
+<span id="cb77-3"><a href="statistics-experimental-design.html#cb77-3" aria-hidden="true" tabindex="-1"></a>dist</span>
+<span id="cb77-4"><a href="statistics-experimental-design.html#cb77-4" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">1</span>]  <span class="fl">4.2450323</span> <span class="fl">13.2075112</span> <span class="fl">10.5115844</span>  <span class="fl">5.8148759</span> <span class="fl">20.5062499</span> <span class="fl">11.7262622</span></span>
+<span id="cb77-5"><a href="statistics-experimental-design.html#cb77-5" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">7</span>] <span class="fl">20.7537527</span> <span class="fl">11.2237145</span> <span class="fl">12.6872952</span> <span class="fl">14.9954397</span> <span class="fl">17.6348885</span>  <span class="fl">6.9959160</span></span>
+<span id="cb77-6"><a href="statistics-experimental-design.html#cb77-6" aria-hidden="true" tabindex="-1"></a> [<span class="dv">13</span>] <span class="fl">18.4607444</span>  <span class="fl">7.7447256</span>  <span class="fl">6.3016627</span> <span class="fl">10.3513203</span> <span class="fl">13.7801909</span> <span class="fl">14.3831834</span></span>
+<span id="cb77-7"><a href="statistics-experimental-design.html#cb77-7" aria-hidden="true" tabindex="-1"></a> [<span class="dv">19</span>] <span class="fl">15.0497247</span> <span class="fl">24.6073367</span>  <span class="fl">7.2664716</span> <span class="fl">18.8995702</span> <span class="fl">12.6366266</span> <span class="fl">20.1407532</span></span>
+<span id="cb77-8"><a href="statistics-experimental-design.html#cb77-8" aria-hidden="true" tabindex="-1"></a> [<span class="dv">25</span>] <span class="fl">15.6211928</span> <span class="fl">20.2300202</span> <span class="fl">18.9656299</span> <span class="fl">18.2834196</span> <span class="fl">20.7612870</span> <span class="fl">10.1746642</span></span>
+<span id="cb77-9"><a href="statistics-experimental-design.html#cb77-9" aria-hidden="true" tabindex="-1"></a> [<span class="dv">31</span>] <span class="fl">14.9910629</span> <span class="fl">10.1791619</span> <span class="fl">18.0504004</span> <span class="fl">18.3724792</span> <span class="fl">19.6651058</span> <span class="fl">15.8572179</span></span>
+<span id="cb77-10"><a href="statistics-experimental-design.html#cb77-10" aria-hidden="true" tabindex="-1"></a> [<span class="dv">37</span>] <span class="fl">13.3313773</span> <span class="fl">17.0093124</span> <span class="fl">10.3233242</span>  <span class="fl">4.5690350</span>  <span class="fl">7.3687439</span> <span class="fl">13.4053041</span></span>
+<span id="cb77-11"><a href="statistics-experimental-design.html#cb77-11" aria-hidden="true" tabindex="-1"></a> [<span class="dv">43</span>] <span class="fl">14.1681896</span> <span class="fl">17.8968314</span> <span class="fl">11.8788910</span>  <span class="fl">7.9998834</span> <span class="fl">12.6374712</span> <span class="fl">14.9975728</span></span>
+<span id="cb77-12"><a href="statistics-experimental-design.html#cb77-12" aria-hidden="true" tabindex="-1"></a> [<span class="dv">49</span>] <span class="fl">15.5777185</span> <span class="fl">22.6946759</span> <span class="fl">16.7456351</span> <span class="fl">19.9100614</span>  <span class="fl">4.1829216</span> <span class="fl">20.9932649</span></span>
+<span id="cb77-13"><a href="statistics-experimental-design.html#cb77-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">55</span>] <span class="fl">10.5828846</span>  <span class="fl">0.8377663</span> <span class="fl">18.8614872</span> <span class="fl">16.5335062</span> <span class="fl">12.9830482</span> <span class="fl">14.6076776</span></span>
+<span id="cb77-14"><a href="statistics-experimental-design.html#cb77-14" aria-hidden="true" tabindex="-1"></a> [<span class="dv">61</span>] <span class="fl">19.1072212</span>  <span class="fl">7.6580287</span>  <span class="fl">1.6226767</span> <span class="fl">29.3592497</span> <span class="fl">20.8059183</span> <span class="fl">11.7322167</span></span>
+<span id="cb77-15"><a href="statistics-experimental-design.html#cb77-15" aria-hidden="true" tabindex="-1"></a> [<span class="dv">67</span>]  <span class="fl">1.5754117</span> <span class="fl">22.8460136</span> <span class="fl">12.7649166</span>  <span class="fl">8.1114750</span> <span class="fl">10.3142339</span> <span class="fl">12.4535620</span></span>
+<span id="cb77-16"><a href="statistics-experimental-design.html#cb77-16" aria-hidden="true" tabindex="-1"></a> [<span class="dv">73</span>] <span class="fl">17.9654469</span> <span class="fl">19.4027944</span>  <span class="fl">1.5421003</span>  <span class="fl">9.7962944</span> <span class="fl">11.3567641</span> <span class="fl">15.4337190</span></span>
+<span id="cb77-17"><a href="statistics-experimental-design.html#cb77-17" aria-hidden="true" tabindex="-1"></a> [<span class="dv">79</span>] <span class="fl">18.2491104</span> <span class="fl">25.2950146</span> <span class="fl">16.5143361</span> <span class="sc">-</span><span class="fl">0.4656402</span> <span class="fl">13.6831385</span>  <span class="fl">4.5944575</span></span>
+<span id="cb77-18"><a href="statistics-experimental-design.html#cb77-18" aria-hidden="true" tabindex="-1"></a> [<span class="dv">85</span>] <span class="fl">16.3605154</span> <span class="fl">20.8441200</span> <span class="fl">14.2702885</span>  <span class="fl">7.7669672</span> <span class="fl">13.4491891</span> <span class="fl">15.1778415</span></span>
+<span id="cb77-19"><a href="statistics-experimental-design.html#cb77-19" aria-hidden="true" tabindex="-1"></a> [<span class="dv">91</span>] <span class="sc">-</span><span class="fl">2.5147251</span> <span class="fl">16.7905278</span>  <span class="fl">6.1362710</span>  <span class="fl">0.5636370</span> <span class="fl">10.8360504</span>  <span class="fl">3.6672634</span></span>
+<span id="cb77-20"><a href="statistics-experimental-design.html#cb77-20" aria-hidden="true" tabindex="-1"></a> [<span class="dv">97</span>] <span class="fl">19.6250878</span> <span class="fl">10.6315871</span> <span class="fl">16.7764227</span> <span class="fl">16.8766636</span></span>
+<span id="cb77-21"><a href="statistics-experimental-design.html#cb77-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-22"><a href="statistics-experimental-design.html#cb77-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the mean and median</span></span>
+<span id="cb77-23"><a href="statistics-experimental-design.html#cb77-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dist)</span>
+<span id="cb77-24"><a href="statistics-experimental-design.html#cb77-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">13.40149</span></span>
+<span id="cb77-25"><a href="statistics-experimental-design.html#cb77-25" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(dist)</span>
+<span id="cb77-26"><a href="statistics-experimental-design.html#cb77-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">13.97419</span></span>
+<span id="cb77-27"><a href="statistics-experimental-design.html#cb77-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-28"><a href="statistics-experimental-design.html#cb77-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Get multiple summary stats</span></span>
+<span id="cb77-29"><a href="statistics-experimental-design.html#cb77-29" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dist)</span>
+<span id="cb77-30"><a href="statistics-experimental-design.html#cb77-30" aria-hidden="true" tabindex="-1"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span id="cb77-31"><a href="statistics-experimental-design.html#cb77-31" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="fl">2.515</span>  <span class="fl">10.178</span>  <span class="fl">13.974</span>  <span class="fl">13.401</span>  <span class="fl">18.100</span>  <span class="fl">29.359</span> </span>
+<span id="cb77-32"><a href="statistics-experimental-design.html#cb77-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-33"><a href="statistics-experimental-design.html#cb77-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Save summary stats as an object</span></span>
+<span id="cb77-34"><a href="statistics-experimental-design.html#cb77-34" aria-hidden="true" tabindex="-1"></a>sum_dist <span class="ot">&lt;-</span> <span class="fu">summary</span>(dist)</span>
+<span id="cb77-35"><a href="statistics-experimental-design.html#cb77-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-36"><a href="statistics-experimental-design.html#cb77-36" aria-hidden="true" tabindex="-1"></a>sum_dist</span>
+<span id="cb77-37"><a href="statistics-experimental-design.html#cb77-37" aria-hidden="true" tabindex="-1"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span id="cb77-38"><a href="statistics-experimental-design.html#cb77-38" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="fl">2.515</span>  <span class="fl">10.178</span>  <span class="fl">13.974</span>  <span class="fl">13.401</span>  <span class="fl">18.100</span>  <span class="fl">29.359</span> </span></code></pre></div>
+<p>You can explore, save, or extract specific elements of <code>sum_dist</code>.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="statistics-experimental-design.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check out the properties of sum_dist object</span></span>
+<span id="cb78-2"><a href="statistics-experimental-design.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum_dist)</span>
+<span id="cb78-3"><a href="statistics-experimental-design.html#cb78-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summaryDefault&quot;</span> <span class="st">&quot;table&quot;</span>         </span>
+<span id="cb78-4"><a href="statistics-experimental-design.html#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(sum_dist)</span>
+<span id="cb78-5"><a href="statistics-experimental-design.html#cb78-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">6</span></span>
+<span id="cb78-6"><a href="statistics-experimental-design.html#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sum_dist)</span>
+<span id="cb78-7"><a href="statistics-experimental-design.html#cb78-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Min.&quot;</span>    <span class="st">&quot;1st Qu.&quot;</span> <span class="st">&quot;Median&quot;</span>  <span class="st">&quot;Mean&quot;</span>    <span class="st">&quot;3rd Qu.&quot;</span> <span class="st">&quot;Max.&quot;</span>   </span>
+<span id="cb78-8"><a href="statistics-experimental-design.html#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="statistics-experimental-design.html#cb78-9" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways to index this object</span></span>
+<span id="cb78-10"><a href="statistics-experimental-design.html#cb78-10" aria-hidden="true" tabindex="-1"></a>sum_dist[<span class="st">&quot;Mean&quot;</span>] </span>
+<span id="cb78-11"><a href="statistics-experimental-design.html#cb78-11" aria-hidden="true" tabindex="-1"></a>    Mean </span>
+<span id="cb78-12"><a href="statistics-experimental-design.html#cb78-12" aria-hidden="true" tabindex="-1"></a><span class="fl">13.40149</span> </span>
+<span id="cb78-13"><a href="statistics-experimental-design.html#cb78-13" aria-hidden="true" tabindex="-1"></a>sum_dist[<span class="dv">4</span>]</span>
+<span id="cb78-14"><a href="statistics-experimental-design.html#cb78-14" aria-hidden="true" tabindex="-1"></a>    Mean </span>
+<span id="cb78-15"><a href="statistics-experimental-design.html#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="fl">13.40149</span> </span>
+<span id="cb78-16"><a href="statistics-experimental-design.html#cb78-16" aria-hidden="true" tabindex="-1"></a>sum_dist[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb78-17"><a href="statistics-experimental-design.html#cb78-17" aria-hidden="true" tabindex="-1"></a>  Median     Mean </span>
+<span id="cb78-18"><a href="statistics-experimental-design.html#cb78-18" aria-hidden="true" tabindex="-1"></a><span class="fl">13.97419</span> <span class="fl">13.40149</span> </span></code></pre></div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="creating-a-script.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 More base-ics in R | UVM ThermoFly REU Crew</title>
+  <meta name="description" content="An incomplete introductory workshop to data science and R." />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 More base-ics in R | UVM ThermoFly REU Crew" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 More base-ics in R | UVM ThermoFly REU Crew" />
+  
+  <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
+  
+
+<meta name="author" content="TS O’Leary" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="first-principles.html"/>
+<link rel="next" href="tidyverse.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="data-science-workshop.html"><a href="data-science-workshop.html"><i class="fa fa-check"></i><strong>Data Science Workshop</strong></a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> <strong>Introduction</strong></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#goals"><i class="fa fa-check"></i><b>1.1</b> Goals</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#agenda"><i class="fa fa-check"></i><b>1.2</b> Agenda</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#disclaimer"><i class="fa fa-check"></i><b>1.3</b> Disclaimer</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#alternative-resources"><i class="fa fa-check"></i><b>1.4</b> Alternative resources</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#stolen-advice"><i class="fa fa-check"></i><b>1.5</b> Stolen advice</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="first-principles.html"><a href="first-principles.html"><i class="fa fa-check"></i><b>2</b> <strong>First principles</strong></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-principles.html"><a href="first-principles.html#r-rstudio"><i class="fa fa-check"></i><b>2.1</b> R &amp; RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-principles.html"><a href="first-principles.html#download-links"><i class="fa fa-check"></i><b>2.1.1</b> Download links</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="first-principles.html"><a href="first-principles.html#lets-start-coding"><i class="fa fa-check"></i><b>2.2</b> Let’s start coding</a></li>
+<li class="chapter" data-level="2.3" data-path="first-principles.html"><a href="first-principles.html#basic-math"><i class="fa fa-check"></i><b>2.3</b> Basic math</a></li>
+<li class="chapter" data-level="2.4" data-path="first-principles.html"><a href="first-principles.html#creating-objects"><i class="fa fa-check"></i><b>2.4</b> Creating objects</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="first-principles.html"><a href="first-principles.html#naming-objects"><i class="fa fa-check"></i><b>2.4.1</b> Naming objects</a>
+<ul>
+<li class="chapter" data-level="2.4.1.1" data-path="first-principles.html"><a href="first-principles.html#the-snake-camel"><i class="fa fa-check"></i><b>2.4.1.1</b> The snake &amp; camel</a></li>
+<li class="chapter" data-level="2.4.1.2" data-path="first-principles.html"><a href="first-principles.html#forbidden-characters"><i class="fa fa-check"></i><b>2.4.1.2</b> Forbidden characters</a></li>
+<li class="chapter" data-level="2.4.1.3" data-path="first-principles.html"><a href="first-principles.html#characters-to-avoid"><i class="fa fa-check"></i><b>2.4.1.3</b> Characters to avoid</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="first-principles.html"><a href="first-principles.html#data-types"><i class="fa fa-check"></i><b>2.5</b> Data types</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="first-principles.html"><a href="first-principles.html#object-class"><i class="fa fa-check"></i><b>2.5.1</b> Object class</a></li>
+<li class="chapter" data-level="2.5.2" data-path="first-principles.html"><a href="first-principles.html#vectors-indexing"><i class="fa fa-check"></i><b>2.5.2</b> Vectors &amp; Indexing</a>
+<ul>
+<li class="chapter" data-level="2.5.2.1" data-path="first-principles.html"><a href="first-principles.html#concatenate-c-function"><i class="fa fa-check"></i><b>2.5.2.1</b> Concatenate <code>c()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5.3" data-path="first-principles.html"><a href="first-principles.html#indexing"><i class="fa fa-check"></i><b>2.5.3</b> Indexing</a></li>
+<li class="chapter" data-level="2.5.4" data-path="first-principles.html"><a href="first-principles.html#accessing-equality"><i class="fa fa-check"></i><b>2.5.4</b> Accessing equality</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="first-principles.html"><a href="first-principles.html#data-frames"><i class="fa fa-check"></i><b>2.6</b> Data frames</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="first-principles.html"><a href="first-principles.html#creating-a-data-frame"><i class="fa fa-check"></i><b>2.6.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="2.6.2" data-path="first-principles.html"><a href="first-principles.html#sneak-peak-at-data-visualization-with-baseplot."><i class="fa fa-check"></i><b>2.6.2</b> Sneak peak at data visualization with <code>base::plot</code>.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="first-principles.html"><a href="first-principles.html#guinea-pigs-tooth-growth"><i class="fa fa-check"></i><b>2.7</b> Guinea pigs’ tooth growth</a></li>
+<li class="chapter" data-level="2.8" data-path="first-principles.html"><a href="first-principles.html#functions"><i class="fa fa-check"></i><b>2.8</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="first-principles.html"><a href="first-principles.html#creating-functions"><i class="fa fa-check"></i><b>2.8.1</b> Creating functions</a>
+<ul>
+<li class="chapter" data-level="2.8.1.1" data-path="first-principles.html"><a href="first-principles.html#try-it-out"><i class="fa fa-check"></i><b>2.8.1.1</b> Try it out</a></li>
+<li class="chapter" data-level="2.8.1.2" data-path="first-principles.html"><a href="first-principles.html#favorite-equation-challenge"><i class="fa fa-check"></i><b>2.8.1.2</b> <strong>Favorite Equation Challenge</strong></a></li>
+<li class="chapter" data-level="2.8.1.3" data-path="first-principles.html"><a href="first-principles.html#hello-challenge"><i class="fa fa-check"></i><b>2.8.1.3</b> <strong>Hello Challenge</strong></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html"><i class="fa fa-check"></i><b>3</b> <strong>More <code>base</code>-ics in R</strong></a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#freeform-data-challenge"><i class="fa fa-check"></i><b>3.0.1</b> Freeform Data Challenge</a></li>
+<li class="chapter" data-level="3.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#freeform"><i class="fa fa-check"></i><b>3.1</b> Freeform</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#loops-if-else"><i class="fa fa-check"></i><b>3.1.1</b> Loops &amp; <code>if else</code></a>
+<ul>
+<li class="chapter" data-level="3.1.1.1" data-path="more-base-ics-in-r.html"><a href="more-base-ics-in-r.html#for-loops"><i class="fa fa-check"></i><b>3.1.1.1</b> <code>for</code> loops</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> <strong>Tidyverse</strong></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tidyverse.html"><a href="tidyverse.html#tidyverse-specific-resources"><i class="fa fa-check"></i><b>4.1</b> <code>tidyverse</code>-specific resources</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="tidyverse.html"><a href="tidyverse.html#cheat-sheets"><i class="fa fa-check"></i><b>4.1.1</b> Cheat sheets</a>
+<ul>
+<li class="chapter" data-level="4.1.1.1" data-path="tidyverse.html"><a href="tidyverse.html#core-tidyverse"><i class="fa fa-check"></i><b>4.1.1.1</b> Core tidyverse</a></li>
+<li class="chapter" data-level="4.1.1.2" data-path="tidyverse.html"><a href="tidyverse.html#other-useful-tidyverse-packages"><i class="fa fa-check"></i><b>4.1.1.2</b> Other useful tidyverse packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html#tidy-data"><i class="fa fa-check"></i><b>4.2</b> Tidy data</a></li>
+<li class="chapter" data-level="4.3" data-path="tidyverse.html"><a href="tidyverse.html#messy-data"><i class="fa fa-check"></i><b>4.3</b> Messy data</a></li>
+<li class="chapter" data-level="4.4" data-path="tidyverse.html"><a href="tidyverse.html#lets-tidy-it"><i class="fa fa-check"></i><b>4.4</b> Let’s tidy it</a></li>
+<li class="chapter" data-level="4.5" data-path="tidyverse.html"><a href="tidyverse.html#tidy-iris-challenge"><i class="fa fa-check"></i><b>4.5</b> Tidy <code>iris</code> challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="wrangling-data.html"><a href="wrangling-data.html"><i class="fa fa-check"></i><b>5</b> <strong>Wrangling data</strong></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="wrangling-data.html"><a href="wrangling-data.html#dplyr-functions"><i class="fa fa-check"></i><b>5.1</b> <code>dplyr</code> functions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="wrangling-data.html"><a href="wrangling-data.html#rows"><i class="fa fa-check"></i><b>5.1.1</b> Rows</a></li>
+<li class="chapter" data-level="5.1.2" data-path="wrangling-data.html"><a href="wrangling-data.html#columns"><i class="fa fa-check"></i><b>5.1.2</b> Columns</a></li>
+<li class="chapter" data-level="5.1.3" data-path="wrangling-data.html"><a href="wrangling-data.html#groups-of-rows"><i class="fa fa-check"></i><b>5.1.3</b> Groups of rows</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="wrangling-data.html"><a href="wrangling-data.html#pipe-operator"><i class="fa fa-check"></i><b>5.2</b> Pipe <code>%&gt;%</code> operator</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="wrangling-data.html"><a href="wrangling-data.html#a-fun-example-from-r-for-data-science"><i class="fa fa-check"></i><b>5.2.1</b> A fun example from <span>R for data science</span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="wrangling-data.html"><a href="wrangling-data.html#arrange"><i class="fa fa-check"></i><b>5.3</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="5.4" data-path="wrangling-data.html"><a href="wrangling-data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> <code>summarise</code></a></li>
+<li class="chapter" data-level="5.5" data-path="wrangling-data.html"><a href="wrangling-data.html#group_by"><i class="fa fa-check"></i><b>5.5</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="5.6" data-path="wrangling-data.html"><a href="wrangling-data.html#challenge-time-with-tidyverse-data"><i class="fa fa-check"></i><b>5.6</b> CHALLENGE TIME WITH TIDYVERSE DATA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization.html"><a href="data-visualization.html"><i class="fa fa-check"></i><b>6</b> <strong>Data Visualization</strong></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization.html"><a href="data-visualization.html#principles-of-data-visualization"><i class="fa fa-check"></i><b>6.1</b> Principles of Data Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-visualization.html"><a href="data-visualization.html#principles-of-story-telling"><i class="fa fa-check"></i><b>6.1.1</b> Principles of story telling</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization.html"><a href="data-visualization.html#ggplot2"><i class="fa fa-check"></i><b>6.2</b> <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html"><i class="fa fa-check"></i><b>7</b> <strong>Statistics &amp; experimental design</strong></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#pca"><i class="fa fa-check"></i><b>7.1</b> PCA</a></li>
+<li class="chapter" data-level="7.2" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#hypothesis-tests"><i class="fa fa-check"></i><b>7.2</b> Hypothesis tests</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#t-test"><i class="fa fa-check"></i><b>7.2.1</b> t-test</a></li>
+<li class="chapter" data-level="7.2.2" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#analysis-of-variance"><i class="fa fa-check"></i><b>7.2.2</b> Analysis of Variance</a></li>
+<li class="chapter" data-level="7.2.3" data-path="statistics-experimental-design.html"><a href="statistics-experimental-design.html#rnorm"><i class="fa fa-check"></i><b>7.2.3</b> <code>rnorm()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="creating-a-script.html"><a href="creating-a-script.html"><i class="fa fa-check"></i><b>8</b> <strong>Creating a script</strong></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="creating-a-script.html"><a href="creating-a-script.html#pseudo-script-form"><i class="fa fa-check"></i><b>8.1</b> Pseudo-script form</a></li>
+<li class="chapter" data-level="8.2" data-path="creating-a-script.html"><a href="creating-a-script.html#fun-data-challenge"><i class="fa fa-check"></i><b>8.2</b> Fun data challenge</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="creating-a-script.html"><a href="creating-a-script.html#load-data"><i class="fa fa-check"></i><b>8.2.1</b> Load data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="creating-a-script.html"><a href="creating-a-script.html#wrangle-data"><i class="fa fa-check"></i><b>8.2.2</b> Wrangle data</a></li>
+<li class="chapter" data-level="8.2.3" data-path="creating-a-script.html"><a href="creating-a-script.html#analyze-data"><i class="fa fa-check"></i><b>8.2.3</b> Analyze data</a></li>
+<li class="chapter" data-level="8.2.4" data-path="creating-a-script.html"><a href="creating-a-script.html#visualize-data"><i class="fa fa-check"></i><b>8.2.4</b> Visualize data</a></li>
+<li class="chapter" data-level="8.2.5" data-path="creating-a-script.html"><a href="creating-a-script.html#report-results"><i class="fa fa-check"></i><b>8.2.5</b> Report results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>9</b> <strong>R markdown</strong></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="r-markdown.html"><a href="r-markdown.html#links"><i class="fa fa-check"></i><b>9.1</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html"><i class="fa fa-check"></i><b>10</b> <strong>Workshop Part II</strong></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#review-fundamentals"><i class="fa fa-check"></i><b>10.1</b> Review fundamentals</a></li>
+<li class="chapter" data-level="10.2" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#wrangling-collected-data"><i class="fa fa-check"></i><b>10.2</b> Wrangling collected data</a></li>
+<li class="chapter" data-level="10.3" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#analyzing-data"><i class="fa fa-check"></i><b>10.3</b> Analyzing data</a></li>
+<li class="chapter" data-level="10.4" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#visualizing-data"><i class="fa fa-check"></i><b>10.4</b> Visualizing data</a></li>
+<li class="chapter" data-level="10.5" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#advanced-skills"><i class="fa fa-check"></i><b>10.5</b> Advanced skills</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#advanced-tidyverse"><i class="fa fa-check"></i><b>10.5.1</b> Advanced <code>tidyverse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#version-control"><i class="fa fa-check"></i><b>10.6</b> Version control</a></li>
+<li class="chapter" data-level="10.7" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#code-snippets"><i class="fa fa-check"></i><b>10.7</b> Code snippets</a></li>
+<li class="chapter" data-level="10.8" data-path="workshop-part-ii.html"><a href="workshop-part-ii.html#publishing"><i class="fa fa-check"></i><b>10.8</b> Publishing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="challenge-solutions.html"><a href="challenge-solutions.html"><i class="fa fa-check"></i><b>11</b> <strong>Challenge Solutions</strong></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="challenge-solutions.html"><a href="challenge-solutions.html#hello"><i class="fa fa-check"></i><b>11.1</b> Hello</a></li>
+<li class="chapter" data-level="11.2" data-path="challenge-solutions.html"><a href="challenge-solutions.html#loop"><i class="fa fa-check"></i><b>11.2</b> Loop</a></li>
+<li class="chapter" data-level="11.3" data-path="challenge-solutions.html"><a href="challenge-solutions.html#tidy-iris"><i class="fa fa-check"></i><b>11.3</b> Tidy <code>iris</code></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">UVM ThermoFly REU Crew</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="more-base-ics-in-r" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> <strong>More <code>base</code>-ics in R</strong><a href="more-base-ics-in-r.html#more-base-ics-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>When I am coding for myself, I am often using the <code>tidyverse</code> and other packages built specifically for the task I am trying to do. But there is some reason to think that jumping directly into teaching the <code>tidyverse</code> to new coders is <a href="https://github.com/matloff/TidyverseSkeptic">a bad idea</a>. I learned the principles of <code>base</code> R first, and have found them immensely helpful – so we will spend a bit more time exploring those principles before we jump into the <code>tidyverse</code>.</p>
+<p>There are a bunch of functions that come by default with R in the <code>base</code> package.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="more-base-ics-in-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List 20 random objects in the base package in R</span></span>
+<span id="cb34-2"><a href="more-base-ics-in-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>), <span class="at">size =</span> <span class="dv">20</span>)</span>
+<span id="cb34-3"><a href="more-base-ics-in-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;@&quot;                        &quot;unlist&quot;                  </span></span>
+<span id="cb34-4"><a href="more-base-ics-in-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3] &quot;grepRaw&quot;                  &quot;mem.maxNSize&quot;            </span></span>
+<span id="cb34-5"><a href="more-base-ics-in-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] &quot;formatDL&quot;                 &quot;forwardsolve&quot;            </span></span>
+<span id="cb34-6"><a href="more-base-ics-in-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;subset.data.frame&quot;        &quot;pairlist&quot;                </span></span>
+<span id="cb34-7"><a href="more-base-ics-in-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] &quot;flush&quot;                    &quot;getDLLRegisteredRoutines&quot;</span></span>
+<span id="cb34-8"><a href="more-base-ics-in-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] &quot;is.list&quot;                  &quot;cospi&quot;                   </span></span>
+<span id="cb34-9"><a href="more-base-ics-in-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] &quot;isSymmetric.matrix&quot;       &quot;Math.POSIXt&quot;             </span></span>
+<span id="cb34-10"><a href="more-base-ics-in-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [15] &quot;match&quot;                    &quot;dontCheck&quot;               </span></span>
+<span id="cb34-11"><a href="more-base-ics-in-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [17] &quot;[&lt;-.data.frame&quot;           &quot;ISOdate&quot;                 </span></span>
+<span id="cb34-12"><a href="more-base-ics-in-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [19] &quot;Vectorize&quot;                &quot;anyNA.data.frame&quot;</span></span>
+<span id="cb34-13"><a href="more-base-ics-in-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="more-base-ics-in-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># How many are there?</span></span>
+<span id="cb34-15"><a href="more-base-ics-in-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>))</span>
+<span id="cb34-16"><a href="more-base-ics-in-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1257</span></span>
+<span id="cb34-17"><a href="more-base-ics-in-r.html#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="more-base-ics-in-r.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:stats&quot;</span>))</span>
+<span id="cb34-19"><a href="more-base-ics-in-r.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 452</span></span></code></pre></div>
+<p>These include some of the useful functions that we have looked at so far, <code>class()</code>, <code>length()</code>, <code>summary()</code>, as well as a bunch of others.</p>
+<p>These are super useful functions with which to get acquainted – because it is important to fully understand the fundamental properties of your data before you go on to do any statiscs or data visualization.</p>
+<ul>
+<li>How many observations are there in each group?</li>
+<li>Which are the dependent variables and which are the independent variables?</li>
+<li>What does the distribution of the data look like for the dependent variables?</li>
+<li>Are there any observations with missing values (<em>i.e.</em> <code>NA</code>s)?</li>
+</ul>
+<blockquote>
+<p>When you are collecting your own data, it is likely that you already have a good answer for these questions. You likely already know your sample sizes, your variables, and if any missing values are present. But it is good practice to confirm that your loaded data match your expectations. And it is obviously necessary if you are exploring someone else’s data set.</p>
+</blockquote>
+<div id="freeform-data-challenge" class="section level3 hasAnchor" number="3.0.1">
+<h3><span class="header-section-number">3.0.1</span> Freeform Data Challenge<a href="more-base-ics-in-r.html#freeform-data-challenge" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Use the <code>data()</code> function in the console to explore the pre-loaded R data sets. Look at the data. Try to extract some useful information. Number of observations in each group. Average values for the dependent variables. Distribution of the data. Use some of the skills we have learned so far to do this. And feel free to Google and add a few skills to your toolbox along the way.</p>
+<p><a href="more-base-ics-in-r.html#freeform">Freeform</a> Solution Example</p>
+</div>
+<div id="freeform" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Freeform<a href="more-base-ics-in-r.html#freeform" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Exploring the <code>iris</code> data set</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="more-base-ics-in-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a>iris</span>
+<span id="cb35-2"><a href="more-base-ics-in-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="do">##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species</span></span>
+<span id="cb35-3"><a href="more-base-ics-in-r.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1            5.1         3.5          1.4         0.2     setosa</span></span>
+<span id="cb35-4"><a href="more-base-ics-in-r.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2            4.9         3.0          1.4         0.2     setosa</span></span>
+<span id="cb35-5"><a href="more-base-ics-in-r.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3            4.7         3.2          1.3         0.2     setosa</span></span>
+<span id="cb35-6"><a href="more-base-ics-in-r.html#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 4            4.6         3.1          1.5         0.2     setosa</span></span>
+<span id="cb35-7"><a href="more-base-ics-in-r.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 5            5.0         3.6          1.4         0.2     setosa</span></span>
+<span id="cb35-8"><a href="more-base-ics-in-r.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 6            5.4         3.9          1.7         0.4     setosa</span></span>
+<span id="cb35-9"><a href="more-base-ics-in-r.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 7            4.6         3.4          1.4         0.3     setosa</span></span>
+<span id="cb35-10"><a href="more-base-ics-in-r.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 8            5.0         3.4          1.5         0.2     setosa</span></span>
+<span id="cb35-11"><a href="more-base-ics-in-r.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 9            4.4         2.9          1.4         0.2     setosa</span></span>
+<span id="cb35-12"><a href="more-base-ics-in-r.html#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 10           4.9         3.1          1.5         0.1     setosa</span></span>
+<span id="cb35-13"><a href="more-base-ics-in-r.html#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 11           5.4         3.7          1.5         0.2     setosa</span></span>
+<span id="cb35-14"><a href="more-base-ics-in-r.html#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 12           4.8         3.4          1.6         0.2     setosa</span></span>
+<span id="cb35-15"><a href="more-base-ics-in-r.html#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 13           4.8         3.0          1.4         0.1     setosa</span></span>
+<span id="cb35-16"><a href="more-base-ics-in-r.html#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 14           4.3         3.0          1.1         0.1     setosa</span></span>
+<span id="cb35-17"><a href="more-base-ics-in-r.html#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 15           5.8         4.0          1.2         0.2     setosa</span></span>
+<span id="cb35-18"><a href="more-base-ics-in-r.html#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 16           5.7         4.4          1.5         0.4     setosa</span></span>
+<span id="cb35-19"><a href="more-base-ics-in-r.html#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 17           5.4         3.9          1.3         0.4     setosa</span></span>
+<span id="cb35-20"><a href="more-base-ics-in-r.html#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 18           5.1         3.5          1.4         0.3     setosa</span></span>
+<span id="cb35-21"><a href="more-base-ics-in-r.html#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 19           5.7         3.8          1.7         0.3     setosa</span></span>
+<span id="cb35-22"><a href="more-base-ics-in-r.html#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 20           5.1         3.8          1.5         0.3     setosa</span></span>
+<span id="cb35-23"><a href="more-base-ics-in-r.html#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 21           5.4         3.4          1.7         0.2     setosa</span></span>
+<span id="cb35-24"><a href="more-base-ics-in-r.html#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 22           5.1         3.7          1.5         0.4     setosa</span></span>
+<span id="cb35-25"><a href="more-base-ics-in-r.html#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 23           4.6         3.6          1.0         0.2     setosa</span></span>
+<span id="cb35-26"><a href="more-base-ics-in-r.html#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 24           5.1         3.3          1.7         0.5     setosa</span></span>
+<span id="cb35-27"><a href="more-base-ics-in-r.html#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 25           4.8         3.4          1.9         0.2     setosa</span></span>
+<span id="cb35-28"><a href="more-base-ics-in-r.html#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 26           5.0         3.0          1.6         0.2     setosa</span></span>
+<span id="cb35-29"><a href="more-base-ics-in-r.html#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 27           5.0         3.4          1.6         0.4     setosa</span></span>
+<span id="cb35-30"><a href="more-base-ics-in-r.html#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 28           5.2         3.5          1.5         0.2     setosa</span></span>
+<span id="cb35-31"><a href="more-base-ics-in-r.html#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 29           5.2         3.4          1.4         0.2     setosa</span></span>
+<span id="cb35-32"><a href="more-base-ics-in-r.html#cb35-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 30           4.7         3.2          1.6         0.2     setosa</span></span>
+<span id="cb35-33"><a href="more-base-ics-in-r.html#cb35-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 31           4.8         3.1          1.6         0.2     setosa</span></span>
+<span id="cb35-34"><a href="more-base-ics-in-r.html#cb35-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 32           5.4         3.4          1.5         0.4     setosa</span></span>
+<span id="cb35-35"><a href="more-base-ics-in-r.html#cb35-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 33           5.2         4.1          1.5         0.1     setosa</span></span>
+<span id="cb35-36"><a href="more-base-ics-in-r.html#cb35-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 34           5.5         4.2          1.4         0.2     setosa</span></span>
+<span id="cb35-37"><a href="more-base-ics-in-r.html#cb35-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 35           4.9         3.1          1.5         0.2     setosa</span></span>
+<span id="cb35-38"><a href="more-base-ics-in-r.html#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 36           5.0         3.2          1.2         0.2     setosa</span></span>
+<span id="cb35-39"><a href="more-base-ics-in-r.html#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 37           5.5         3.5          1.3         0.2     setosa</span></span>
+<span id="cb35-40"><a href="more-base-ics-in-r.html#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 38           4.9         3.6          1.4         0.1     setosa</span></span>
+<span id="cb35-41"><a href="more-base-ics-in-r.html#cb35-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 39           4.4         3.0          1.3         0.2     setosa</span></span>
+<span id="cb35-42"><a href="more-base-ics-in-r.html#cb35-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 40           5.1         3.4          1.5         0.2     setosa</span></span>
+<span id="cb35-43"><a href="more-base-ics-in-r.html#cb35-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 41           5.0         3.5          1.3         0.3     setosa</span></span>
+<span id="cb35-44"><a href="more-base-ics-in-r.html#cb35-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 42           4.5         2.3          1.3         0.3     setosa</span></span>
+<span id="cb35-45"><a href="more-base-ics-in-r.html#cb35-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 43           4.4         3.2          1.3         0.2     setosa</span></span>
+<span id="cb35-46"><a href="more-base-ics-in-r.html#cb35-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 44           5.0         3.5          1.6         0.6     setosa</span></span>
+<span id="cb35-47"><a href="more-base-ics-in-r.html#cb35-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 45           5.1         3.8          1.9         0.4     setosa</span></span>
+<span id="cb35-48"><a href="more-base-ics-in-r.html#cb35-48" aria-hidden="true" tabindex="-1"></a><span class="do">## 46           4.8         3.0          1.4         0.3     setosa</span></span>
+<span id="cb35-49"><a href="more-base-ics-in-r.html#cb35-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 47           5.1         3.8          1.6         0.2     setosa</span></span>
+<span id="cb35-50"><a href="more-base-ics-in-r.html#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="do">## 48           4.6         3.2          1.4         0.2     setosa</span></span>
+<span id="cb35-51"><a href="more-base-ics-in-r.html#cb35-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 49           5.3         3.7          1.5         0.2     setosa</span></span>
+<span id="cb35-52"><a href="more-base-ics-in-r.html#cb35-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 50           5.0         3.3          1.4         0.2     setosa</span></span>
+<span id="cb35-53"><a href="more-base-ics-in-r.html#cb35-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 51           7.0         3.2          4.7         1.4 versicolor</span></span>
+<span id="cb35-54"><a href="more-base-ics-in-r.html#cb35-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 52           6.4         3.2          4.5         1.5 versicolor</span></span>
+<span id="cb35-55"><a href="more-base-ics-in-r.html#cb35-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 53           6.9         3.1          4.9         1.5 versicolor</span></span>
+<span id="cb35-56"><a href="more-base-ics-in-r.html#cb35-56" aria-hidden="true" tabindex="-1"></a><span class="do">## 54           5.5         2.3          4.0         1.3 versicolor</span></span>
+<span id="cb35-57"><a href="more-base-ics-in-r.html#cb35-57" aria-hidden="true" tabindex="-1"></a><span class="do">## 55           6.5         2.8          4.6         1.5 versicolor</span></span>
+<span id="cb35-58"><a href="more-base-ics-in-r.html#cb35-58" aria-hidden="true" tabindex="-1"></a><span class="do">## 56           5.7         2.8          4.5         1.3 versicolor</span></span>
+<span id="cb35-59"><a href="more-base-ics-in-r.html#cb35-59" aria-hidden="true" tabindex="-1"></a><span class="do">## 57           6.3         3.3          4.7         1.6 versicolor</span></span>
+<span id="cb35-60"><a href="more-base-ics-in-r.html#cb35-60" aria-hidden="true" tabindex="-1"></a><span class="do">## 58           4.9         2.4          3.3         1.0 versicolor</span></span>
+<span id="cb35-61"><a href="more-base-ics-in-r.html#cb35-61" aria-hidden="true" tabindex="-1"></a><span class="do">## 59           6.6         2.9          4.6         1.3 versicolor</span></span>
+<span id="cb35-62"><a href="more-base-ics-in-r.html#cb35-62" aria-hidden="true" tabindex="-1"></a><span class="do">## 60           5.2         2.7          3.9         1.4 versicolor</span></span>
+<span id="cb35-63"><a href="more-base-ics-in-r.html#cb35-63" aria-hidden="true" tabindex="-1"></a><span class="do">## 61           5.0         2.0          3.5         1.0 versicolor</span></span>
+<span id="cb35-64"><a href="more-base-ics-in-r.html#cb35-64" aria-hidden="true" tabindex="-1"></a><span class="do">## 62           5.9         3.0          4.2         1.5 versicolor</span></span>
+<span id="cb35-65"><a href="more-base-ics-in-r.html#cb35-65" aria-hidden="true" tabindex="-1"></a><span class="do">## 63           6.0         2.2          4.0         1.0 versicolor</span></span>
+<span id="cb35-66"><a href="more-base-ics-in-r.html#cb35-66" aria-hidden="true" tabindex="-1"></a><span class="do">## 64           6.1         2.9          4.7         1.4 versicolor</span></span>
+<span id="cb35-67"><a href="more-base-ics-in-r.html#cb35-67" aria-hidden="true" tabindex="-1"></a><span class="do">## 65           5.6         2.9          3.6         1.3 versicolor</span></span>
+<span id="cb35-68"><a href="more-base-ics-in-r.html#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="do">## 66           6.7         3.1          4.4         1.4 versicolor</span></span>
+<span id="cb35-69"><a href="more-base-ics-in-r.html#cb35-69" aria-hidden="true" tabindex="-1"></a><span class="do">## 67           5.6         3.0          4.5         1.5 versicolor</span></span>
+<span id="cb35-70"><a href="more-base-ics-in-r.html#cb35-70" aria-hidden="true" tabindex="-1"></a><span class="do">## 68           5.8         2.7          4.1         1.0 versicolor</span></span>
+<span id="cb35-71"><a href="more-base-ics-in-r.html#cb35-71" aria-hidden="true" tabindex="-1"></a><span class="do">## 69           6.2         2.2          4.5         1.5 versicolor</span></span>
+<span id="cb35-72"><a href="more-base-ics-in-r.html#cb35-72" aria-hidden="true" tabindex="-1"></a><span class="do">## 70           5.6         2.5          3.9         1.1 versicolor</span></span>
+<span id="cb35-73"><a href="more-base-ics-in-r.html#cb35-73" aria-hidden="true" tabindex="-1"></a><span class="do">## 71           5.9         3.2          4.8         1.8 versicolor</span></span>
+<span id="cb35-74"><a href="more-base-ics-in-r.html#cb35-74" aria-hidden="true" tabindex="-1"></a><span class="do">## 72           6.1         2.8          4.0         1.3 versicolor</span></span>
+<span id="cb35-75"><a href="more-base-ics-in-r.html#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="do">## 73           6.3         2.5          4.9         1.5 versicolor</span></span>
+<span id="cb35-76"><a href="more-base-ics-in-r.html#cb35-76" aria-hidden="true" tabindex="-1"></a><span class="do">## 74           6.1         2.8          4.7         1.2 versicolor</span></span>
+<span id="cb35-77"><a href="more-base-ics-in-r.html#cb35-77" aria-hidden="true" tabindex="-1"></a><span class="do">## 75           6.4         2.9          4.3         1.3 versicolor</span></span>
+<span id="cb35-78"><a href="more-base-ics-in-r.html#cb35-78" aria-hidden="true" tabindex="-1"></a><span class="do">## 76           6.6         3.0          4.4         1.4 versicolor</span></span>
+<span id="cb35-79"><a href="more-base-ics-in-r.html#cb35-79" aria-hidden="true" tabindex="-1"></a><span class="do">## 77           6.8         2.8          4.8         1.4 versicolor</span></span>
+<span id="cb35-80"><a href="more-base-ics-in-r.html#cb35-80" aria-hidden="true" tabindex="-1"></a><span class="do">## 78           6.7         3.0          5.0         1.7 versicolor</span></span>
+<span id="cb35-81"><a href="more-base-ics-in-r.html#cb35-81" aria-hidden="true" tabindex="-1"></a><span class="do">## 79           6.0         2.9          4.5         1.5 versicolor</span></span>
+<span id="cb35-82"><a href="more-base-ics-in-r.html#cb35-82" aria-hidden="true" tabindex="-1"></a><span class="do">## 80           5.7         2.6          3.5         1.0 versicolor</span></span>
+<span id="cb35-83"><a href="more-base-ics-in-r.html#cb35-83" aria-hidden="true" tabindex="-1"></a><span class="do">## 81           5.5         2.4          3.8         1.1 versicolor</span></span>
+<span id="cb35-84"><a href="more-base-ics-in-r.html#cb35-84" aria-hidden="true" tabindex="-1"></a><span class="do">## 82           5.5         2.4          3.7         1.0 versicolor</span></span>
+<span id="cb35-85"><a href="more-base-ics-in-r.html#cb35-85" aria-hidden="true" tabindex="-1"></a><span class="do">## 83           5.8         2.7          3.9         1.2 versicolor</span></span>
+<span id="cb35-86"><a href="more-base-ics-in-r.html#cb35-86" aria-hidden="true" tabindex="-1"></a><span class="do">## 84           6.0         2.7          5.1         1.6 versicolor</span></span>
+<span id="cb35-87"><a href="more-base-ics-in-r.html#cb35-87" aria-hidden="true" tabindex="-1"></a><span class="do">## 85           5.4         3.0          4.5         1.5 versicolor</span></span>
+<span id="cb35-88"><a href="more-base-ics-in-r.html#cb35-88" aria-hidden="true" tabindex="-1"></a><span class="do">## 86           6.0         3.4          4.5         1.6 versicolor</span></span>
+<span id="cb35-89"><a href="more-base-ics-in-r.html#cb35-89" aria-hidden="true" tabindex="-1"></a><span class="do">## 87           6.7         3.1          4.7         1.5 versicolor</span></span>
+<span id="cb35-90"><a href="more-base-ics-in-r.html#cb35-90" aria-hidden="true" tabindex="-1"></a><span class="do">## 88           6.3         2.3          4.4         1.3 versicolor</span></span>
+<span id="cb35-91"><a href="more-base-ics-in-r.html#cb35-91" aria-hidden="true" tabindex="-1"></a><span class="do">## 89           5.6         3.0          4.1         1.3 versicolor</span></span>
+<span id="cb35-92"><a href="more-base-ics-in-r.html#cb35-92" aria-hidden="true" tabindex="-1"></a><span class="do">## 90           5.5         2.5          4.0         1.3 versicolor</span></span>
+<span id="cb35-93"><a href="more-base-ics-in-r.html#cb35-93" aria-hidden="true" tabindex="-1"></a><span class="do">## 91           5.5         2.6          4.4         1.2 versicolor</span></span>
+<span id="cb35-94"><a href="more-base-ics-in-r.html#cb35-94" aria-hidden="true" tabindex="-1"></a><span class="do">## 92           6.1         3.0          4.6         1.4 versicolor</span></span>
+<span id="cb35-95"><a href="more-base-ics-in-r.html#cb35-95" aria-hidden="true" tabindex="-1"></a><span class="do">## 93           5.8         2.6          4.0         1.2 versicolor</span></span>
+<span id="cb35-96"><a href="more-base-ics-in-r.html#cb35-96" aria-hidden="true" tabindex="-1"></a><span class="do">## 94           5.0         2.3          3.3         1.0 versicolor</span></span>
+<span id="cb35-97"><a href="more-base-ics-in-r.html#cb35-97" aria-hidden="true" tabindex="-1"></a><span class="do">## 95           5.6         2.7          4.2         1.3 versicolor</span></span>
+<span id="cb35-98"><a href="more-base-ics-in-r.html#cb35-98" aria-hidden="true" tabindex="-1"></a><span class="do">## 96           5.7         3.0          4.2         1.2 versicolor</span></span>
+<span id="cb35-99"><a href="more-base-ics-in-r.html#cb35-99" aria-hidden="true" tabindex="-1"></a><span class="do">## 97           5.7         2.9          4.2         1.3 versicolor</span></span>
+<span id="cb35-100"><a href="more-base-ics-in-r.html#cb35-100" aria-hidden="true" tabindex="-1"></a><span class="do">## 98           6.2         2.9          4.3         1.3 versicolor</span></span>
+<span id="cb35-101"><a href="more-base-ics-in-r.html#cb35-101" aria-hidden="true" tabindex="-1"></a><span class="do">## 99           5.1         2.5          3.0         1.1 versicolor</span></span>
+<span id="cb35-102"><a href="more-base-ics-in-r.html#cb35-102" aria-hidden="true" tabindex="-1"></a><span class="do">## 100          5.7         2.8          4.1         1.3 versicolor</span></span>
+<span id="cb35-103"><a href="more-base-ics-in-r.html#cb35-103" aria-hidden="true" tabindex="-1"></a><span class="do">## 101          6.3         3.3          6.0         2.5  virginica</span></span>
+<span id="cb35-104"><a href="more-base-ics-in-r.html#cb35-104" aria-hidden="true" tabindex="-1"></a><span class="do">## 102          5.8         2.7          5.1         1.9  virginica</span></span>
+<span id="cb35-105"><a href="more-base-ics-in-r.html#cb35-105" aria-hidden="true" tabindex="-1"></a><span class="do">## 103          7.1         3.0          5.9         2.1  virginica</span></span>
+<span id="cb35-106"><a href="more-base-ics-in-r.html#cb35-106" aria-hidden="true" tabindex="-1"></a><span class="do">## 104          6.3         2.9          5.6         1.8  virginica</span></span>
+<span id="cb35-107"><a href="more-base-ics-in-r.html#cb35-107" aria-hidden="true" tabindex="-1"></a><span class="do">## 105          6.5         3.0          5.8         2.2  virginica</span></span>
+<span id="cb35-108"><a href="more-base-ics-in-r.html#cb35-108" aria-hidden="true" tabindex="-1"></a><span class="do">## 106          7.6         3.0          6.6         2.1  virginica</span></span>
+<span id="cb35-109"><a href="more-base-ics-in-r.html#cb35-109" aria-hidden="true" tabindex="-1"></a><span class="do">## 107          4.9         2.5          4.5         1.7  virginica</span></span>
+<span id="cb35-110"><a href="more-base-ics-in-r.html#cb35-110" aria-hidden="true" tabindex="-1"></a><span class="do">## 108          7.3         2.9          6.3         1.8  virginica</span></span>
+<span id="cb35-111"><a href="more-base-ics-in-r.html#cb35-111" aria-hidden="true" tabindex="-1"></a><span class="do">## 109          6.7         2.5          5.8         1.8  virginica</span></span>
+<span id="cb35-112"><a href="more-base-ics-in-r.html#cb35-112" aria-hidden="true" tabindex="-1"></a><span class="do">## 110          7.2         3.6          6.1         2.5  virginica</span></span>
+<span id="cb35-113"><a href="more-base-ics-in-r.html#cb35-113" aria-hidden="true" tabindex="-1"></a><span class="do">## 111          6.5         3.2          5.1         2.0  virginica</span></span>
+<span id="cb35-114"><a href="more-base-ics-in-r.html#cb35-114" aria-hidden="true" tabindex="-1"></a><span class="do">## 112          6.4         2.7          5.3         1.9  virginica</span></span>
+<span id="cb35-115"><a href="more-base-ics-in-r.html#cb35-115" aria-hidden="true" tabindex="-1"></a><span class="do">## 113          6.8         3.0          5.5         2.1  virginica</span></span>
+<span id="cb35-116"><a href="more-base-ics-in-r.html#cb35-116" aria-hidden="true" tabindex="-1"></a><span class="do">## 114          5.7         2.5          5.0         2.0  virginica</span></span>
+<span id="cb35-117"><a href="more-base-ics-in-r.html#cb35-117" aria-hidden="true" tabindex="-1"></a><span class="do">## 115          5.8         2.8          5.1         2.4  virginica</span></span>
+<span id="cb35-118"><a href="more-base-ics-in-r.html#cb35-118" aria-hidden="true" tabindex="-1"></a><span class="do">## 116          6.4         3.2          5.3         2.3  virginica</span></span>
+<span id="cb35-119"><a href="more-base-ics-in-r.html#cb35-119" aria-hidden="true" tabindex="-1"></a><span class="do">## 117          6.5         3.0          5.5         1.8  virginica</span></span>
+<span id="cb35-120"><a href="more-base-ics-in-r.html#cb35-120" aria-hidden="true" tabindex="-1"></a><span class="do">## 118          7.7         3.8          6.7         2.2  virginica</span></span>
+<span id="cb35-121"><a href="more-base-ics-in-r.html#cb35-121" aria-hidden="true" tabindex="-1"></a><span class="do">## 119          7.7         2.6          6.9         2.3  virginica</span></span>
+<span id="cb35-122"><a href="more-base-ics-in-r.html#cb35-122" aria-hidden="true" tabindex="-1"></a><span class="do">## 120          6.0         2.2          5.0         1.5  virginica</span></span>
+<span id="cb35-123"><a href="more-base-ics-in-r.html#cb35-123" aria-hidden="true" tabindex="-1"></a><span class="do">## 121          6.9         3.2          5.7         2.3  virginica</span></span>
+<span id="cb35-124"><a href="more-base-ics-in-r.html#cb35-124" aria-hidden="true" tabindex="-1"></a><span class="do">## 122          5.6         2.8          4.9         2.0  virginica</span></span>
+<span id="cb35-125"><a href="more-base-ics-in-r.html#cb35-125" aria-hidden="true" tabindex="-1"></a><span class="do">## 123          7.7         2.8          6.7         2.0  virginica</span></span>
+<span id="cb35-126"><a href="more-base-ics-in-r.html#cb35-126" aria-hidden="true" tabindex="-1"></a><span class="do">## 124          6.3         2.7          4.9         1.8  virginica</span></span>
+<span id="cb35-127"><a href="more-base-ics-in-r.html#cb35-127" aria-hidden="true" tabindex="-1"></a><span class="do">## 125          6.7         3.3          5.7         2.1  virginica</span></span>
+<span id="cb35-128"><a href="more-base-ics-in-r.html#cb35-128" aria-hidden="true" tabindex="-1"></a><span class="do">## 126          7.2         3.2          6.0         1.8  virginica</span></span>
+<span id="cb35-129"><a href="more-base-ics-in-r.html#cb35-129" aria-hidden="true" tabindex="-1"></a><span class="do">## 127          6.2         2.8          4.8         1.8  virginica</span></span>
+<span id="cb35-130"><a href="more-base-ics-in-r.html#cb35-130" aria-hidden="true" tabindex="-1"></a><span class="do">## 128          6.1         3.0          4.9         1.8  virginica</span></span>
+<span id="cb35-131"><a href="more-base-ics-in-r.html#cb35-131" aria-hidden="true" tabindex="-1"></a><span class="do">## 129          6.4         2.8          5.6         2.1  virginica</span></span>
+<span id="cb35-132"><a href="more-base-ics-in-r.html#cb35-132" aria-hidden="true" tabindex="-1"></a><span class="do">## 130          7.2         3.0          5.8         1.6  virginica</span></span>
+<span id="cb35-133"><a href="more-base-ics-in-r.html#cb35-133" aria-hidden="true" tabindex="-1"></a><span class="do">## 131          7.4         2.8          6.1         1.9  virginica</span></span>
+<span id="cb35-134"><a href="more-base-ics-in-r.html#cb35-134" aria-hidden="true" tabindex="-1"></a><span class="do">## 132          7.9         3.8          6.4         2.0  virginica</span></span>
+<span id="cb35-135"><a href="more-base-ics-in-r.html#cb35-135" aria-hidden="true" tabindex="-1"></a><span class="do">## 133          6.4         2.8          5.6         2.2  virginica</span></span>
+<span id="cb35-136"><a href="more-base-ics-in-r.html#cb35-136" aria-hidden="true" tabindex="-1"></a><span class="do">## 134          6.3         2.8          5.1         1.5  virginica</span></span>
+<span id="cb35-137"><a href="more-base-ics-in-r.html#cb35-137" aria-hidden="true" tabindex="-1"></a><span class="do">## 135          6.1         2.6          5.6         1.4  virginica</span></span>
+<span id="cb35-138"><a href="more-base-ics-in-r.html#cb35-138" aria-hidden="true" tabindex="-1"></a><span class="do">## 136          7.7         3.0          6.1         2.3  virginica</span></span>
+<span id="cb35-139"><a href="more-base-ics-in-r.html#cb35-139" aria-hidden="true" tabindex="-1"></a><span class="do">## 137          6.3         3.4          5.6         2.4  virginica</span></span>
+<span id="cb35-140"><a href="more-base-ics-in-r.html#cb35-140" aria-hidden="true" tabindex="-1"></a><span class="do">## 138          6.4         3.1          5.5         1.8  virginica</span></span>
+<span id="cb35-141"><a href="more-base-ics-in-r.html#cb35-141" aria-hidden="true" tabindex="-1"></a><span class="do">## 139          6.0         3.0          4.8         1.8  virginica</span></span>
+<span id="cb35-142"><a href="more-base-ics-in-r.html#cb35-142" aria-hidden="true" tabindex="-1"></a><span class="do">## 140          6.9         3.1          5.4         2.1  virginica</span></span>
+<span id="cb35-143"><a href="more-base-ics-in-r.html#cb35-143" aria-hidden="true" tabindex="-1"></a><span class="do">## 141          6.7         3.1          5.6         2.4  virginica</span></span>
+<span id="cb35-144"><a href="more-base-ics-in-r.html#cb35-144" aria-hidden="true" tabindex="-1"></a><span class="do">## 142          6.9         3.1          5.1         2.3  virginica</span></span>
+<span id="cb35-145"><a href="more-base-ics-in-r.html#cb35-145" aria-hidden="true" tabindex="-1"></a><span class="do">## 143          5.8         2.7          5.1         1.9  virginica</span></span>
+<span id="cb35-146"><a href="more-base-ics-in-r.html#cb35-146" aria-hidden="true" tabindex="-1"></a><span class="do">## 144          6.8         3.2          5.9         2.3  virginica</span></span>
+<span id="cb35-147"><a href="more-base-ics-in-r.html#cb35-147" aria-hidden="true" tabindex="-1"></a><span class="do">## 145          6.7         3.3          5.7         2.5  virginica</span></span>
+<span id="cb35-148"><a href="more-base-ics-in-r.html#cb35-148" aria-hidden="true" tabindex="-1"></a><span class="do">## 146          6.7         3.0          5.2         2.3  virginica</span></span>
+<span id="cb35-149"><a href="more-base-ics-in-r.html#cb35-149" aria-hidden="true" tabindex="-1"></a><span class="do">## 147          6.3         2.5          5.0         1.9  virginica</span></span>
+<span id="cb35-150"><a href="more-base-ics-in-r.html#cb35-150" aria-hidden="true" tabindex="-1"></a><span class="do">## 148          6.5         3.0          5.2         2.0  virginica</span></span>
+<span id="cb35-151"><a href="more-base-ics-in-r.html#cb35-151" aria-hidden="true" tabindex="-1"></a><span class="do">## 149          6.2         3.4          5.4         2.3  virginica</span></span>
+<span id="cb35-152"><a href="more-base-ics-in-r.html#cb35-152" aria-hidden="true" tabindex="-1"></a><span class="do">## 150          5.9         3.0          5.1         1.8  virginica</span></span>
+<span id="cb35-153"><a href="more-base-ics-in-r.html#cb35-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-154"><a href="more-base-ics-in-r.html#cb35-154" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(iris)</span>
+<span id="cb35-155"><a href="more-base-ics-in-r.html#cb35-155" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 150   5</span></span>
+<span id="cb35-156"><a href="more-base-ics-in-r.html#cb35-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-157"><a href="more-base-ics-in-r.html#cb35-157" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span>
+<span id="cb35-158"><a href="more-base-ics-in-r.html#cb35-158" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    150 obs. of  5 variables:</span></span>
+<span id="cb35-159"><a href="more-base-ics-in-r.html#cb35-159" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span id="cb35-160"><a href="more-base-ics-in-r.html#cb35-160" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
+<span id="cb35-161"><a href="more-base-ics-in-r.html#cb35-161" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span id="cb35-162"><a href="more-base-ics-in-r.html#cb35-162" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
+<span id="cb35-163"><a href="more-base-ics-in-r.html#cb35-163" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb35-164"><a href="more-base-ics-in-r.html#cb35-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-165"><a href="more-base-ics-in-r.html#cb35-165" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution statistics in iris data</span></span>
+<span id="cb35-166"><a href="more-base-ics-in-r.html#cb35-166" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span>
+<span id="cb35-167"><a href="more-base-ics-in-r.html#cb35-167" aria-hidden="true" tabindex="-1"></a><span class="do">##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   </span></span>
+<span id="cb35-168"><a href="more-base-ics-in-r.html#cb35-168" aria-hidden="true" tabindex="-1"></a><span class="do">##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  </span></span>
+<span id="cb35-169"><a href="more-base-ics-in-r.html#cb35-169" aria-hidden="true" tabindex="-1"></a><span class="do">##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  </span></span>
+<span id="cb35-170"><a href="more-base-ics-in-r.html#cb35-170" aria-hidden="true" tabindex="-1"></a><span class="do">##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  </span></span>
+<span id="cb35-171"><a href="more-base-ics-in-r.html#cb35-171" aria-hidden="true" tabindex="-1"></a><span class="do">##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  </span></span>
+<span id="cb35-172"><a href="more-base-ics-in-r.html#cb35-172" aria-hidden="true" tabindex="-1"></a><span class="do">##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  </span></span>
+<span id="cb35-173"><a href="more-base-ics-in-r.html#cb35-173" aria-hidden="true" tabindex="-1"></a><span class="do">##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  </span></span>
+<span id="cb35-174"><a href="more-base-ics-in-r.html#cb35-174" aria-hidden="true" tabindex="-1"></a><span class="do">##        Species  </span></span>
+<span id="cb35-175"><a href="more-base-ics-in-r.html#cb35-175" aria-hidden="true" tabindex="-1"></a><span class="do">##  setosa    :50  </span></span>
+<span id="cb35-176"><a href="more-base-ics-in-r.html#cb35-176" aria-hidden="true" tabindex="-1"></a><span class="do">##  versicolor:50  </span></span>
+<span id="cb35-177"><a href="more-base-ics-in-r.html#cb35-177" aria-hidden="true" tabindex="-1"></a><span class="do">##  virginica :50  </span></span>
+<span id="cb35-178"><a href="more-base-ics-in-r.html#cb35-178" aria-hidden="true" tabindex="-1"></a><span class="do">##                 </span></span>
+<span id="cb35-179"><a href="more-base-ics-in-r.html#cb35-179" aria-hidden="true" tabindex="-1"></a><span class="do">##                 </span></span>
+<span id="cb35-180"><a href="more-base-ics-in-r.html#cb35-180" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb35-181"><a href="more-base-ics-in-r.html#cb35-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-182"><a href="more-base-ics-in-r.html#cb35-182" aria-hidden="true" tabindex="-1"></a><span class="co"># There are better ways to do this in the tidyverse</span></span>
+<span id="cb35-183"><a href="more-base-ics-in-r.html#cb35-183" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris<span class="sc">$</span>Sepal.Length[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>])</span>
+<span id="cb35-184"><a href="more-base-ics-in-r.html#cb35-184" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb35-185"><a href="more-base-ics-in-r.html#cb35-185" aria-hidden="true" tabindex="-1"></a><span class="do">##   4.300   4.800   5.000   5.006   5.200   5.800</span></span>
+<span id="cb35-186"><a href="more-base-ics-in-r.html#cb35-186" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris<span class="sc">$</span>Sepal.Length[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>])</span>
+<span id="cb35-187"><a href="more-base-ics-in-r.html#cb35-187" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb35-188"><a href="more-base-ics-in-r.html#cb35-188" aria-hidden="true" tabindex="-1"></a><span class="do">##   4.300   4.800   5.000   5.006   5.200   5.800</span></span>
+<span id="cb35-189"><a href="more-base-ics-in-r.html#cb35-189" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris<span class="sc">$</span>Sepal.Length[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>])</span>
+<span id="cb35-190"><a href="more-base-ics-in-r.html#cb35-190" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb35-191"><a href="more-base-ics-in-r.html#cb35-191" aria-hidden="true" tabindex="-1"></a><span class="do">##   4.300   4.800   5.000   5.006   5.200   5.800</span></span>
+<span id="cb35-192"><a href="more-base-ics-in-r.html#cb35-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-193"><a href="more-base-ics-in-r.html#cb35-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of Petal.Length</span></span>
+<span id="cb35-194"><a href="more-base-ics-in-r.html#cb35-194" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Petal.Length)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div id="loops-if-else" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Loops &amp; <code>if else</code><a href="more-base-ics-in-r.html#loops-if-else" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>tidyverse</code> has gotten rid of some of the need for loops and</p>
+<div id="for-loops" class="section level4 hasAnchor" number="3.1.1.1">
+<h4><span class="header-section-number">3.1.1.1</span> <code>for</code> loops<a href="more-base-ics-in-r.html#for-loops" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Loops in R can be a useful skill to understand. There are functions that are faster than loops, but understanding the mechanics of a loop is useful.</p>
+<p>The general pseudostructure of a loop is as follows:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="more-base-ics-in-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the vector the variable will loop though</span></span>
+<span id="cb36-2"><a href="more-base-ics-in-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> vector) {</span>
+<span id="cb36-3"><a href="more-base-ics-in-r.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Utilize the variable on that iteration of the loop </span></span>
+<span id="cb36-4"><a href="more-base-ics-in-r.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(var)</span>
+<span id="cb36-5"><a href="more-base-ics-in-r.html#cb36-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="more-base-ics-in-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb37-2"><a href="more-base-ics-in-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;loop #&quot;</span>, i))</span>
+<span id="cb37-3"><a href="more-base-ics-in-r.html#cb37-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-4"><a href="more-base-ics-in-r.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 1&quot;</span></span>
+<span id="cb37-5"><a href="more-base-ics-in-r.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 2&quot;</span></span>
+<span id="cb37-6"><a href="more-base-ics-in-r.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 3&quot;</span></span>
+<span id="cb37-7"><a href="more-base-ics-in-r.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 4&quot;</span></span>
+<span id="cb37-8"><a href="more-base-ics-in-r.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 5&quot;</span></span>
+<span id="cb37-9"><a href="more-base-ics-in-r.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 6&quot;</span></span>
+<span id="cb37-10"><a href="more-base-ics-in-r.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 7&quot;</span></span>
+<span id="cb37-11"><a href="more-base-ics-in-r.html#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 8&quot;</span></span>
+<span id="cb37-12"><a href="more-base-ics-in-r.html#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 9&quot;</span></span>
+<span id="cb37-13"><a href="more-base-ics-in-r.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;loop # 10&quot;</span></span></code></pre></div>
+<p>Predict the output of this for loop.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="more-base-ics-in-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;this&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;character&quot;</span>, <span class="st">&quot;vector&quot;</span>)</span>
+<span id="cb38-2"><a href="more-base-ics-in-r.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vector)) {</span>
+<span id="cb38-3"><a href="more-base-ics-in-r.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;loop #&quot;</span>, i))</span>
+<span id="cb38-4"><a href="more-base-ics-in-r.html#cb38-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div id="loop-challenge" class="section level5 hasAnchor" number="3.1.1.1.1">
+<h5><span class="header-section-number">3.1.1.1.1</span> Loop Challenge<a href="more-base-ics-in-r.html#loop-challenge" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>How can you change this loop to make the character strings in the vector print out like below</p>
+<pre><code>## [1] &quot;loop # 1&quot;
+## [1] &quot; hello&quot;
+## [1] &quot;loop # 2&quot;
+## [1] &quot; hello this&quot;
+## [1] &quot;loop # 3&quot;
+## [1] &quot; hello this is&quot;
+## [1] &quot;loop # 4&quot;
+## [1] &quot; hello this is a&quot;
+## [1] &quot;loop # 5&quot;
+## [1] &quot; hello this is a character&quot;
+## [1] &quot;loop # 6&quot;
+## [1] &quot; hello this is a character vector&quot;</code></pre>
+<p>Click for <a href="challenge-solutions.html#loop">Loop</a> Challenge Solution</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="first-principles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

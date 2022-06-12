@@ -14,12 +14,13 @@ documentclass: book
 
 ```{r setup, include = FALSE}
 # Don't show a comment marker in the output
-knitr::opts_chunk$set(comment = "", collapse = TRUE)
+knitr::opts_chunk$set(comment = "##", 
+                      collapse = TRUE)
 ```
 
 # **Data Science Workshop** {-}
 
-![](~/R/r_intro/_book/r_fly.jpg)
+![](~/R/r_intro/r_fly.jpg)
 
 # **Introduction**
 
@@ -1453,7 +1454,7 @@ mdh_df %>%
 
 # **Workshop Part II**
 
-![Under construction](~/R/r_intro/_book/construction.jpeg)
+![Under construction](~/R/r_intro/construction.jpeg)
 
 ## Review fundamentals
 

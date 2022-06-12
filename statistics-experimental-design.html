@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Data Science Workshop</title>
+  <title>7 Statistics &amp; experimental design | UVM ThermoFly REU Crew</title>
   <meta name="description" content="An incomplete introductory workshop to data science and R." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data Science Workshop" />
+  <meta property="og:title" content="7 Statistics &amp; experimental design | UVM ThermoFly REU Crew" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Science Workshop" />
+  <meta name="twitter:title" content="7 Statistics &amp; experimental design | UVM ThermoFly REU Crew" />
   
   <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="data-visualization.html"/>
+<link rel="next" href="creating-a-script.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="section.html#section"></a></li>
+<li class="chapter" data-level="" data-path="data-science-workshop.html"><a href="data-science-workshop.html"><i class="fa fa-check"></i><strong>Data Science Workshop</strong></a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> <strong>Introduction</strong></a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#goals"><i class="fa fa-check"></i><b>1.1</b> Goals</a></li>
@@ -296,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science Workshop</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">UVM ThermoFly REU Crew</a>
           </h1>
         </div>
 
@@ -304,23 +304,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Data Science Workshop</h1>
-<h2 class="subtitle"><em>UVM ThermoFly REU Crew</em></h2>
-<p class="author"><em>TS O’Leary</em></p>
-<p class="date"><em>Summer 2022</em></p>
+<div id="statistics-experimental-design" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> <strong>Statistics &amp; experimental design</strong><a href="statistics-experimental-design.html#statistics-experimental-design" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This book is going to assume some solid base knowledge of statistics. If your memory is a bit fuzzy on the details, there are plenty of resources available that discuss statistics in a more formal and informative manner.</p>
+<p>If you are relatively new to statistics, I encourage you to take a course on it.</p>
+<p>Check out these resources:</p>
+<ul>
+<li><a href="http://www.biostathandbook.com/index.html">Handbook of Biological Statistics</a> – covers
+<ul>
+<li><a href="https://rcompanion.org/rcompanion/">R Companion for the Handbook of Biological Statiscs</a></li>
+</ul></li>
+<li><a href="https://learningstatisticswithr.com/book/">Learning statistics with R</a> – this book is written from a physcology or social science sort of lens. But it is immensely useful and clear.</li>
+</ul>
+<p>It is important to note that statistics and hypothesis tests are only as valuable or informative as your experimental design allows.</p>
+<p>It is similarly true then that you can obtain a p-value or a result about</p>
+<div id="pca" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> PCA<a href="statistics-experimental-design.html#pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="section" class="section level1 unnumbered">
-<h1 class="unnumbered"></h1>
-<p><img src="r_fly.jpg" /></p>
+<div id="hypothesis-tests" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Hypothesis tests<a href="statistics-experimental-design.html#hypothesis-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="t-test" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> t-test<a href="statistics-experimental-design.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="analysis-of-variance" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Analysis of Variance<a href="statistics-experimental-design.html#analysis-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="rnorm" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> <code>rnorm()</code><a href="statistics-experimental-design.html#rnorm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>rnorm()</code> function draws a <code>x</code> amount random numbers from a normal distribution with a specific mean and standard deviation.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="statistics-experimental-design.html#cb77-1" aria-hidden="true" tabindex="-1"></a>?rnorm</span>
+<span id="cb77-2"><a href="statistics-experimental-design.html#cb77-2" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">7</span>)</span>
+<span id="cb77-3"><a href="statistics-experimental-design.html#cb77-3" aria-hidden="true" tabindex="-1"></a>dist</span>
+<span id="cb77-4"><a href="statistics-experimental-design.html#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   [1] 12.9951563 21.3219139 14.2739025 12.1211996  7.9097542  7.3548736</span></span>
+<span id="cb77-5"><a href="statistics-experimental-design.html#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   [7] 16.2982620  6.9142934 19.3873011 17.1235069 14.0932212  8.9910528</span></span>
+<span id="cb77-6"><a href="statistics-experimental-design.html#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [13] 19.4396998 13.1928529 17.0590773 19.5725098 18.1768433 14.3985363</span></span>
+<span id="cb77-7"><a href="statistics-experimental-design.html#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  [19] 19.6809135 11.4461953 15.4071202 11.7713083 25.5571346 15.7383442</span></span>
+<span id="cb77-8"><a href="statistics-experimental-design.html#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [25] 14.4422564 20.2159713 14.7220759 23.7584465 26.3286855 14.4475202</span></span>
+<span id="cb77-9"><a href="statistics-experimental-design.html#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [31]  8.0257752 17.4713980 11.1240162 23.5126715  9.9369455 15.8246660</span></span>
+<span id="cb77-10"><a href="statistics-experimental-design.html#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [37] 22.1490880  2.7176095 17.3523973 18.0184551 19.8997466 12.8317715</span></span>
+<span id="cb77-11"><a href="statistics-experimental-design.html#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [43] 16.1405501  7.7154446 14.5222248  6.1979212 12.5110730 13.9165368</span></span>
+<span id="cb77-12"><a href="statistics-experimental-design.html#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [49]  4.0797621 13.2393781 17.6072869 14.3217539 18.7082429 20.9855039</span></span>
+<span id="cb77-13"><a href="statistics-experimental-design.html#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [55] 14.6518770 12.1413067 18.0152114 27.6122070 13.6963385 15.6355773</span></span>
+<span id="cb77-14"><a href="statistics-experimental-design.html#cb77-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [61] 16.6065282 15.6899281 18.7342617 12.3917507 17.5085046  9.0658868</span></span>
+<span id="cb77-15"><a href="statistics-experimental-design.html#cb77-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [67] 17.2694543 13.6483745 23.0884102 12.9707126 33.2312356 -1.6238305</span></span>
+<span id="cb77-16"><a href="statistics-experimental-design.html#cb77-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [73]  4.9165259 23.5467722 18.2112449 10.8623669  8.3406605 19.5659326</span></span>
+<span id="cb77-17"><a href="statistics-experimental-design.html#cb77-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [79] 21.1007869 17.1732600 17.8835549 23.2254855 15.8540302 -2.5020671</span></span>
+<span id="cb77-18"><a href="statistics-experimental-design.html#cb77-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  [85]  7.8885887 21.4881619 11.0748024 27.1066930 23.8969878 22.4149728</span></span>
+<span id="cb77-19"><a href="statistics-experimental-design.html#cb77-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  [91] 11.8482771 20.3980304 17.1622574 -2.7252716 19.0743648 10.7214652</span></span>
+<span id="cb77-20"><a href="statistics-experimental-design.html#cb77-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  [97] 10.7465378 15.5432931  4.9317698  0.2641039</span></span>
+<span id="cb77-21"><a href="statistics-experimental-design.html#cb77-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-22"><a href="statistics-experimental-design.html#cb77-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the mean and median</span></span>
+<span id="cb77-23"><a href="statistics-experimental-design.html#cb77-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dist)</span>
+<span id="cb77-24"><a href="statistics-experimental-design.html#cb77-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 15.03297</span></span>
+<span id="cb77-25"><a href="statistics-experimental-design.html#cb77-25" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(dist)</span>
+<span id="cb77-26"><a href="statistics-experimental-design.html#cb77-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 15.58944</span></span>
+<span id="cb77-27"><a href="statistics-experimental-design.html#cb77-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-28"><a href="statistics-experimental-design.html#cb77-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Get multiple summary stats</span></span>
+<span id="cb77-29"><a href="statistics-experimental-design.html#cb77-29" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dist)</span>
+<span id="cb77-30"><a href="statistics-experimental-design.html#cb77-30" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb77-31"><a href="statistics-experimental-design.html#cb77-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  -2.725  11.690  15.589  15.033  19.153  33.231</span></span>
+<span id="cb77-32"><a href="statistics-experimental-design.html#cb77-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-33"><a href="statistics-experimental-design.html#cb77-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Save summary stats as an object</span></span>
+<span id="cb77-34"><a href="statistics-experimental-design.html#cb77-34" aria-hidden="true" tabindex="-1"></a>sum_dist <span class="ot">&lt;-</span> <span class="fu">summary</span>(dist)</span>
+<span id="cb77-35"><a href="statistics-experimental-design.html#cb77-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-36"><a href="statistics-experimental-design.html#cb77-36" aria-hidden="true" tabindex="-1"></a>sum_dist</span>
+<span id="cb77-37"><a href="statistics-experimental-design.html#cb77-37" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb77-38"><a href="statistics-experimental-design.html#cb77-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  -2.725  11.690  15.589  15.033  19.153  33.231</span></span></code></pre></div>
+<p>You can explore, save, or extract specific elements of <code>sum_dist</code>.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="statistics-experimental-design.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check out the properties of sum_dist object</span></span>
+<span id="cb78-2"><a href="statistics-experimental-design.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum_dist)</span>
+<span id="cb78-3"><a href="statistics-experimental-design.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;summaryDefault&quot; &quot;table&quot;</span></span>
+<span id="cb78-4"><a href="statistics-experimental-design.html#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(sum_dist)</span>
+<span id="cb78-5"><a href="statistics-experimental-design.html#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span>
+<span id="cb78-6"><a href="statistics-experimental-design.html#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sum_dist)</span>
+<span id="cb78-7"><a href="statistics-experimental-design.html#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Min.&quot;    &quot;1st Qu.&quot; &quot;Median&quot;  &quot;Mean&quot;    &quot;3rd Qu.&quot; &quot;Max.&quot;</span></span>
+<span id="cb78-8"><a href="statistics-experimental-design.html#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="statistics-experimental-design.html#cb78-9" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways to index this object</span></span>
+<span id="cb78-10"><a href="statistics-experimental-design.html#cb78-10" aria-hidden="true" tabindex="-1"></a>sum_dist[<span class="st">&quot;Mean&quot;</span>] </span>
+<span id="cb78-11"><a href="statistics-experimental-design.html#cb78-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     Mean </span></span>
+<span id="cb78-12"><a href="statistics-experimental-design.html#cb78-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 15.03297</span></span>
+<span id="cb78-13"><a href="statistics-experimental-design.html#cb78-13" aria-hidden="true" tabindex="-1"></a>sum_dist[<span class="dv">4</span>]</span>
+<span id="cb78-14"><a href="statistics-experimental-design.html#cb78-14" aria-hidden="true" tabindex="-1"></a><span class="do">##     Mean </span></span>
+<span id="cb78-15"><a href="statistics-experimental-design.html#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 15.03297</span></span>
+<span id="cb78-16"><a href="statistics-experimental-design.html#cb78-16" aria-hidden="true" tabindex="-1"></a>sum_dist[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb78-17"><a href="statistics-experimental-design.html#cb78-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   Median     Mean </span></span>
+<span id="cb78-18"><a href="statistics-experimental-design.html#cb78-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 15.58944 15.03297</span></span></code></pre></div>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="creating-a-script.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

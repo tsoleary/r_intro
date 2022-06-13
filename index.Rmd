@@ -14,7 +14,7 @@ documentclass: book
 
 ```{r setup, include = FALSE}
 # Don't show a comment marker in the output
-knitr::opts_chunk$set(comment = "##", 
+knitr::opts_chunk$set(comment = "#", 
                       collapse = TRUE)
 ```
 
@@ -40,6 +40,14 @@ knitr::opts_chunk$set(comment = "##",
 4.  Statistics & experimental design
 5.  Build something fun
 
+### Notes
+
+  - We have four morning sessions to cover the material in Part I. 
+  - Please, ask questions as we go along. 
+  - Exactly how much of this material we are able to cover will depend on the pace that we work through this -- but we don't have to get to all of it -- that is why having this tutorial will be useful.
+  - There will be short exercises that I have called challenges that we will do along the way. The best way to learn R is through doing it, so these sorts of exercises are essential.
+  - We will take at least a 5 minute break every hour. 
+
 ## Disclaimer
 
 > Opinions are like assholes. Everyone has them and they all stink... Except, obviously, for my opinions, which are unmatched in the quality of fragrance. -- Thomas Samuel O'Leary
@@ -52,18 +60,18 @@ Very little -- if any -- of this workshop is uniquely mine. Instead, I have basi
 
 ## Alternative resources
 
-  - [Google](https://www.google.com/) -- when in doubt, Google it out
-  - [R for data science](https://r4ds.had.co.nz/index.html) -- a wonderfully thorough and useful book that emphasizes the tidyverse
-  - [R for Graduate Students](https://bookdown.org/yih_huynh/Guide-to-R-Book/) -- very accessible introduction to R & the tidyverse
-  - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) -- fun take on learning mostly base R
-  - [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) -- "A guide to making visualizations that accurately reflect the data, tell a story, and look professional." by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.
-  - [Advanced R](https://adv-r.hadley.nz/index.html) -- R with the nitty-gritty details for the super nerds out there.
-  - [`ggplot2` book](https://ggplot2-book.org/) -- detailed introduction to plotting with `ggplot2`
-  - [Learning Statistics with R](https://learningstatisticswithr.com/book/) -- there is also a [newer version](http://tidylsr.djnavarro.net/index.html) that is in development that emphasizes the tidyverse.
-  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) -- great overview of the features of R Markdown
-  - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) -- additional R Markdown guide
-  - [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) -- resource for version control
-  - [Nick Gotelli's Computational Biology](https://gotellilab.github.io/Bio381/) -- a wonderful course on R taught by Nick Gotelli at UVM. Shout out to TA Lauren Ash.
+  - [Google](https://www.google.com/){target="_blank"} -- when in doubt, Google it out
+  - [R for data science](https://r4ds.had.co.nz/index/){target="_blank"} -- a wonderfully thorough and useful book that emphasizes the tidyverse
+  - [R for Graduate Students](https://bookdown.org/yih_huynh/Guide-to-R-Book/){target="_blank"} -- very accessible introduction to R & the tidyverse
+  - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/){target="_blank"} -- fun take on learning mostly base R
+  - [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/){target="_blank"} -- "A guide to making visualizations that accurately reflect the data, tell a story, and look professional." by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.
+  - [Advanced R](https://adv-r.hadley.nz/index/){target="_blank"} -- R with the nitty-gritty details for the super nerds out there.
+  - [`ggplot2` book](https://ggplot2-book.org/){target="_blank"} -- detailed introduction to plotting with `ggplot2`
+  - [Learning Statistics with R](https://learningstatisticswithr.com/book/){target="_blank"} -- there is also a [newer version](http://tidylsr.djnavarro.net/index/){target="_blank"} that is in development that emphasizes the tidyverse.
+  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/){target="_blank"} -- great overview of the features of R Markdown
+  - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/){target="_blank"} -- additional R Markdown guide
+  - [Happy Git and GitHub for the useR](https://happygitwithr.com/index/){target="_blank"} -- resource for version control
+  - [Nick Gotelli's Computational Biology](https://gotellilab.github.io/Bio381/){target="_blank"} -- a wonderful course on R taught by Nick Gotelli at UVM.
   
 
 ## Stolen advice
@@ -92,8 +100,8 @@ If coding is like painting, then you can think of _R_ as the raw materials -- pr
 
 ### Download links
 
--   [R](https://www.r-project.org/)
--   [RStudio](https://www.rstudio.com/products/rstudio/download/)
+-   [R](https://www.r-project.org/){target="_blank"}
+-   [RStudio](https://www.rstudio.com/products/rstudio/download/){target="_blank"}
 
 ## Let's start coding
 
@@ -106,7 +114,7 @@ RStudio has four main panels: (i) source, (ii) console (iii) environment & histo
   - The **environment** shows objects that you have assigned or added to your working space. **History** shows previously executed code. 
   - **Files** shows the directories (_i.e._ folders) on your computer. **Plots** is where your plots will be visualized. **Packages** and **Help** tabs give you useful documentation related to packages and functions, _etc._
   
-I like to use [RStudio projects](https://r4ds.had.co.nz/workflow-projects.html) to store my data, scripts, results, and figures. This helps keep a good directory structure^[Obviously, the project itself does not create this orderly directory structure, but it just fosters the environment where you can build a good directory structure.] -- example below -- so that everything related to the project is in the same place in an orderly fashion.
+I like to use [RStudio projects](https://r4ds.had.co.nz/workflow-projects/){target="_blank"} to store my data, scripts, results, and figures. This helps keep a good directory structure^[Obviously, the project itself does not create this orderly directory structure, but it just fosters the environment where you can build a good directory structure.] -- example below -- so that everything related to the project is in the same place in an orderly fashion.
 
 > Save your files with useful names in an ordered nested directory structure.
 >    -   `project_name/scripts/load_clean_data.R`
@@ -468,6 +476,10 @@ plot(df$x, df$x_2)
 
 We will get into this in much more detail in the [Data Visualization] section of the workshop!
 
+# **More `base`-ics in R**
+
+When I am coding for myself, I am often using the `tidyverse` and other packages built specifically for the task I am trying to do. But there is some reason to think that jumping directly into teaching the `tidyverse` to new coders is [a bad idea](https://github.com/matloff/TidyverseSkeptic). I learned the principles of `base` R first, and have found them immensely helpful -- so we will spend a bit more time exploring those principles before we jump into the `tidyverse`.
+
 ## Guinea pigs' tooth growth
 
 R comes with a bunch of built in data sets that are useful to explore when learning R, and also when sharing a question in R with a [minimal reproducible example (MRE)](https://stackoverflow.com/help/minimal-reproducible-example).
@@ -528,7 +540,7 @@ Let's take a moment to stop and talk about functions.
 
 Functions are the workhorse of R! They can group, average, model, and plot data -- and just about anything else. We have already used a bunch of them -- `mean`, `summary`, `length`.
 
-The vast majority of functions that you will use have already been created by other programmers and are available in `base` R or via other packages that can be be downloaded through [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/)^[As of June 6, 2022, there are 18,641 packages available through CRAN], which maintains R, or other alternative archives like [Bioconductor](https://www.bioconductor.org/)^[2,140 packages on Bioconductor as of June 6, 2022.], which has a bunch of great bioinformatic specific packages.
+The vast majority of functions that you will use have already been created by other programmers and are available in `base` R or via other packages that can be be downloaded through [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/){target="_blank"}^[As of June 6, 2022, there are 18,641 packages available through CRAN], which maintains R, or other alternative archives like [Bioconductor](https://www.bioconductor.org/){target="_blank"}^[2,140 packages on Bioconductor as of June 6, 2022.], which has a bunch of great bioinformatic specific packages.
 
 Occasionally, you will find that you are doing a specific task several times over and are copy-and-pasting code and only changing a few variables at a time. When you find yourself doing this, it is best to stop and build a function -- or even better -- you should look to see if one already exists. Using functions for repeated tasks will enhance the readability and reproducibility of your code. 
 
@@ -612,12 +624,12 @@ fancy_math_eqn(y = 3, x = 4)
 ```
 
 
-#### **Favorite Equation Challenge**
+#### Favorite Equation Challenge
 
 Create a function that performs your favorite equation!
 
 
-#### **Hello Challenge** {.tabset .tabset-pills}
+#### Hello Challenge
 
 Alter the original `hello_world()` function, to create a new function `hello_world_name()` that takes a name as an argument and has the following desired behavior.
 
@@ -666,9 +678,9 @@ hello_world <- function() {
 
 Click [Hello] for solution.
 
-# **More `base`-ics in R**
+## `base` R functions. 
 
-When I am coding for myself, I am often using the `tidyverse` and other packages built specifically for the task I am trying to do. But there is some reason to think that jumping directly into teaching the `tidyverse` to new coders is [a bad idea](https://github.com/matloff/TidyverseSkeptic). I learned the principles of `base` R first, and have found them immensely helpful -- so we will spend a bit more time exploring those principles before we jump into the `tidyverse`.
+
 
 There are a bunch of functions that come by default with R in the `base` package.
 
@@ -699,30 +711,6 @@ These are super useful functions with which to get acquainted -- because it is i
 Use the `data()` function in the console to explore the pre-loaded R data sets. Look at the data. Try to extract some useful information. Number of observations in each group. Average values for the dependent variables. Distribution of the data. Use some of the skills we have learned so far to do this. And feel free to Google and add a few skills to your toolbox along the way.
 
 [Freeform] Solution Example
-
-
-## Freeform
-
-Exploring the `iris` data set
-
-```{r}
-iris
-
-dim(iris)
-
-str(iris)
-
-# Distribution statistics in iris data
-summary(iris)
-
-# There are better ways to do this in the tidyverse
-summary(iris$Sepal.Length[iris$Species == "setosa"])
-summary(iris$Sepal.Length[iris$Species == "setosa"])
-summary(iris$Sepal.Length[iris$Species == "setosa"])
-
-# Histogram of Petal.Length
-hist(iris$Petal.Length)
-```
 
 ### Loops & `if else`
 
@@ -775,6 +763,56 @@ for (i in 1:length(vector)) {
 
 Click for [Loop] Challenge Solution
 
+#### `if ... else`
+
+It is important to know that you can program so that your code does something specific under one set of conditions and something else under another set of conditions.
+
+One way to do that is to use `if ... else` statements
+
+```{r}
+# Set random value
+set.seed(4)
+x <- rnorm(1)
+x
+
+# Print if positive number
+if (x > 0) {
+  print("Positive number")
+}
+```
+
+You can make more complicated statements with the addition of else
+
+```{r}
+# Set random value
+set.seed(1)
+x <- rnorm(1)
+x
+
+# Print if positive number
+if (x > 0) {
+  print("Positive number")
+} else {
+  print("Negative number")
+}
+```
+
+But wait what if `x` equals exactly zero -- relatively unlikely with a rnorm to get exactly `0` but it is not impossible and in this case you would misidentify zero as a negative number -- you can add another `if` statement to capture that possibility.
+
+```{r}
+# Set random value
+x <- 0
+x
+
+# Print if positive number
+if (x > 0) {
+  print("Positive number")
+} else if (x == 0) {
+  print("Zero")
+} else {
+  print("Negative number")
+}
+```
 
 # **Tidyverse**
 
@@ -823,9 +861,9 @@ help(package = dplyr)
 
 ## `tidyverse`-specific resources
 
--   [tidyverse website](https://www.tidyverse.org/) -- poke around this website and you can stumble on some good stuff
--   [The tidy tools manifesto](https://mran.microsoft.com/web/packages/tidyverse/vignettes/manifesto.html) -- who doesn't love a good manifesto? My favorite part of the tidyverse is the final principle, which is: 4. Design for humans. "Programs must be written for people to read, and only incidentally for machines to execute." --- Hal Abelson
--   [The tidyverse style guide](https://style.tidyverse.org/index.html) -- "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread." Honestly, I think that joke vastly underestimates how important it is to have good coding style. You can actually read "butitsuremakesthingseasiertoread" pretty easily because you are an **expert** reader -- you've been at it every day for years, maybe decades -- coding, not so much. I don't think can overstate how important I think it is to write visually pleasing code. It is good practice for your future self as much as it is for your collaborators.
+-   [tidyverse website](https://www.tidyverse.org/){target="_blank"} -- poke around this website and you can stumble on some good stuff
+-   [The tidy tools manifesto](https://mran.microsoft.com/web/packages/tidyverse/vignettes/manifesto/){target="_blank"} -- who doesn't love a good manifesto? My favorite part of the tidyverse is the final principle, which is: 4. Design for humans. "Programs must be written for people to read, and only incidentally for machines to execute." --- Hal Abelson
+-   [The tidyverse style guide](https://style.tidyverse.org/index/){target="_blank"} -- "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread." Honestly, I think that joke vastly underestimates how important it is to have good coding style. You can actually read "butitsuremakesthingseasiertoread" pretty easily because you are an **expert** reader -- you've been at it every day for years, maybe decades -- coding, not so much. I don't think can overstate how important I think it is to write visually pleasing code. It is good practice for your future self as much as it is for your collaborators.
 
 ### Cheat sheets^[Warning: I have downloaded these cheat sheets and saved them for my quick access, but they may not be the most current version of the cheat sheet.]
 
@@ -848,7 +886,7 @@ help(package = dplyr)
 
 ## Tidy data
 
-The tidyverse gets its name from the type of data that it is designed to interact with -- **tidy data**. So let's quickly define [tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
+The tidyverse gets its name from the type of data that it is designed to interact with -- **tidy data**. So let's quickly define [tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data/){target="_blank"}.
 
 1.  Every column is a variable.
 2.  Every row is an observation.
@@ -897,25 +935,11 @@ iris %>%
 
 Click for [Tidy `iris`] solultion.
 
-```{r}
-# Correlation b/w sepal width and length
-iris %>%
-  ggplot(aes(x = Sepal.Width, y = Sepal.Length)) +
-  geom_point()
-
-# Correlation b/w petal width and length
-iris %>%
-  ggplot(aes(x = Petal.Width, y = Petal.Length)) +
-  geom_point()
-```
-
-# **Wrangling data**
-
 ## `dplyr` functions
 
 `dplyr` has a few core functions that help organize, and analyse
 
-Taken from the [`dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html).
+Taken from the [`dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr/){target="_blank"}.
 
 ### Rows
 
@@ -938,7 +962,7 @@ Taken from the [`dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/
 
 The `%>%` operator is called a pipe and it basically works by taking what is on the left of the pipe and inserting it as the first argument on the function on the right.
 
-For example, from the [`magrittr`](https://magrittr.tidyverse.org/index.html) page:
+For example, from the [`magrittr`](https://magrittr.tidyverse.org/index/){target="_blank"} page:
 
 -   `x %>% f` is equivalent to `f(x)`
 -   `x %>% f(y)` is equivalent to `f(x, y)`
@@ -949,7 +973,7 @@ Sometimes for functions with multiple arguments it is necessary to pipe the left
 -   `x %>% f(y, .)` is equivalent to `f(y, x)`
 -   `x %>% f(y, z = .)` is equivalent to `f(y, z = x)`
 
-### A fun example from [R for data science](https://r4ds.had.co.nz/pipes.html)
+### A fun example from [R for data science](https://r4ds.had.co.nz/pipes/){target="_blank"}
 
 There are a few ways to run multi-line code
 
@@ -1061,59 +1085,56 @@ mdh_df %>%
             sd = sd(iu_gfw))
 ```
 
-## CHALLENGE TIME WITH TIDYVERSE DATA
+## `iris` group challenge
 
-```{r}
-# This order works because it collapses the data into a mean last
-mdh_df %>%
-  group_by(tissue) %>%
-  summarise(sd = sd(iu_gfw),
-            iu_gfw = mean(iu_gfw))
-```
+Use what you have just learned of the `tidyverse` package to calculate the group averages for the `iris` data.
 
-
-
-
+Click for [Iris groupo ]
 
 # **Data Visualization**
 
-There are a two main types of data visualization: (i) **exploratory** and (ii) **expository**. In exploratory data visualization, you are just checking out your data -- you just want to see what it looks like -- you are just making something for yourself or close collaborators. It is okay for these graphics to be imperfect, but they still must be unambiguous. However, in expository data visualization, you already know the main takeaways of your results, and therefore, you are attempting to describe something specific to your audience. This is an entirely different skill and requires a draft and revision process. 
+There are a two main types of data visualization: (i) **exploratory** and (ii) **expository**. In exploratory data visualization, you are just checking out your data -- you just want to see what it looks like -- you are just making something for yourself or close collaborators. It is okay for these graphics to be imperfect, but they still must be unambiguous. However, in expository data visualization, you already know the main take-aways of your results, and therefore, you are attempting to describe something specific to your audience. This is an entirely different skill and requires a draft and revision process, so that your take-away message is clear. In this tutorial, we will talk a little about both types of data visualization.
 
-In this tutorial we will talk a little about both types of data visualization.
+## Fundamentals of Data Visualization
 
-However, when you are sharing your final data with others (_e.g._ in a manuscript, poster, or presentation). You should take the extra time to 
+I cannot recommend the [Fundamentals of Data Visualization](Fundamentals of Data Visualization) enough. The first two paragraphs excerpted below:
 
-## Principles of Data Visualization
+> Data visualization is part art and part science. The challenge is to get the art right without getting the science wrong and vice versa. A data visualization first and foremost has to accurately convey the data. It must not mislead or distort. If one number is twice as large as another, but in the visualization they look to be about the same, then the visualization is wrong. At the same time, a data visualization should be aesthetically pleasing. Good visual presentations tend to enhance the message of the visualization. If a figure contains jarring colors, imbalanced visual elements, or other features that distract, then the viewer will find it harder to inspect the figure and interpret it correctly.
+In my experience, scientists frequently (though not always!) know how to visualize data without being grossly misleading. However, they may not have a well developed sense of visual aesthetics, and they may inadvertantly make visual choices that detract from their desired message. Designers, on the other hand, may prepare visualizations that look beautiful but play fast and loose with the data. It is my goal to provide useful information to both groups.
 
-I cannot recommend the 
+When you are creating a visualization of your data it is important to know that there are [many types of visualizations from which you can choose](https://clauswilke.com/dataviz/directory-of-visualizations/){target="_blank"}.
 
-> Data visualization is part art and part science. The challenge is to get the art right without getting the science wrong and vice versa. A data visualization first and foremost has to accurately convey the data. It must not mislead or distort. If one number is twice as large as another, but in the visualization they look to be about the same, then the visualization is wrong. At the same time, a data visualization should be aesthetically pleasing. Good visual presentations tend to enhance the message of the visualization. If a figure contains jarring colors, imbalanced visual elements, or other features that distract, then the viewer will find it harder to inspect the figure and interpret it correctly. \newline\newline In my experience, scientists frequently (though not always!) know how to visualize data without being grossly misleading. However, they may not have a well developed sense of visual aesthetics, and they may inadvertantly make visual choices that detract from their desired message. Designers, on the other hand, may prepare visualizations that look beautiful but play fast and loose with the data. It is my goal to provide useful information to both groups.
-
-### Principles of story telling
+This the first step of data visualization -- choosing the right visualization. I think this is best done the old fashioned way -- with a pen and a paper. You write down the various variables and factors involved in your experimental design -- and then sketch a figure of your results as if your experiment has supported your alternative hypothesis.
 
 ## `ggplot2`
 
-The `ggplot2` package is likely one of the most popular packages in R. It is actually the reason why some researchers use R -- to make publication-ready figures. 
+The `ggplot2` package is likely one of the most popular packages in R. It is actually the reason why some researchers use R -- to make publication-ready figures. `ggplot2` gets its name from the "Grammer of Graphics".
 
-For a complete introduction to `ggplot2`, check out the [`ggplot2`: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html) book.
+> For a complete introduction to `ggplot2`, check out the [`ggplot2`: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index/){target="_blank"} book.
 
 `ggplot2` creates things in a specific order of layers.
 
-We will bve
+For now, it is important to note that the plots within `ggplot2` are made up of data and mapping -- which is to say the actually data-stuff you want to plot, and then the code of how you want it to look. There are a several things that go into [the aesthetic mapping](https://ggplot2-book.org/introduction/){target="_blank"}, but we will talk about them as they come up.
+
+We are going to use the `starwars` built-in data set to explore some plotting.
 
 ```{r}
+# Check out the starwars data
 glimpse(starwars)
 ```
 
+### Height
+
 ```{r}
+# Height of Star Wars characters by sex
 starwars %>%
   ggplot(aes(x = sex, y = height)) +
-  geom_point() +
   geom_boxplot() +
   theme_classic()
 ```
 
 ```{r}
+# Included the individual points on top
 starwars %>%
   ggplot(aes(x = sex, y = height)) +
   geom_boxplot() +
@@ -1148,6 +1169,8 @@ starwars %>%
   theme_classic()
 ```
 
+Violin plots can be a useful way to add information to your plot.
+
 ```{r}
 starwars %>%
   filter(sex %in% c("male", "female")) %>%
@@ -1159,6 +1182,8 @@ starwars %>%
                color = "grey20") +
   theme_classic()
 ```
+
+### Distribution of birth year
 
 ```{r}
 starwars %>%
@@ -1194,6 +1219,8 @@ starwars %>%
   theme_classic()
 ```
 
+### Height & Mass
+
 ```{r}
 starwars %>%
   filter(mass < 1000) %>%
@@ -1224,6 +1251,10 @@ starwars %>%
              shape = 21) +
   theme_classic()
 ```
+
+## Plotly
+
+There are packages that allow for interactive visualization on a webpage. For example [`plotly` is pretty cool](https://plotly.com/r/getting-started/){target="_blank"}!
 
 ```{r}
 starwars_h <- starwars %>%
@@ -1261,6 +1292,9 @@ p
 plotly::ggplotly(p, text = "text")
 ```
 
+You can also call out the specific names of characters with things like [the `ggrepel` package](https://ggrepel.slowkow.com/articles/examples/){target="_blank"}.
+
+
 ```{r}
 friends <- c("Luke Skywalker", 
              "Leia Organa",
@@ -1288,72 +1322,83 @@ ggplot() +
   theme_classic()
 ```
 
+## Star Wars Challenge
+
+Take any data from the `starwars` data frame and make a compelling final figure. You should include units on axes, change the theme, make the legend useful, use a good color scheme, and any other changes you think will make it better.
+
+We will meet back and talk about the figures together.
+
 # **Statistics & experimental design**
 
-This book is going to assume some solid base knowledge of statistics. If your memory is a bit fuzzy on the details, there are plenty of resources available that discuss statistics in a more formal and informative manner. 
+In this workshop I am going to assume some solid base knowledge of statistics. If your memory is a bit fuzzy on the details, there are plenty of resources available that discuss statistics in a more formal and informative manner. 
 
-If you are relatively new to statistics, I encourage you to take a course on it.
+## Resources
 
-Check out these resources:
+  - [Handbook of Biological Statistics](http://www.biostathandbook.com/index/){target="_blank"} -- covers 
+    - [R Companion for the Handbook of Biological Statiscs](https://rcompanion.org/rcompanion/){target="_blank"}
+  - [Learning statistics with R](https://learningstatisticswithr.com/book/){target="_blank"} -- this book is written from a psychology or social science sort of lens. But it is immensely useful and clear.
 
-  - [Handbook of Biological Statistics](http://www.biostathandbook.com/index.html) -- covers 
-    - [R Companion for the Handbook of Biological Statiscs](https://rcompanion.org/rcompanion/)
+<!-- It is important to note that statistics and hypothesis tests are only as valuable or informative as your experimental design allows. You will design an experiment to test your biological hypothesis, and the results will gi -->
 
-  - [Learning statistics with R](https://learningstatisticswithr.com/book/) -- this book is written from a physcology or social science sort of lens. But it is immensely useful and clear.
+<!-- Comment -->
+<!-- ```{r} -->
+<!-- # Correlation b/w sepal width and length -->
+<!-- iris %>% -->
+<!--   ggplot(aes(x = Sepal.Width, y = Sepal.Length)) + -->
+<!--   geom_point() -->
 
-
-
-It is important to note that statistics and hypothesis tests are only as valuable or informative as your experimental design allows.
-
-It is similarly true then that you can obtain a p-value or a result about 
-
-
-
-## PCA
-
-## Hypothesis tests
-
-### t-test
-
-### Analysis of Variance
+<!-- # Correlation b/w petal width and length -->
+<!-- iris %>% -->
+<!--   ggplot(aes(x = Petal.Width, y = Petal.Length)) + -->
+<!--   geom_point() -->
+<!-- ``` -->
 
 
+<!-- ## PCA -->
 
-### `rnorm()`
+<!-- ## Hypothesis tests -->
 
-The `rnorm()` function draws a `x` amount random numbers from a normal distribution with a specific mean and standard deviation.
+<!-- ### t-test -->
 
-```{r}
-?rnorm
-dist <- rnorm(100, mean = 15, sd = 7)
-dist
+<!-- ### Analysis of Variance -->
 
-# Get the mean and median
-mean(dist)
-median(dist)
 
-# Get multiple summary stats
-summary(dist)
 
-# Save summary stats as an object
-sum_dist <- summary(dist)
+<!-- ### `rnorm()` -->
 
-sum_dist
-```
+<!-- The `rnorm()` function draws a `x` amount random numbers from a normal distribution with a specific mean and standard deviation. -->
 
-You can explore, save, or extract specific elements of `sum_dist`.
+<!-- ```{r} -->
+<!-- ?rnorm -->
+<!-- dist <- rnorm(100, mean = 15, sd = 7) -->
+<!-- dist -->
 
-```{r}
-# Check out the properties of sum_dist object
-class(sum_dist)
-length(sum_dist)
-names(sum_dist)
+<!-- # Get the mean and median -->
+<!-- mean(dist) -->
+<!-- median(dist) -->
 
-# There are several ways to index this object
-sum_dist["Mean"] 
-sum_dist[4]
-sum_dist[3:4]
-```
+<!-- # Get multiple summary stats -->
+<!-- summary(dist) -->
+
+<!-- # Save summary stats as an object -->
+<!-- sum_dist <- summary(dist) -->
+
+<!-- sum_dist -->
+<!-- ``` -->
+
+<!-- You can explore, save, or extract specific elements of `sum_dist`. -->
+
+<!-- ```{r} -->
+<!-- # Check out the properties of sum_dist object -->
+<!-- class(sum_dist) -->
+<!-- length(sum_dist) -->
+<!-- names(sum_dist) -->
+
+<!-- # There are several ways to index this object -->
+<!-- sum_dist["Mean"]  -->
+<!-- sum_dist[4] -->
+<!-- sum_dist[3:4] -->
+<!-- ``` -->
 
 # **Creating a script**
 
@@ -1398,7 +1443,7 @@ mod <- aov(dep_var ~ ind_var, data = df)
 
 Today, we are going to explore fun data sets -- you can either search online for a publicly available data set -- or you can use something you have collected yourself. It can be data about anything that interests you.
 
-There are a bunch of resources out there that store publicly available data in a useful format -- check out [Google Dataset Search](https://datasetsearch.research.google.com/).
+There are a bunch of resources out there that store publicly available data in a useful format -- check out [Google Dataset Search](https://datasetsearch.research.google.com/){target="_blank"}.
 
 I would like you to do this activity either individually or in small teams of two. And then we will report back to each other what we have done.
 
@@ -1432,8 +1477,8 @@ R markdown documents `.Rmd` can be used to create `.html` pages or `.pdf` docume
 
 ## Links 
 
-  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) -- great overview of the features of R Markdown
-  - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) -- additional R Markdown guide
+  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/){target="_blank"} -- great overview of the features of R Markdown
+  - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/){target="_blank"} -- additional R Markdown guide
 
 Print out a pretty table using `kableExtra`.
 
@@ -1496,7 +1541,7 @@ mdh_df %>%
 <!-- require(broom) -->
 <!-- ``` -->
 
-<!-- Check out the [`broom` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom.html). -->
+<!-- Check out the [`broom` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom/){target="_blank"}. -->
 
 <!-- \[And the `broom` and `dplyr` vignette\] (<https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html>). -->
 
@@ -1532,11 +1577,11 @@ mdh_df %>%
 
 ## Publishing
 
-<!-- - [R Packages](https://r-pkgs.org/index.html) book. -->
+<!-- - [R Packages](https://r-pkgs.org/index/){target="_blank"} book. -->
 
 # **Challenge Solutions**
 
-> There is way more than one way to solve these challenges. Notice the differences between my solution and yours. In what ways is your solution better? In what ways is mine better? 
+There is way more than one way to solve these challenges. Notice the differences between my solution and yours. Why are those differences there? Are they just differences in style or are they differences in function? In what ways is your solution better? In what ways is mine better? 
 
 ## Hello
 
@@ -1563,6 +1608,29 @@ hello_world_name <- function(name = "_____") {
 hello_world_name(name = "Thomas")
 ```
 
+## Freeform
+
+I chose to explore the built in `iris` data set.
+
+```{r}
+iris
+
+dim(iris)
+
+str(iris)
+
+# Distribution statistics in iris data
+summary(iris)
+
+# There are better ways to do this in the tidyverse
+summary(iris$Sepal.Length[iris$Species == "setosa"])
+summary(iris$Sepal.Length[iris$Species == "setosa"])
+summary(iris$Sepal.Length[iris$Species == "setosa"])
+
+# Histogram of Petal.Length
+hist(iris$Petal.Length)
+```
+
 ## Loop
 
 ```{r}
@@ -1585,6 +1653,31 @@ iris_dat <- iris %>%
   pivot_longer(c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width),
                names_to = "measurement",
                values_to = "cm")
+```
+
+## `iris` summary stats
+
+```{r}
+iris_avg_tidy <- iris %>%
+  rownames_to_column(var = "sample") %>%
+  pivot_longer(c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width),
+               names_to = "measurement",
+               values_to = "cm") %>%
+  group_by(Species, measurement) %>%
+  summarize(avg = mean(cm), 
+            sd = sd(cm))
+```
+
+```{r}
+# Make a more easily human readable table
+iris_avg_tidy %>%
+  mutate(avg_sd = paste(signif(avg, 3), 
+                        "±", 
+                        signif(sd, 3))) %>%
+  select(-c(avg, sd)) %>%
+  pivot_wider(names_from = Species,
+              values_from = avg_sd) %>%
+  kableExtra::kable()
 ```
 
 

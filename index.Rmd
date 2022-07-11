@@ -50,9 +50,7 @@ knitr::opts_chunk$set(comment = "#",
 
 ## Disclaimer
 
-> Opinions are like assholes. Everyone has them and they all stink... Except, obviously, for my opinions, which are unmatched in the quality of fragrance. -- Thomas Samuel O'Leary
-
-**Warning**: The following workshop contains my opinions on learning R and programming in general -- I have a bad habit of collecting opinions on things. I am by no means an expert in anything, including this (_i.e._ coding, statistics, science, teaching, life, _etc._). So please feel free to disagree with any and all of the opinions in this document. In fact, one of my opinions is that informed disagreement is pivotal to becoming an independent thinker! So the way I think about it, the more you disagree with me, the better I taught you. _Try disagreeing with that one!_ I've got you in a Catch 22.
+The following workshop contains my opinions on learning R and programming in general -- I have a bad habit of collecting opinions on things. I am by no means an expert in anything, including this (_i.e._ coding, statistics, science, teaching, life, _etc._). So please feel free to disagree with any and all of the opinions in this document. In fact, one of my opinions is that informed disagreement is pivotal to becoming an independent thinker! So the way I think about it, the more you disagree with me, the better I taught you. _Try disagreeing with that one!_ I've got you in a Catch 22.
 
 This workshop is designed to give you some exposure to the wide variety of tools that are available in R and Data Science in general. It is almost by necessity incomplete. My goal with this workshop is that by providing you with some exposure to these topics, you can go out into the world wide web and collect more tools.
 
@@ -61,7 +59,7 @@ Very little -- if any -- of this workshop is uniquely mine. Instead, I have basi
 ## Alternative resources
 
   - [Google](https://www.google.com/){target="_blank"} -- when in doubt, Google it out
-  - [R for data science](https://r4ds.had.co.nz/index/){target="_blank"} -- a wonderfully thorough and useful book that emphasizes the tidyverse
+  - [R for Data Science](https://r4ds.had.co.nz/){target="_blank"} -- a wonderfully thorough and useful book that emphasizes the tidyverse
   - [R for Graduate Students](https://bookdown.org/yih_huynh/Guide-to-R-Book/){target="_blank"} -- very accessible introduction to R & the tidyverse
   - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/){target="_blank"} -- fun take on learning mostly base R
   - [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/){target="_blank"} -- "A guide to making visualizations that accurately reflect the data, tell a story, and look professional." by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.
@@ -87,6 +85,10 @@ Very little -- if any -- of this workshop is uniquely mine. Instead, I have basi
 
 4.  **Whatever you do, do it with intention.** -- _Embroidered throw pillow in my aunt's beach house._^[Not really -- I just made this up -- but it is just a good clean joke.]
     - Think about your decisions and have a reason for each choice. Why this statistical analysis? Why this line of code? Why use this argument in this function? Why this package? Why this visualization? Why this color? Why this theme? Have an answer. Make deliberate and defensible choices.
+    
+## R Script download
+
+[Link to download R script](https://tsoleary.github.io/r_intro/r_intro.R) that I created while we walked through Part I of the workshop together.
 
 # **First principles**
 
@@ -489,27 +491,25 @@ Explore the data sets by typing `data()` into your R console.
 We are going to look at the `ToothGrowth` data which explores "The Effect of Vitamin C on Tooth Growth in Guinea Pigs".
 
 ```{r}
-dat <- ToothGrowth
-
 # What is the length of the data.frame?
-length(dat) # This is interpreted as the number of rows
+length(ToothGrowth) # This is interpreted as the number of rows
 
 # What are the dimensions of the data.frame
-nrow(dat)
-ncol(dat)
-dim(dat) # Always number of rows then numbers of columns
+nrow(ToothGrowth)
+ncol(ToothGrowth)
+dim(ToothGrowth) # Always number of rows then numbers of columns
 # This can be useful to glance at
-str(dat)
+str(ToothGrowth)
 
 # Get some quick summary statistics of each column
-summary(dat)
+summary(ToothGrowth)
 ```
 
-> Notice how the summary is kinda useless for two of the columns `supp` and `dose`. And even the `len` column summary is of limited use because it doesn't break it down by group.
+> Notice how the summary is kinda useless for two of the columns `supp` and `dose`. And even the `len` column summary is of limited use because it doesn't break it down by group.4
 
 ```{r}
 # Quick per group average a group and treatment 
-mean(subset(dat, supp == "VC" & dose == 0.5)$len)
+mean(subset(ToothGrowth, supp == "VC" & dose == 0.5)$len)
 ```
 
 > There are much better ways to do this sort of thing! They `tidyverse` has a whole suite of functions that are built for this sort of activity. We will learn this soon. But it is important to understand that there are ways to get this information with `base` R functions.
@@ -517,14 +517,14 @@ mean(subset(dat, supp == "VC" & dose == 0.5)$len)
 
 ```{r}
 boxplot(formula = len ~ supp + dose, 
-        data = dat)
+        data = ToothGrowth)
 ```
 
 With `ggplot2`, you can create similar visualizations, but we will talk more about this later.
 
 ```{r, echo = FALSE}
 require(tidyverse)
-dat %>%
+ToothGrowth %>%
   ggplot() +
   geom_boxplot(aes(x = as.factor(dose), 
                    y = len, 
@@ -548,16 +548,16 @@ For example:
 
 ```{r}
 # With base R copy and pasting
-mean(subset(dat, supp == "VC" & dose == 0.5)$len)
-mean(subset(dat, supp == "VC" & dose == 1)$len)
-mean(subset(dat, supp == "VC" & dose == 2)$len)
-mean(subset(dat, supp == "OJ" & dose == 0.5)$len)
-mean(subset(dat, supp == "OJ" & dose == 1)$len)
-mean(subset(dat, supp == "OJ" & dose == 2)$len)
+mean(subset(ToothGrowth, supp == "VC" & dose == 0.5)$len)
+mean(subset(ToothGrowth, supp == "VC" & dose == 1)$len)
+mean(subset(ToothGrowth, supp == "VC" & dose == 2)$len)
+mean(subset(ToothGrowth, supp == "OJ" & dose == 0.5)$len)
+mean(subset(ToothGrowth, supp == "OJ" & dose == 1)$len)
+mean(subset(ToothGrowth, supp == "OJ" & dose == 2)$len)
 
 # With the tidyverse
 require(tidyverse)
-dat %>%
+ToothGrowth %>%
   group_by(supp, dose) %>%
   summarize(len_avg = mean(len))
 ```
@@ -680,8 +680,6 @@ Click [Hello] for solution.
 
 ## `base` R functions. 
 
-
-
 There are a bunch of functions that come by default with R in the `base` package.
 
 ```{r}
@@ -714,8 +712,7 @@ Use the `data()` function in the console to explore the pre-loaded R data sets. 
 
 ### Loops & `if else`
 
-The `tidyverse` has gotten rid of some of the need for loops and 
-
+The `tidyverse` has gotten rid of some of the need for loops and if else logic. But it is still useful to understand the mechanics of both of these.  
 
 #### `for` loops
 
@@ -748,8 +745,7 @@ for (i in 1:length(vector)) {
 
 ##### Loop Challenge 
 
-How can you change this loop to make the character strings in the vector print out like below
-
+How can you change this loop to make the character strings in the vector print out like below:
 
 ```{r, echo = FALSE}
 vector <- c("hello", "this", "is", "a", "character", "vector")
@@ -781,7 +777,7 @@ if (x > 0) {
 }
 ```
 
-You can make more complicated statements with the addition of else
+You can make more complicated statements with the addition of `else if`
 
 ```{r}
 # Set random value
@@ -931,6 +927,9 @@ Take the built in `iris` data set and convert it to tidy data format.
 # First 6 rows of the iris data set
 iris %>%
   head()
+
+# Functionally equivalent to this
+head(iris)
 ```
 
 Click for [Tidy `iris`] solultion.
@@ -1025,7 +1024,7 @@ starwars %>%
   arrange(desc(height))
 ```
 
-You can combine `tidyverse` fucntions with `base` R functions like below
+You can combine `tidyverse` functions with `base` R functions like below
 
 ```{r}
 # The head function will print out the top n number of individuals
@@ -1089,7 +1088,7 @@ mdh_df %>%
 
 Use what you have just learned of the `tidyverse` package to calculate the group averages for the `iris` data.
 
-Click for [Iris groupo ]
+Click for [`iris` summary stats] solution.
 
 # **Data Visualization**
 
@@ -1439,32 +1438,21 @@ mod <- aov(dep_var ~ ind_var, data = df)
 
 > This is just an example of a general structure of the script. When you are actually exploring your data, you should have more exploration, analysis, and visualization in your script.
 
-## Fun data challenge
-
-Today, we are going to explore fun data sets -- you can either search online for a publicly available data set -- or you can use something you have collected yourself. It can be data about anything that interests you.
-
-There are a bunch of resources out there that store publicly available data in a useful format -- check out [Google Dataset Search](https://datasetsearch.research.google.com/){target="_blank"}.
-
-I would like you to do this activity either individually or in small teams of two. And then we will report back to each other what we have done.
-
-I am going to explore a Harry Potter data set.
-
-### Load data
-
-Depending on where you get the data. There may be several ways that you can import the data into your working environment.
-
-### Wrangle data
-
-### Analyze data
-
-### Visualize data
-
-### Report results
 
 
+# **Workshop Part II**
 
+![Under construction](~/R/r_intro/construction.jpeg)
 
-# **R markdown**
+## Review fundamentals
+
+## Wrangling collected data
+
+## Analyzing data
+
+## Visualizing data
+
+## R markdown
 
 When you are ready to report your results to colleagues or the world, it can be useful to have all of your analysis and figures in one single document.
 
@@ -1496,18 +1484,6 @@ mdh_df %>%
   mutate(Tissue = str_to_sentence(Tissue)) %>%
   kableExtra::kable()
 ```
-
-# **Workshop Part II**
-
-![Under construction](~/R/r_intro/construction.jpeg)
-
-## Review fundamentals
-
-## Wrangling collected data
-
-## Analyzing data
-
-## Visualizing data
 
 ## Advanced skills
 

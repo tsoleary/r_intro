@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | UVM ThermoFly REU Crew</title>
+  <title>8 Introduction | UVM ThermoFly REU Crew</title>
   <meta name="description" content="An incomplete introductory workshop to data science and R." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | UVM ThermoFly REU Crew" />
+  <meta property="og:title" content="8 Introduction | UVM ThermoFly REU Crew" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | UVM ThermoFly REU Crew" />
+  <meta name="twitter:title" content="8 Introduction | UVM ThermoFly REU Crew" />
   
   <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-science-workshop.html"/>
-<link rel="next" href="first-principles.html"/>
+<link rel="prev" href="creating-a-script.html"/>
+<link rel="next" href="brainstorming-visualization.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -314,101 +314,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> <strong>Introduction</strong><a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="goals" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Goals<a href="introduction.html#goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction-1" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> <strong>Introduction</strong><a href="introduction-1.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Part II of this workshop will be less of a code-along session and more built towards your specific projects &amp; integrating some of the skills that we learned in Part I. We will also spend some time talking about the soft skills involved in data visualization &amp; scientific communication.</p>
+<div id="agenda-1" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Agenda<a href="introduction-1.html#agenda-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>Learn good data handling and coding practices.</li>
-<li>Develop skills necessary to analyze &amp; visualize collected data.</li>
-<li>Learn enough of the basics to allow you to develop and troubleshoot your own code.</li>
-<li>Develop the independence and confidence to tackle any project.</li>
-<li>Get super hyped about R.</li>
+<li>Review some R basics from Part I</li>
+<li>Data analysis &amp; visualization skills</li>
+<li>Producing final figures for presentations &amp; manuscripts</li>
+<li>Advanced R skills</li>
+<li><strong>Up to you</strong></li>
 </ol>
 </div>
-<div id="agenda" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Agenda<a href="introduction.html#agenda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>Introduction to programming principles</li>
-<li>R <code>base</code>-ics &amp; the <code>tidyverse</code></li>
-<li>Principles of data visualization</li>
-<li>Statistics &amp; experimental design</li>
-<li>Build something fun</li>
-</ol>
-<div id="notes" class="section level3 hasAnchor" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Notes<a href="introduction.html#notes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>We have four morning sessions to cover the material in Part I.</li>
-<li>Please, ask questions as we go along.</li>
-<li>Exactly how much of this material we are able to cover will depend on the pace that we work through this – but we don’t have to get to all of it – that is why having this tutorial will be useful.</li>
-<li>There will be short exercises that I have called challenges that we will do along the way. The best way to learn R is through doing it, so these sorts of exercises are essential.</li>
-<li>We will take at least a 5 minute break every hour.</li>
-</ul>
-</div>
-</div>
-<div id="disclaimer" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Disclaimer<a href="introduction.html#disclaimer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The following workshop contains my opinions on learning R and programming in general – I have a bad habit of collecting opinions on things. I am by no means an expert in anything, including this (<em>i.e.</em> coding, statistics, science, teaching, life, <em>etc.</em>). So please feel free to disagree with any and all of the opinions in this document. In fact, one of my opinions is that informed disagreement is pivotal to becoming an independent thinker! So the way I think about it, the more you disagree with me, the better I taught you. <em>Try disagreeing with that one!</em> I’ve got you in a Catch 22.</p>
-<p>This workshop is designed to give you some exposure to the wide variety of tools that are available in R and Data Science in general. It is almost by necessity incomplete. My goal with this workshop is that by providing you with some exposure to these topics, you can go out into the world wide web and collect more tools.</p>
-<p>Very little – if any – of this workshop is uniquely mine. Instead, I have basically compiled a bunch of useful nuggets of information and tips from other places. I have packaged those nuggets here to fit within the scope this workshop. But, I strongly encourage you to check out those alternative<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> resources. They are linked below and throughout this document. Thus, this tutorial will be useful – if through nothing else – as a portal to more useful parts of the internet.</p>
-</div>
-<div id="alternative-resources" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Alternative resources<a href="introduction.html#alternative-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="https://www.google.com/" target="_blank">Google</a> – when in doubt, Google it out</li>
-<li><a href="https://r4ds.had.co.nz/" target="_blank">R for Data Science</a> – a wonderfully thorough and useful book that emphasizes the tidyverse</li>
-<li><a href="https://bookdown.org/yih_huynh/Guide-to-R-Book/" target="_blank">R for Graduate Students</a> – very accessible introduction to R &amp; the tidyverse</li>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/" target="_blank">YaRrr! The Pirate’s Guide to R</a> – fun take on learning mostly base R</li>
-<li><a href="https://clauswilke.com/dataviz/" target="_blank">Fundamentals of Data Visualization</a> – “A guide to making visualizations that accurately reflect the data, tell a story, and look professional.” by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.</li>
-<li><a href="https://adv-r.hadley.nz/index/" target="_blank">Advanced R</a> – R with the nitty-gritty details for the super nerds out there.</li>
-<li><a href="https://ggplot2-book.org/" target="_blank"><code>ggplot2</code> book</a> – detailed introduction to plotting with <code>ggplot2</code></li>
-<li><a href="https://learningstatisticswithr.com/book/" target="_blank">Learning Statistics with R</a> – there is also a <a href="http://tidylsr.djnavarro.net/index/" target="_blank">newer version</a> that is in development that emphasizes the tidyverse.</li>
-<li><a href="https://bookdown.org/yihui/rmarkdown/" target="_blank">R Markdown: The Definitive Guide</a> – great overview of the features of R Markdown</li>
-<li><a href="https://bookdown.org/yihui/rmarkdown-cookbook/" target="_blank">R Markdown Cookbook</a> – additional R Markdown guide</li>
-<li><a href="https://happygitwithr.com/index/" target="_blank">Happy Git and GitHub for the useR</a> – resource for version control</li>
-<li><a href="https://gotellilab.github.io/Bio381/" target="_blank">Nick Gotelli’s Computational Biology</a> – a wonderful course on R taught by Nick Gotelli at UVM.</li>
-</ul>
-</div>
-<div id="stolen-advice" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Stolen advice<a href="introduction.html#stolen-advice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li><strong>Stand on the shoulders of giants.</strong> – <em>Issac Newton</em>
-<ul>
-<li>If Issac Newton did it, then it’s not cheating. Other people have probably tried something close to what you are about to do. Find it. Use it. Build on it.</li>
-</ul></li>
-<li><strong>Move fast and break things.</strong> – <em>Facebook</em>
-<ul>
-<li>While perhaps a terrible motto for one of the most powerful companies ever created on the planet, it’s not bad advice for coding. Just try stuff out. See what works. See what doesn’t. Make it your own. Break it. Move on and try something else.</li>
-</ul></li>
-<li><strong>If you can dream it. You can do it.</strong> – <em>Walt Disney</em> – or at least some guy that worked in marketing for Walt Disney’s company after he died – whatever.
-<ul>
-<li>Be creative. Think up your dream data analysis and visualization and make it happen. Sketch it out, erase it, and turn it into Mickey Mouse.</li>
-</ul></li>
-<li><strong>Whatever you do, do it with intention.</strong> – <em>Embroidered throw pillow in my aunt’s beach house.</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
-<ul>
-<li>Think about your decisions and have a reason for each choice. Why this statistical analysis? Why this line of code? Why use this argument in this function? Why this package? Why this visualization? Why this color? Why this theme? Have an answer. Make deliberate and defensible choices.</li>
-</ul></li>
-</ol>
-</div>
-<div id="r-script-download" class="section level2 hasAnchor" number="1.6">
-<h2><span class="header-section-number">1.6</span> R Script download<a href="introduction.html#r-script-download" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://tsoleary.github.io/r_intro/r_intro.R">Link to download R script</a> that I created while we walked through Part I of the workshop together.</p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>read: better<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Not really – I just made this up – but it is just a good clean joke.<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="data-science-workshop.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="first-principles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="creating-a-script.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="brainstorming-visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

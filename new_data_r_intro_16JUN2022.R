@@ -1,4 +1,4 @@
-# CT max data
+# CT max data ------------------------------------------------------------------
 # Thomas O'Leary
 
 # Load library
@@ -7,19 +7,22 @@ library(tidyverse)
 # Load data
 df <- read_delim("Populations_CTmax.csv", delim = ";")
 
-# Get averages
+# Get averages and standard deviations
 df %>%
   group_by(Population, Treatment) %>%
-  summarise(ct_min = mean(CTmax),
+  summarise(ct_max = mean(CTmax),
             sd = sd(CTmax))
 
 # Make plots ----
+
+# Make a box plot
 df %>%
   ggplot() +
   geom_boxplot(aes(x = Treatment,
                    y = CTmax)) +
   theme_classic()
 
+# Color by population
 df %>%
   ggplot() +
   geom_boxplot(aes(x = Treatment,

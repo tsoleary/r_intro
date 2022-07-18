@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | UVM ThermoFly REU Crew</title>
+  <title>11 Advanced skills | UVM ThermoFly REU Crew</title>
   <meta name="description" content="An incomplete introductory workshop to data science and R." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | UVM ThermoFly REU Crew" />
+  <meta property="og:title" content="11 Advanced skills | UVM ThermoFly REU Crew" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | UVM ThermoFly REU Crew" />
+  <meta name="twitter:title" content="11 Advanced skills | UVM ThermoFly REU Crew" />
   
   <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-science-workshop.html"/>
-<link rel="next" href="first-principles.html"/>
+<link rel="prev" href="r-markdown.html"/>
+<link rel="next" href="solutions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -314,101 +314,139 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> <strong>Introduction</strong><a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="goals" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Goals<a href="introduction.html#goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>Learn good data handling and coding practices.</li>
-<li>Develop skills necessary to analyze &amp; visualize collected data.</li>
-<li>Learn enough of the basics to allow you to develop and troubleshoot your own code.</li>
-<li>Develop the independence and confidence to tackle any project.</li>
-<li>Get super hyped about R.</li>
-</ol>
+<div id="advanced-skills" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">11</span> <strong>Advanced skills</strong><a href="advanced-skills.html#advanced-skills" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There are a bunch of useful &amp; fun skills that we will not have time to cover during this workshop.</p>
+<div id="version-control" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Version control<a href="advanced-skills.html#version-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Version control is a neat way to track the changes that you have made to your code over time so that you can restore previous versions if you break your code. Check out <a href="https://happygitwithr.com/">Happy Git and GitHub for the useR</a> for more information</p>
 </div>
-<div id="agenda" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Agenda<a href="introduction.html#agenda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>Introduction to programming principles</li>
-<li>R <code>base</code>-ics &amp; the <code>tidyverse</code></li>
-<li>Principles of data visualization</li>
-<li>Statistics &amp; experimental design</li>
-<li>Build something fun</li>
-</ol>
-<div id="notes" class="section level3 hasAnchor" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Notes<a href="introduction.html#notes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>We have four morning sessions to cover the material in Part I.</li>
-<li>Please, ask questions as we go along.</li>
-<li>Exactly how much of this material we are able to cover will depend on the pace that we work through this – but we don’t have to get to all of it – that is why having this tutorial will be useful.</li>
-<li>There will be short exercises that I have called challenges that we will do along the way. The best way to learn R is through doing it, so these sorts of exercises are essential.</li>
-<li>We will take at least a 5 minute break every hour.</li>
-</ul>
+<div id="interactive-visualization" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Interactive visualization<a href="advanced-skills.html#interactive-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>With big data sets, it is sometimes useful &amp; fun to be able to create an interactive visualization of your data. This can be useful both when you are exploring your data and sharing it with others. Check out <a href="https://shiny.rstudio.com/"><code>shiny</code> applications</a> for more information.</p>
+</div>
+<div id="advanced-tidyverse" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Advanced <code>tidyverse</code><a href="advanced-skills.html#advanced-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="nest" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> <code>nest</code><a href="advanced-skills.html#nest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="advanced-skills.html#cb80-1" aria-hidden="true" tabindex="-1"></a>ChickWeight <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="advanced-skills.html#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span>
+<span id="cb80-3"><a href="advanced-skills.html#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rows: 578</span></span>
+<span id="cb80-4"><a href="advanced-skills.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Columns: 4</span></span>
+<span id="cb80-5"><a href="advanced-skills.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co"># $ weight &lt;dbl&gt; 42, 51, 59, 64, 76, 93, 106, 125, 149, 171, 199, 205, 40, 49, 5…</span></span>
+<span id="cb80-6"><a href="advanced-skills.html#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="co"># $ Time   &lt;dbl&gt; 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 21, 0, 2, 4, 6, 8, 10, 1…</span></span>
+<span id="cb80-7"><a href="advanced-skills.html#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $ Chick  &lt;ord&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, …</span></span>
+<span id="cb80-8"><a href="advanced-skills.html#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="co"># $ Diet   &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="advanced-skills.html#cb81-1" aria-hidden="true" tabindex="-1"></a>ChickWeight <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="advanced-skills.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Chick, Diet) <span class="sc">%&gt;%</span></span>
+<span id="cb81-3"><a href="advanced-skills.html#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
+<span id="cb81-4"><a href="advanced-skills.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 50 × 3</span></span>
+<span id="cb81-5"><a href="advanced-skills.html#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="co"># # Groups:   Chick, Diet [50]</span></span>
+<span id="cb81-6"><a href="advanced-skills.html#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    Chick Diet  data             </span></span>
+<span id="cb81-7"><a href="advanced-skills.html#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    &lt;ord&gt; &lt;fct&gt; &lt;list&gt;           </span></span>
+<span id="cb81-8"><a href="advanced-skills.html#cb81-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  1 1     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-9"><a href="advanced-skills.html#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  2 2     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-10"><a href="advanced-skills.html#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  3 3     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-11"><a href="advanced-skills.html#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  4 4     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-12"><a href="advanced-skills.html#cb81-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  5 5     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-13"><a href="advanced-skills.html#cb81-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  6 6     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-14"><a href="advanced-skills.html#cb81-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  7 7     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-15"><a href="advanced-skills.html#cb81-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  8 8     1     &lt;tibble [11 × 2]&gt;</span></span>
+<span id="cb81-16"><a href="advanced-skills.html#cb81-16" aria-hidden="true" tabindex="-1"></a><span class="co">#  9 9     1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-17"><a href="advanced-skills.html#cb81-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 10    1     &lt;tibble [12 × 2]&gt;</span></span>
+<span id="cb81-18"><a href="advanced-skills.html#cb81-18" aria-hidden="true" tabindex="-1"></a><span class="co"># # … with 40 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="advanced-skills.html#cb82-1" aria-hidden="true" tabindex="-1"></a>ChickWeight_nest <span class="ot">&lt;-</span> ChickWeight <span class="sc">%&gt;%</span></span>
+<span id="cb82-2"><a href="advanced-skills.html#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Chick, Diet) <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="advanced-skills.html#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>()</span>
+<span id="cb82-4"><a href="advanced-skills.html#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="advanced-skills.html#cb82-5" aria-hidden="true" tabindex="-1"></a>ChickWeight_nest<span class="sc">$</span>data[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb82-6"><a href="advanced-skills.html#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [[1]]</span></span>
+<span id="cb82-7"><a href="advanced-skills.html#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 12 × 2</span></span>
+<span id="cb82-8"><a href="advanced-skills.html#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="co">#    weight  Time</span></span>
+<span id="cb82-9"><a href="advanced-skills.html#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb82-10"><a href="advanced-skills.html#cb82-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  1     42     0</span></span>
+<span id="cb82-11"><a href="advanced-skills.html#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  2     51     2</span></span>
+<span id="cb82-12"><a href="advanced-skills.html#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  3     59     4</span></span>
+<span id="cb82-13"><a href="advanced-skills.html#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  4     64     6</span></span>
+<span id="cb82-14"><a href="advanced-skills.html#cb82-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  5     76     8</span></span>
+<span id="cb82-15"><a href="advanced-skills.html#cb82-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  6     93    10</span></span>
+<span id="cb82-16"><a href="advanced-skills.html#cb82-16" aria-hidden="true" tabindex="-1"></a><span class="co">#  7    106    12</span></span>
+<span id="cb82-17"><a href="advanced-skills.html#cb82-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  8    125    14</span></span>
+<span id="cb82-18"><a href="advanced-skills.html#cb82-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  9    149    16</span></span>
+<span id="cb82-19"><a href="advanced-skills.html#cb82-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 10    171    18</span></span>
+<span id="cb82-20"><a href="advanced-skills.html#cb82-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 11    199    20</span></span>
+<span id="cb82-21"><a href="advanced-skills.html#cb82-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 12    205    21</span></span>
+<span id="cb82-22"><a href="advanced-skills.html#cb82-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb82-23"><a href="advanced-skills.html#cb82-23" aria-hidden="true" tabindex="-1"></a><span class="co"># [[2]]</span></span>
+<span id="cb82-24"><a href="advanced-skills.html#cb82-24" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 12 × 2</span></span>
+<span id="cb82-25"><a href="advanced-skills.html#cb82-25" aria-hidden="true" tabindex="-1"></a><span class="co">#    weight  Time</span></span>
+<span id="cb82-26"><a href="advanced-skills.html#cb82-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb82-27"><a href="advanced-skills.html#cb82-27" aria-hidden="true" tabindex="-1"></a><span class="co">#  1     40     0</span></span>
+<span id="cb82-28"><a href="advanced-skills.html#cb82-28" aria-hidden="true" tabindex="-1"></a><span class="co">#  2     49     2</span></span>
+<span id="cb82-29"><a href="advanced-skills.html#cb82-29" aria-hidden="true" tabindex="-1"></a><span class="co">#  3     58     4</span></span>
+<span id="cb82-30"><a href="advanced-skills.html#cb82-30" aria-hidden="true" tabindex="-1"></a><span class="co">#  4     72     6</span></span>
+<span id="cb82-31"><a href="advanced-skills.html#cb82-31" aria-hidden="true" tabindex="-1"></a><span class="co">#  5     84     8</span></span>
+<span id="cb82-32"><a href="advanced-skills.html#cb82-32" aria-hidden="true" tabindex="-1"></a><span class="co">#  6    103    10</span></span>
+<span id="cb82-33"><a href="advanced-skills.html#cb82-33" aria-hidden="true" tabindex="-1"></a><span class="co">#  7    122    12</span></span>
+<span id="cb82-34"><a href="advanced-skills.html#cb82-34" aria-hidden="true" tabindex="-1"></a><span class="co">#  8    138    14</span></span>
+<span id="cb82-35"><a href="advanced-skills.html#cb82-35" aria-hidden="true" tabindex="-1"></a><span class="co">#  9    162    16</span></span>
+<span id="cb82-36"><a href="advanced-skills.html#cb82-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 10    187    18</span></span>
+<span id="cb82-37"><a href="advanced-skills.html#cb82-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 11    209    20</span></span>
+<span id="cb82-38"><a href="advanced-skills.html#cb82-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 12    215    21</span></span></code></pre></div>
+</div>
+<div id="broom" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> <code>broom</code><a href="advanced-skills.html#broom" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="advanced-skills.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb83-2"><a href="advanced-skills.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(broom)</span>
+<span id="cb83-3"><a href="advanced-skills.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: broom</span></span></code></pre></div>
+<p>Check out the <a href="https://cran.r-project.org/web/packages/broom/vignettes/broom/" target="_blank"><code>broom</code> vignette</a>.</p>
+<p><a href="https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html" target="_blank">And the <code>broom</code> and <code>dplyr</code> vignette</a>.</p>
+<p><code>tidy</code>: constructs a tibble that summarizes the model’s statistical findings. This includes coefficients and p-values for each term in a regression, per-cluster information in clustering applications, or per-test information for multtest functions.</p>
+<p><code>glance</code>: construct a concise one-row summary of the model. This typically contains values such as R^2, adjusted R^2, and residual standard error that are computed once for the entire model.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="advanced-skills.html#cb84-1" aria-hidden="true" tabindex="-1"></a>ChickWeight <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="advanced-skills.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Chick, Diet) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="advanced-skills.html#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb84-4"><a href="advanced-skills.html#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb84-5"><a href="advanced-skills.html#cb84-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fit =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">lm</span>(weight <span class="sc">~</span> Time, <span class="at">data =</span> .x)),</span>
+<span id="cb84-6"><a href="advanced-skills.html#cb84-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">tidied =</span> <span class="fu">map</span>(fit, tidy),</span>
+<span id="cb84-7"><a href="advanced-skills.html#cb84-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">glanced =</span> <span class="fu">map</span>(fit, glance)</span>
+<span id="cb84-8"><a href="advanced-skills.html#cb84-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb84-9"><a href="advanced-skills.html#cb84-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(tidied)</span>
+<span id="cb84-10"><a href="advanced-skills.html#cb84-10" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 100 × 10</span></span>
+<span id="cb84-11"><a href="advanced-skills.html#cb84-11" aria-hidden="true" tabindex="-1"></a><span class="co"># # Groups:   Chick, Diet [50]</span></span>
+<span id="cb84-12"><a href="advanced-skills.html#cb84-12" aria-hidden="true" tabindex="-1"></a><span class="co">#    Chick Diet  data     fit    term        estimate std.error statistic  p.value</span></span>
+<span id="cb84-13"><a href="advanced-skills.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="co">#    &lt;ord&gt; &lt;fct&gt; &lt;list&gt;   &lt;list&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb84-14"><a href="advanced-skills.html#cb84-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  1 1     1     &lt;tibble&gt; &lt;lm&gt;   (Intercept)    24.5      6.73       3.64 4.56e- 3</span></span>
+<span id="cb84-15"><a href="advanced-skills.html#cb84-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  2 1     1     &lt;tibble&gt; &lt;lm&gt;   Time            7.99     0.524     15.3  2.97e- 8</span></span>
+<span id="cb84-16"><a href="advanced-skills.html#cb84-16" aria-hidden="true" tabindex="-1"></a><span class="co">#  3 2     1     &lt;tibble&gt; &lt;lm&gt;   (Intercept)    24.7      4.93       5.01 5.26e- 4</span></span>
+<span id="cb84-17"><a href="advanced-skills.html#cb84-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  4 2     1     &lt;tibble&gt; &lt;lm&gt;   Time            8.72     0.384     22.7  6.15e-10</span></span>
+<span id="cb84-18"><a href="advanced-skills.html#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  5 3     1     &lt;tibble&gt; &lt;lm&gt;   (Intercept)    23.2      5.08       4.56 1.04e- 3</span></span>
+<span id="cb84-19"><a href="advanced-skills.html#cb84-19" aria-hidden="true" tabindex="-1"></a><span class="co">#  6 3     1     &lt;tibble&gt; &lt;lm&gt;   Time            8.49     0.396     21.5  1.08e- 9</span></span>
+<span id="cb84-20"><a href="advanced-skills.html#cb84-20" aria-hidden="true" tabindex="-1"></a><span class="co">#  7 4     1     &lt;tibble&gt; &lt;lm&gt;   (Intercept)    32.9      4.01       8.21 9.42e- 6</span></span>
+<span id="cb84-21"><a href="advanced-skills.html#cb84-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  8 4     1     &lt;tibble&gt; &lt;lm&gt;   Time            6.09     0.312     19.5  2.70e- 9</span></span>
+<span id="cb84-22"><a href="advanced-skills.html#cb84-22" aria-hidden="true" tabindex="-1"></a><span class="co">#  9 5     1     &lt;tibble&gt; &lt;lm&gt;   (Intercept)    16.9      7.56       2.24 4.93e- 2</span></span>
+<span id="cb84-23"><a href="advanced-skills.html#cb84-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 5     1     &lt;tibble&gt; &lt;lm&gt;   Time           10.1      0.588     17.1  9.88e- 9</span></span>
+<span id="cb84-24"><a href="advanced-skills.html#cb84-24" aria-hidden="true" tabindex="-1"></a><span class="co"># # … with 90 more rows, and 1 more variable: glanced &lt;list&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="advanced-skills.html#cb85-1" aria-hidden="true" tabindex="-1"></a>ChickWeight <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="advanced-skills.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb85-3"><a href="advanced-skills.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Time,</span>
+<span id="cb85-4"><a href="advanced-skills.html#cb85-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> weight,</span>
+<span id="cb85-5"><a href="advanced-skills.html#cb85-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Chick)) <span class="sc">+</span></span>
+<span id="cb85-6"><a href="advanced-skills.html#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Diet)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 </div>
 </div>
-<div id="disclaimer" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Disclaimer<a href="introduction.html#disclaimer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The following workshop contains my opinions on learning R and programming in general – I have a bad habit of collecting opinions on things. I am by no means an expert in anything, including this (<em>i.e.</em> coding, statistics, science, teaching, life, <em>etc.</em>). So please feel free to disagree with any and all of the opinions in this document. In fact, one of my opinions is that informed disagreement is pivotal to becoming an independent thinker! So the way I think about it, the more you disagree with me, the better I taught you. <em>Try disagreeing with that one!</em> I’ve got you in a Catch 22.</p>
-<p>This workshop is designed to give you some exposure to the wide variety of tools that are available in R and Data Science in general. It is almost by necessity incomplete. My goal with this workshop is that by providing you with some exposure to these topics, you can go out into the world wide web and collect more tools.</p>
-<p>Very little – if any – of this workshop is uniquely mine. Instead, I have basically compiled a bunch of useful nuggets of information and tips from other places. I have packaged those nuggets here to fit within the scope this workshop. But, I strongly encourage you to check out those alternative<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> resources. They are linked below and throughout this document. Thus, this tutorial will be useful – if through nothing else – as a portal to more useful parts of the internet.</p>
 </div>
-<div id="alternative-resources" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Alternative resources<a href="introduction.html#alternative-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="https://www.google.com/" target="_blank">Google</a> – when in doubt, Google it out</li>
-<li><a href="https://r4ds.had.co.nz/" target="_blank">R for Data Science</a> – a wonderfully thorough and useful book that emphasizes the tidyverse</li>
-<li><a href="https://bookdown.org/yih_huynh/Guide-to-R-Book/" target="_blank">R for Graduate Students</a> – very accessible introduction to R &amp; the tidyverse</li>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/" target="_blank">YaRrr! The Pirate’s Guide to R</a> – fun take on learning mostly base R</li>
-<li><a href="https://clauswilke.com/dataviz/" target="_blank">Fundamentals of Data Visualization</a> – “A guide to making visualizations that accurately reflect the data, tell a story, and look professional.” by Claus O. Wilke. This book is great, because it is not at all about programming, but just how to make the best data visualizations.</li>
-<li><a href="https://adv-r.hadley.nz/index/" target="_blank">Advanced R</a> – R with the nitty-gritty details for the super nerds out there.</li>
-<li><a href="https://ggplot2-book.org/" target="_blank"><code>ggplot2</code> book</a> – detailed introduction to plotting with <code>ggplot2</code></li>
-<li><a href="https://learningstatisticswithr.com/book/" target="_blank">Learning Statistics with R</a> – there is also a <a href="http://tidylsr.djnavarro.net/index/" target="_blank">newer version</a> that is in development that emphasizes the tidyverse.</li>
-<li><a href="https://bookdown.org/yihui/rmarkdown/" target="_blank">R Markdown: The Definitive Guide</a> – great overview of the features of R Markdown</li>
-<li><a href="https://bookdown.org/yihui/rmarkdown-cookbook/" target="_blank">R Markdown Cookbook</a> – additional R Markdown guide</li>
-<li><a href="https://happygitwithr.com/index/" target="_blank">Happy Git and GitHub for the useR</a> – resource for version control</li>
-<li><a href="https://gotellilab.github.io/Bio381/" target="_blank">Nick Gotelli’s Computational Biology</a> – a wonderful course on R taught by Nick Gotelli at UVM.</li>
-</ul>
-</div>
-<div id="stolen-advice" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Stolen advice<a href="introduction.html#stolen-advice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li><strong>Stand on the shoulders of giants.</strong> – <em>Issac Newton</em>
-<ul>
-<li>If Issac Newton did it, then it’s not cheating. Other people have probably tried something close to what you are about to do. Find it. Use it. Build on it.</li>
-</ul></li>
-<li><strong>Move fast and break things.</strong> – <em>Facebook</em>
-<ul>
-<li>While perhaps a terrible motto for one of the most powerful companies ever created on the planet, it’s not bad advice for coding. Just try stuff out. See what works. See what doesn’t. Make it your own. Break it. Move on and try something else.</li>
-</ul></li>
-<li><strong>If you can dream it. You can do it.</strong> – <em>Walt Disney</em> – or at least some guy that worked in marketing for Walt Disney’s company after he died – whatever.
-<ul>
-<li>Be creative. Think up your dream data analysis and visualization and make it happen. Sketch it out, erase it, and turn it into Mickey Mouse.</li>
-</ul></li>
-<li><strong>Whatever you do, do it with intention.</strong> – <em>Embroidered throw pillow in my aunt’s beach house.</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
-<ul>
-<li>Think about your decisions and have a reason for each choice. Why this statistical analysis? Why this line of code? Why use this argument in this function? Why this package? Why this visualization? Why this color? Why this theme? Have an answer. Make deliberate and defensible choices.</li>
-</ul></li>
-</ol>
-</div>
-<div id="r-script-download" class="section level2 hasAnchor" number="1.6">
-<h2><span class="header-section-number">1.6</span> R Script download<a href="introduction.html#r-script-download" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://tsoleary.github.io/r_intro/r_intro.R">Link to download R script</a> that I created while we walked through Part I of the workshop together.</p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>read: better<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Not really – I just made this up – but it is just a good clean joke.<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="data-science-workshop.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="first-principles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-markdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="solutions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -22,6 +22,8 @@ knitr::opts_chunk$set(comment = "#",
 
 ![](~/R/r_intro/r_fly.jpg)
 
+# (PART\*) **Part I -- June** {-}
+
 # **Introduction**
 
 ## Goals
@@ -1438,23 +1440,144 @@ mod <- aov(dep_var ~ ind_var, data = df)
 
 > This is just an example of a general structure of the script. When you are actually exploring your data, you should have more exploration, analysis, and visualization in your script.
 
+## Script for CTmax data
+
+```{r}
+# CT max data ------------------------------------------------------------------
+# Thomas O'Leary
+
+# Load library
+library(tidyverse)
+
+# Load data
+df <- read_delim("Populations_CTmax.csv", delim = ";")
+
+# Get averages and standard deviations
+df %>%
+  group_by(Population, Treatment) %>%
+  summarise(ct_max = mean(CTmax),
+            sd = sd(CTmax))
+
+# Make plots ----
+
+# Make a box plot
+df %>%
+  ggplot() +
+  geom_boxplot(aes(x = Treatment,
+                   y = CTmax)) +
+  theme_classic()
+
+# Color by population
+df %>%
+  ggplot() +
+  geom_boxplot(aes(x = Treatment,
+                   y = CTmax,
+                   color = Population)) +
+  theme_classic()
 
 
-# **Workshop Part II**
+# Run analysis
+mod <- aov(CTmax ~ Population*Treatment,
+           data = df)
 
-![Under construction](~/R/r_intro/construction.jpeg)
+broom::tidy(mod)
+```
 
-## Review fundamentals
+# (PART\*) **Part II -- July** {-}
 
-## Wrangling collected data
+# **Introduction**
 
-## Analyzing data
+Part II of this workshop will be less of a code-along session and more built towards your specific projects & integrating some of the skills that we learned in Part I. We will also spend some time talking about the soft skills involved in data visualization & scientific communication.
 
-## Visualizing data
+## Agenda
 
-## R markdown
+1. Review some R basics from Part I
+2. Data analysis & visualization skills
+3. Producing final figures for presentations & manuscripts
+4. Advanced R skills
+5. **Up to you**
 
-When you are ready to report your results to colleagues or the world, it can be useful to have all of your analysis and figures in one single document.
+# **Brainstorming Visualization**
+
+For all intents and purposes, your figures are your final product! They are the results you are trying to communicate to the world. They are the exciting new finding that you are sharing with colleagues, the thing you have spent so much time thinking about and investigating. Some people will spend hundreds of hours on a project, collecting and analyzing data, but then they won't take the extra few hours to iterate and perfect a final figure. Don't be one of those people! 
+
+In this section, we will talk about some general advice for figure making and communicating your results to your audience. 
+
+## Questions & Hypotheses
+
+When you are creating a data visualization, it is important to zoom-out and think big picture again about what the questions and hypotheses that have driven your experiments and data collection.
+
+In my opinion, each figure that you present to an audience -- either live in a presentation or -- should answer a simple question about your experiment. 
+
+- How heat tolerant are embryos from isogenic lines established from Florida? 
+- How do the heat tolerance of Florida genotypes compare to other genotypes from around the world?
+
+- Which pathways are involved in developmental acclimation to higher temperatures?
+- How shared are the pathways involved in adult and developmental acclimation? Warm acclimation and cold acclimation? Warm acclimation and heat shock?
+
+- To what extent is differential splicing involved in the heat shock response?
+- Which genes are differentially spliced during heat shock?
+
+> Notice how each of these questions could be answered with different data visualization.
+
+## Literature Review
+
+There are often multiple acceptable ways to present your collected data graphically. 
+
+It is a good idea when brainstorming potential figures to look at recent literature and see what you like and don't like about those figures.
+
+### Survival Curves
+
+- [Lockwood _et al._ 2017](https://journals.biologists.com/jeb/article/220/23/4492/33704/Maternal-loading-of-a-small-heat-shock-protein){target="_blank"}
+- [Lockwood _et al._ 2018](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13234){target="_blank"}
+
+### Differential Expression Data
+
+Useful links
+- [DESeq2 stats](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html){target="_blank"}
+- [Ecological Genomics TSO DESeq2 Notes](https://tsoleary.github.io/eco_genomics/tso_eco_genomics.html#8_deseq2_in_r){target="_blank"}
+
+Common types of visualization
+1. Principle Component Analysis (PCA)
+2. Heat maps 
+3. Venn diagrams
+4. MA plots
+5. Volcano plots
+6. Box plots
+
+### GO functional analysis
+
+- [MacMillan _et al._ 2016](https://www.nature.com/articles/srep28999){target="_blank"}
+- [Lecheta _et al._ 2020](https://www.frontiersin.org/articles/10.3389/fgene.2020.00658/full){target="_blank"}
+
+### Differential Splicing Data
+
+basics of splicing -- 
+
+Literature 
+- [Anduaga _et al._ 2019](https://elifesciences.org/articles/44642){target="_blank"}
+- [Jakšić and Schlötterer 2016](https://academic.oup.com/genetics/article/204/1/315/6066238){target="_blank"}
+- [Signor and Nuzhdin 2018](https://www.nature.com/articles/s41437-018-0136-4){target="_blank"}
+- [Venables _et al._ 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3245913/){target="_blank"}
+
+## Random stolen advice ^[This is a random list of good advice I have received over the years.]
+
+- Always explain the axes of figures during presentations -- also be sure to also describe any other design elements that are relevant, colors, shapes _etc._.
+  - You can even introduce an empty figure at first. This will allow you to introduce the axes to your audience and even prime them to remind them what your predictions for your data were.
+- Save figures in a format that will work well on a big screen -- _i.e._ save as pdf, tiff, or some other format that scales up well.
+- Dear god, please, make sure that all the text including the figure axes, legend, _etc._ is readable.
+- In general, you should aim to convey just one idea per slide.
+  - Titles to slides should be a descriptive sentence that is that slides major take away.
+- A presentation should have just three major takeaways (maximum) -- but just one or two is perfectly acceptable
+- variance is as important as the mean -- try to show if you can
+- Verbal transitions between slides and topics are among the most important pieces of a good talk -- you are telling one coherent story after all, not 10 mini stories. Connect you slides together logically.
+  - Prepare your audience for the next slide before you go to it.
+- Start and end on pretty, visually appealing slides.
+- Avoid abbreviations as much as possible.
+
+# **R markdown**
+
+When you are ready to report your results to colleagues or the world, it can be useful to have all of your analysis and figures in one single document. 
 
 The `script_file.R` that you have created is extremely useful in that it should be a reproducible record of all of your analysis. But at the end of the day. It is a very one-dimensional document -- it is just a specific type of text file after all!
 
@@ -1462,100 +1585,91 @@ Luckily, R & RStudio has ways that we can create more multimedia or even interac
 
 R markdown documents `.Rmd` can be used to create `.html` pages or `.pdf` documents. 
 
+[This is an example of a document I created for a collaborative sequencing project  ](https://tsoleary.github.io/rna_seq/cahan/scripts/tso_analysis.html){target="_blank"}. 
 
-## Links 
+This workshop is also created in R markdown and knit together as a book!
+
+## Links
+
+We don't have time to go through the finer details of R Markdown, but you should check out the links below and try to create some R Markdown files for yourself!
 
   - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/){target="_blank"} -- great overview of the features of R Markdown
   - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/){target="_blank"} -- additional R Markdown guide
+  
+# **Advanced skills**
 
-Print out a pretty table using `kableExtra`.
-
-```{r}
-mdh_df %>%
-  group_by(tissue) %>%
-  summarise(iu_gfw_avg = mean(iu_gfw),
-            iu_gfw_sd = sd(iu_gfw)) %>%
-  mutate(`I.U. / g f.w.` = paste(round(iu_gfw_avg, 2), 
-                                 "±", 
-                                 round(iu_gfw_sd, 2))) %>%
-  select(tissue, `I.U. / g f.w.`) %>%
-  rename("Tissue" = "tissue",
-         `MDH Activity (I.U. / g f.w.)` = `I.U. / g f.w.`) %>%
-  mutate(Tissue = str_to_sentence(Tissue)) %>%
-  kableExtra::kable()
-```
-
-## Advanced skills
-
-### Advanced `tidyverse`
-
-<!-- ## `nest` -->
-
-<!-- ```{r} -->
-<!-- ChickWeight %>% -->
-<!--   glimpse() -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- ChickWeight %>% -->
-<!--   group_by(Chick, Diet) %>% -->
-<!--   nest()  -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- ChickWeight_nest <- ChickWeight %>% -->
-<!--   group_by(Chick, Diet) %>% -->
-<!--   nest()  -->
-
-<!-- ChickWeight_nest$data[1:2] -->
-<!-- ``` -->
-
-<!-- ## `broom` -->
-
-<!-- ```{r} -->
-<!-- # Load libraries -->
-<!-- require(broom) -->
-<!-- ``` -->
-
-<!-- Check out the [`broom` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom/){target="_blank"}. -->
-
-<!-- \[And the `broom` and `dplyr` vignette\] (<https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html>). -->
-
-<!-- `tidy`: constructs a tibble that summarizes the model's statistical findings. This includes coefficients and p-values for each term in a regression, per-cluster information in clustering applications, or per-test information for multtest functions. -->
-
-<!-- `glance`: construct a concise one-row summary of the model. This typically contains values such as R\^2, adjusted R\^2, and residual standard error that are computed once for the entire model. -->
-
-<!-- ```{r} -->
-<!-- ChickWeight %>% -->
-<!--   group_by(Chick, Diet) %>% -->
-<!--   nest() %>% -->
-<!--   mutate( -->
-<!--     fit = map(data, ~ lm(weight ~ Time, data = .x)), -->
-<!--     tidied = map(fit, tidy), -->
-<!--     glanced = map(fit, glance) -->
-<!--   ) %>%  -->
-<!--   unnest(tidied)  -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- ChickWeight %>% -->
-<!--   ggplot() + -->
-<!--   geom_line(aes(x = Time,  -->
-<!--                  y = weight,  -->
-<!--                  color = Chick)) + -->
-<!--   facet_wrap(~ Diet) -->
-<!-- ``` -->
-
+There are a bunch of useful & fun skills that we will not have time to cover during this workshop.
 
 ## Version control
 
-## Code snippets
+Version control is a neat way to track the changes that you have made to your code over time so that you can restore previous versions if you break your code. Check out [Happy Git and GitHub for the useR](https://happygitwithr.com/) for more information
 
-## Publishing
+## Interactive visualization
 
-<!-- - [R Packages](https://r-pkgs.org/index/){target="_blank"} book. -->
+With big data sets, it is sometimes useful & fun to be able to create an interactive visualization of your data. This can be useful both when you are exploring your data and sharing it with others. Check out [`shiny` applications](https://shiny.rstudio.com/) for more information.
 
-# **Challenge Solutions**
+## Advanced `tidyverse`
+
+### `nest`
+
+```{r}
+ChickWeight %>%
+  glimpse()
+```
+
+```{r}
+ChickWeight %>%
+  group_by(Chick, Diet) %>%
+  nest()
+```
+
+```{r}
+ChickWeight_nest <- ChickWeight %>%
+  group_by(Chick, Diet) %>%
+  nest()
+
+ChickWeight_nest$data[1:2]
+```
+
+### `broom`
+
+```{r}
+# Load libraries
+require(broom)
+```
+
+Check out the [`broom` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom/){target="_blank"}.
+
+[And the `broom` and `dplyr` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html){target="_blank"}.
+
+`tidy`: constructs a tibble that summarizes the model's statistical findings. This includes coefficients and p-values for each term in a regression, per-cluster information in clustering applications, or per-test information for multtest functions.
+
+`glance`: construct a concise one-row summary of the model. This typically contains values such as R\^2, adjusted R\^2, and residual standard error that are computed once for the entire model.
+
+```{r}
+ChickWeight %>%
+  group_by(Chick, Diet) %>%
+  nest() %>%
+  mutate(
+    fit = map(data, ~ lm(weight ~ Time, data = .x)),
+    tidied = map(fit, tidy),
+    glanced = map(fit, glance)
+  ) %>%
+  unnest(tidied)
+```
+
+```{r}
+ChickWeight %>%
+  ggplot() +
+  geom_line(aes(x = Time,
+                 y = weight,
+                 color = Chick)) +
+  facet_wrap(~ Diet)
+```
+
+# (PART\*) **Challenge Solutions** {-}
+
+# **Solutions**
 
 There is way more than one way to solve these challenges. Notice the differences between my solution and yours. Why are those differences there? Are they just differences in style or are they differences in function? In what ways is your solution better? In what ways is mine better? 
 

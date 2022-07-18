@@ -262,17 +262,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="introduction-1.html"><a href="introduction-1.html#agenda-1"><i class="fa fa-check"></i><b>8.1</b> Agenda</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html"><i class="fa fa-check"></i><b>9</b> <strong>Brainstorming Visualization</strong></a>
+<li class="chapter" data-level="9" data-path="data-visualization-1.html"><a href="data-visualization-1.html"><i class="fa fa-check"></i><b>9</b> <strong>Data Visualization</strong></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#questions-hypotheses"><i class="fa fa-check"></i><b>9.1</b> Questions &amp; Hypotheses</a></li>
-<li class="chapter" data-level="9.2" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#literature-review"><i class="fa fa-check"></i><b>9.2</b> Literature Review</a>
+<li class="chapter" data-level="9.1" data-path="data-visualization-1.html"><a href="data-visualization-1.html#questions-hypotheses"><i class="fa fa-check"></i><b>9.1</b> Questions &amp; Hypotheses</a></li>
+<li class="chapter" data-level="9.2" data-path="data-visualization-1.html"><a href="data-visualization-1.html#literature-review"><i class="fa fa-check"></i><b>9.2</b> Literature Review</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#survival-curves"><i class="fa fa-check"></i><b>9.2.1</b> Survival Curves</a></li>
-<li class="chapter" data-level="9.2.2" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#differential-expression-data"><i class="fa fa-check"></i><b>9.2.2</b> Differential Expression Data</a></li>
-<li class="chapter" data-level="9.2.3" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#go-functional-analysis"><i class="fa fa-check"></i><b>9.2.3</b> GO functional analysis</a></li>
-<li class="chapter" data-level="9.2.4" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#differential-splicing-data"><i class="fa fa-check"></i><b>9.2.4</b> Differential Splicing Data</a></li>
+<li class="chapter" data-level="9.2.1" data-path="data-visualization-1.html"><a href="data-visualization-1.html#survival-curves"><i class="fa fa-check"></i><b>9.2.1</b> Survival Curves</a></li>
+<li class="chapter" data-level="9.2.2" data-path="data-visualization-1.html"><a href="data-visualization-1.html#differential-expression-data"><i class="fa fa-check"></i><b>9.2.2</b> Differential Expression Data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="data-visualization-1.html"><a href="data-visualization-1.html#go-functional-analysis"><i class="fa fa-check"></i><b>9.2.3</b> GO functional analysis</a></li>
+<li class="chapter" data-level="9.2.4" data-path="data-visualization-1.html"><a href="data-visualization-1.html#differential-splicing-data"><i class="fa fa-check"></i><b>9.2.4</b> Differential Splicing Data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="brainstorming-visualization.html"><a href="brainstorming-visualization.html#random-stolen-advice"><i class="fa fa-check"></i><b>9.3</b> Random stolen advice </a></li>
+<li class="chapter" data-level="9.3" data-path="data-visualization-1.html"><a href="data-visualization-1.html#random-stolen-advice"><i class="fa fa-check"></i><b>9.3</b> Random stolen advice </a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>10</b> <strong>R markdown</strong></a>
 <ul>
@@ -503,23 +503,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are a bunch of functions that come by default with R in the <code>base</code> package.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="more-base-ics-in-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List 20 random objects in the base package in R</span></span>
 <span id="cb34-2"><a href="more-base-ics-in-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>), <span class="at">size =</span> <span class="dv">20</span>)</span>
-<span id="cb34-3"><a href="more-base-ics-in-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] &quot;file.show&quot;               &quot;file.copy&quot;              </span></span>
-<span id="cb34-4"><a href="more-base-ics-in-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  [3] &quot;pipe&quot;                    &quot;pmax&quot;                   </span></span>
-<span id="cb34-5"><a href="more-base-ics-in-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [5] &quot;Sys.unsetenv&quot;            &quot;body&lt;-&quot;                 </span></span>
-<span id="cb34-6"><a href="more-base-ics-in-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  [7] &quot;length&lt;-.Date&quot;           &quot;file.rename&quot;            </span></span>
-<span id="cb34-7"><a href="more-base-ics-in-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  [9] &quot;vapply&quot;                  &quot;removeTaskCallback&quot;     </span></span>
-<span id="cb34-8"><a href="more-base-ics-in-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [11] &quot;dimnames&quot;                &quot;La_version&quot;             </span></span>
-<span id="cb34-9"><a href="more-base-ics-in-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [13] &quot;oldClass&quot;                &quot;split&lt;-.data.frame&quot;     </span></span>
-<span id="cb34-10"><a href="more-base-ics-in-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [15] &quot;eigen&quot;                   &quot;is.factor&quot;              </span></span>
-<span id="cb34-11"><a href="more-base-ics-in-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [17] &quot;topenv&quot;                  &quot;is.infinite&quot;            </span></span>
-<span id="cb34-12"><a href="more-base-ics-in-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [19] &quot;gc&quot;                      &quot;conditionCall.condition&quot;</span></span>
-<span id="cb34-13"><a href="more-base-ics-in-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="more-base-ics-in-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># How many are there?</span></span>
-<span id="cb34-15"><a href="more-base-ics-in-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>))</span>
-<span id="cb34-16"><a href="more-base-ics-in-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1257</span></span>
-<span id="cb34-17"><a href="more-base-ics-in-r.html#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="more-base-ics-in-r.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:stats&quot;</span>))</span>
-<span id="cb34-19"><a href="more-base-ics-in-r.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 452</span></span></code></pre></div>
+<span id="cb34-3"><a href="more-base-ics-in-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] &quot;all.equal&quot;            &quot;is.atomic&quot;            &quot;atan&quot;                </span></span>
+<span id="cb34-4"><a href="more-base-ics-in-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  [4] &quot;rle&quot;                  &quot;strptime&quot;             &quot;rowSums&quot;             </span></span>
+<span id="cb34-5"><a href="more-base-ics-in-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [7] &quot;getLoadedDLLs&quot;        &quot;[&lt;-.numeric_version&quot;  &quot;aperm.default&quot;       </span></span>
+<span id="cb34-6"><a href="more-base-ics-in-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [10] &quot;library.dynam.unload&quot; &quot;expand.grid&quot;          &quot;is.numeric.difftime&quot; </span></span>
+<span id="cb34-7"><a href="more-base-ics-in-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [13] &quot;attributes&lt;-&quot;         &quot;enquote&quot;              &quot;is.data.frame&quot;       </span></span>
+<span id="cb34-8"><a href="more-base-ics-in-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [16] &quot;[.factor&quot;             &quot;trigamma&quot;             &quot;month.name&quot;          </span></span>
+<span id="cb34-9"><a href="more-base-ics-in-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [19] &quot;infoRDS&quot;              &quot;formatC&quot;</span></span>
+<span id="cb34-10"><a href="more-base-ics-in-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="more-base-ics-in-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># How many are there?</span></span>
+<span id="cb34-12"><a href="more-base-ics-in-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>))</span>
+<span id="cb34-13"><a href="more-base-ics-in-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1257</span></span>
+<span id="cb34-14"><a href="more-base-ics-in-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="more-base-ics-in-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:stats&quot;</span>))</span>
+<span id="cb34-16"><a href="more-base-ics-in-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 452</span></span></code></pre></div>
 <p>These include some of the useful functions that we have looked at so far, <code>class()</code>, <code>length()</code>, <code>summary()</code>, as well as a bunch of others.</p>
 <p>These are super useful functions with which to get acquainted – because it is important to fully understand the fundamental properties of your data before you go on to do any statiscs or data visualization.</p>
 <ul>

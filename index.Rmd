@@ -1497,11 +1497,13 @@ Part II of this workshop will be less of a code-along session and more built tow
 4. Advanced R skills
 5. **Up to you**
 
-# **Brainstorming Visualization**
+# **Data Visualization**
 
 For all intents and purposes, your figures are your final product! They are the results you are trying to communicate to the world. They are the exciting new finding that you are sharing with colleagues, the thing you have spent so much time thinking about and investigating. Some people will spend hundreds of hours on a project, collecting and analyzing data, but then they won't take the extra few hours to iterate and perfect a final figure. Don't be one of those people! 
 
 In this section, we will talk about some general advice for figure making and communicating your results to your audience. 
+
+We are going to check out the [Fundamentals of Data Visualization -- Principles of figure design](https://clauswilke.com/dataviz/proportional-ink.html){target="_blank"} section for some advice.
 
 ## Questions & Hypotheses
 
@@ -1565,15 +1567,16 @@ Literature
 - Always explain the axes of figures during presentations -- also be sure to also describe any other design elements that are relevant, colors, shapes _etc._.
   - You can even introduce an empty figure at first. This will allow you to introduce the axes to your audience and even prime them to remind them what your predictions for your data were.
 - Save figures in a format that will work well on a big screen -- _i.e._ save as pdf, tiff, or some other format that scales up well.
-- Dear god, please, make sure that all the text including the figure axes, legend, _etc._ is readable.
+- Make sure that all the text including the figure axes, legend, _etc._ is readable.
 - In general, you should aim to convey just one idea per slide.
   - Titles to slides should be a descriptive sentence that is that slides major take away.
-- A presentation should have just three major takeaways (maximum) -- but just one or two is perfectly acceptable
-- variance is as important as the mean -- try to show if you can
+- A presentation should have just three major takeaways (maximum) -- but just one or two is perfectly acceptable.
+- Variance is as important as the mean -- attempt to show the variance unless impossible or impractical.
 - Verbal transitions between slides and topics are among the most important pieces of a good talk -- you are telling one coherent story after all, not 10 mini stories. Connect you slides together logically.
   - Prepare your audience for the next slide before you go to it.
 - Start and end on pretty, visually appealing slides.
 - Avoid abbreviations as much as possible.
+- Avoid most text -- Try to keep it to fewer than 20 words on a slide.
 
 # **R markdown**
 

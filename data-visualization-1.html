@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>UVM ThermoFly REU Crew</title>
+  <title>9 Data Visualization | UVM ThermoFly REU Crew</title>
   <meta name="description" content="An incomplete introductory workshop to data science and R." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="UVM ThermoFly REU Crew" />
+  <meta property="og:title" content="9 Data Visualization | UVM ThermoFly REU Crew" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An incomplete introductory workshop to data science and R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="UVM ThermoFly REU Crew" />
+  <meta name="twitter:title" content="9 Data Visualization | UVM ThermoFly REU Crew" />
   
   <meta name="twitter:description" content="An incomplete introductory workshop to data science and R." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="introduction-1.html"/>
+<link rel="next" href="r-markdown.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -314,25 +314,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">UVM ThermoFly REU Crew</h1>
-<p class="author"><em>TS O’Leary</em></p>
-<p class="date"><em>Summer 2022</em></p>
+<div id="data-visualization-1" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> <strong>Data Visualization</strong><a href="data-visualization-1.html#data-visualization-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>For all intents and purposes, your figures are your final product! They are the results you are trying to communicate to the world. They are the exciting new finding that you are sharing with colleagues, the thing you have spent so much time thinking about and investigating. Some people will spend hundreds of hours on a project, collecting and analyzing data, but then they won’t take the extra few hours to iterate and perfect a final figure. Don’t be one of those people!</p>
+<p>In this section, we will talk about some general advice for figure making and communicating your results to your audience.</p>
+<p>We are going to check out the <a href="https://clauswilke.com/dataviz/proportional-ink.html" target="_blank">Fundamentals of Data Visualization – Principles of figure design</a> section for some advice.</p>
+<div id="questions-hypotheses" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Questions &amp; Hypotheses<a href="data-visualization-1.html#questions-hypotheses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When you are creating a data visualization, it is important to zoom-out and think big picture again about what the questions and hypotheses that have driven your experiments and data collection.</p>
+<p>In my opinion, each figure that you present to an audience – either live in a presentation or – should answer a simple question about your experiment.</p>
+<ul>
+<li><p>How heat tolerant are embryos from isogenic lines established from Florida?</p></li>
+<li><p>How do the heat tolerance of Florida genotypes compare to other genotypes from around the world?</p></li>
+<li><p>Which pathways are involved in developmental acclimation to higher temperatures?</p></li>
+<li><p>How shared are the pathways involved in adult and developmental acclimation? Warm acclimation and cold acclimation? Warm acclimation and heat shock?</p></li>
+<li><p>To what extent is differential splicing involved in the heat shock response?</p></li>
+<li><p>Which genes are differentially spliced during heat shock?</p></li>
+</ul>
+<blockquote>
+<p>Notice how each of these questions could be answered with different data visualization.</p>
+</blockquote>
 </div>
-<div id="data-science-workshop" class="section level1 unnumbered hasAnchor">
-<h1><strong>Data Science Workshop</strong><a href="data-science-workshop.html#data-science-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><img src="r_fly.jpg" /></p>
+<div id="literature-review" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Literature Review<a href="data-visualization-1.html#literature-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are often multiple acceptable ways to present your collected data graphically.</p>
+<p>It is a good idea when brainstorming potential figures to look at recent literature and see what you like and don’t like about those figures.</p>
+<div id="survival-curves" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Survival Curves<a href="data-visualization-1.html#survival-curves" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><a href="https://journals.biologists.com/jeb/article/220/23/4492/33704/Maternal-loading-of-a-small-heat-shock-protein" target="_blank">Lockwood <em>et al.</em> 2017</a></li>
+<li><a href="https://onlinelibrary.wiley.com/doi/10.1111/jeb.13234" target="_blank">Lockwood <em>et al.</em> 2018</a></li>
+</ul>
 </div>
-
-
-
+<div id="differential-expression-data" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Differential Expression Data<a href="data-visualization-1.html#differential-expression-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Useful links
+- <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html" target="_blank">DESeq2 stats</a>
+- <a href="https://tsoleary.github.io/eco_genomics/tso_eco_genomics.html#8_deseq2_in_r" target="_blank">Ecological Genomics TSO DESeq2 Notes</a></p>
+<p>Common types of visualization
+1. Principle Component Analysis (PCA)
+2. Heat maps
+3. Venn diagrams
+4. MA plots
+5. Volcano plots
+6. Box plots</p>
+</div>
+<div id="go-functional-analysis" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> GO functional analysis<a href="data-visualization-1.html#go-functional-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><a href="https://www.nature.com/articles/srep28999" target="_blank">MacMillan <em>et al.</em> 2016</a></li>
+<li><a href="https://www.frontiersin.org/articles/10.3389/fgene.2020.00658/full" target="_blank">Lecheta <em>et al.</em> 2020</a></li>
+</ul>
+</div>
+<div id="differential-splicing-data" class="section level3 hasAnchor" number="9.2.4">
+<h3><span class="header-section-number">9.2.4</span> Differential Splicing Data<a href="data-visualization-1.html#differential-splicing-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>basics of splicing –</p>
+<p>Literature
+- <a href="https://elifesciences.org/articles/44642" target="_blank">Anduaga <em>et al.</em> 2019</a>
+- <a href="https://academic.oup.com/genetics/article/204/1/315/6066238" target="_blank">Jakšić and Schlötterer 2016</a>
+- <a href="https://www.nature.com/articles/s41437-018-0136-4" target="_blank">Signor and Nuzhdin 2018</a>
+- <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3245913/" target="_blank">Venables <em>et al.</em> 2012</a></p>
+</div>
+</div>
+<div id="random-stolen-advice" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Random stolen advice <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a><a href="data-visualization-1.html#random-stolen-advice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Always explain the axes of figures during presentations – also be sure to also describe any other design elements that are relevant, colors, shapes <em>etc.</em>.
+<ul>
+<li>You can even introduce an empty figure at first. This will allow you to introduce the axes to your audience and even prime them to remind them what your predictions for your data were.</li>
+</ul></li>
+<li>Save figures in a format that will work well on a big screen – <em>i.e.</em> save as pdf, tiff, or some other format that scales up well.</li>
+<li>Make sure that all the text including the figure axes, legend, <em>etc.</em> is readable.</li>
+<li>In general, you should aim to convey just one idea per slide.
+<ul>
+<li>Titles to slides should be a descriptive sentence that is that slides major take away.</li>
+</ul></li>
+<li>A presentation should have just three major takeaways (maximum) – but just one or two is perfectly acceptable.</li>
+<li>Variance is as important as the mean – attempt to show the variance unless impossible or impractical.</li>
+<li>Verbal transitions between slides and topics are among the most important pieces of a good talk – you are telling one coherent story after all, not 10 mini stories. Connect you slides together logically.
+<ul>
+<li>Prepare your audience for the next slide before you go to it.</li>
+</ul></li>
+<li>Start and end on pretty, visually appealing slides.</li>
+<li>Avoid abbreviations as much as possible.</li>
+<li>Avoid most text – Try to keep it to fewer than 20 words on a slide.</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>This is a random list of good advice I have received over the years.<a href="data-visualization-1.html#fnref7" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

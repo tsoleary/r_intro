@@ -1,0 +1,436 @@
+---
+title: "RNA-Seq QC and DESeq2 Analysis"
+author: "SK"
+date: "3/8/2022"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+Load any packages you will need for the RMD in the first R chunk -- that way you can load them all at once by running the whole chunk 
+
+```{r load libraries, warning=FALSE}
+suppressPackageStartupMessages({
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(calibrate)
+library(tibble)
+library(enrichplot)
+library(knitr)
+library(kableExtra)
+library(reshape2)
+library(pheatmap)
+library(gprofiler2)
+library(vidger)
+library(patchwork)
+library(ggVennDiagram)
+library(edgeR)
+library(hypeR)
+  library(DESeq2)
+  library(RColorBrewer)
+  library(ggrepel)
+  library(EnhancedVolcano)
+  library(data.table)
+  library(geneplotter)
+})
+
+```
+
+Load in your counts data -- should be in the form of a counts matrix
+```{r load data, cache=TRUE}
+# Enter file path to your counts matrix. You may need to use a different function to read in your data -- it depends on the format you saved it as.
+wd = "/Users/sarafiller/Desktop/Thermofly/raw_rRNA"
+setwd(wd)
+counts<- read.csv("rRNA_depletion_counts.csv")
+
+
+colnames(counts)
+row.names(counts)<- counts$X
+counts<-counts[,-1] # remove first column because genes now assigned to row.names
+counts<-counts[,-7] # remove the 4th replicate of cold10
+
+# Fill in with your main treatment groups using the rep() and factor() functions
+
+condition <- factor(c(rep("Control25", 3),  rep("Cold10",3), rep("Hot34", 3), rep("Hot37",3), rep("Cold4",3)))
+str(counts)
+# You can add more meta data in another vector to use for DESeq analysis, but we will keep it simple. For example you could write: species <- factor(c(rep("D. melanogaster", 8), rep("D. pseudoobscura", 8)))
+
+coldata <- data.frame(row.names=colnames(counts), condition)
+
+# Create DESeq2Dataset object
+dds <- DESeqDataSetFromMatrix(countData = counts,
+                              colData = coldata,
+                              design= ~ condition)
+
+# keep only rows where row sums are >= 10 
+keep <- rowSums(counts(dds)) >= 10
+dds<- dds[keep,]
+
+# Run DESeq2 analysis/ make dds object 
+dds<- DESeq(dds)
+colnames(dds) <- colnames(counts)
+
+```
+
+Step 2: DEG analysis using DESeq2
+## Run contrasts to obtain DEG results
+```{r Run contrasts, warning= F, echo=FALSE, cache = T}
+##### DESeq2 Contrasts ########
+# Set up a new pairwise contrast for each of your conditions -- repeat these 7 lines, changing object names to store DEG lists in uniquely named objects. You can also adjust the "signficance" threshold by altering the last line.
+
+# Contrast example: Hot 37º vs Control 25º
+res_hot37v25 <- results(dds, contrast=c('condition','Hot37','Control25')) 
+dim(res_hot37v25)
+res_hot37v25 <- res_hot37v25[complete.cases(res_hot37v25),]  #remove any rows with NA
+dim(res_hot37v25)
+#rank genes by ordering them by p adjusted value
+result_hot37v25 <- res_hot37v25[order(res_hot37v25$padj), ]
+head(result_hot37v25)
+# extract DEGs
+#change to a dataframe, subset out genes with an abs value logfold change   from the control group greater than 1 (negative > less expression, positive > more expression)
+#only include genes with p<0.05
+result_hot37v25DEG<-
+data.frame(result_hot37v25[which(abs(result_hot37v25$log2FoldChange) > 1 & result_hot37v25$padj < 0.05),])
+# result_hot37v25DEG is now a dataframe with your DEGs
+#upregualted DEGs
+upreg_hot37v25DEG<-
+  data.frame(result_hot37v25DEG[which(result_hot37v25DEG$log2FoldChange > 1),])
+#extract downregulated DEGs
+downreg_hot37v25DEG<-
+  data.frame(result_hot37v25DEG[which(result_hot37v25DEG$log2FoldChange < 1),])
+
+
+# Contrast example: Hot 34º vs Control 25º
+res_hot34v25 <- results(dds, contrast=c('condition','Hot34','Control25')) 
+dim(res_hot34v25)
+res_hot34v25 <- res_hot34v25[complete.cases(res_hot34v25),]  #remove any rows with NA
+dim(res_hot34v25)
+#order by p adjusted value
+result_hot34v25 <- res_hot34v25[order(res_hot34v25$padj), ]
+head(result_hot34v25)
+# extract DEGs
+result_hot34v25DEG<-
+data.frame(result_hot34v25[which(abs(result_hot34v25$log2FoldChange) > 1 & result_hot34v25$padj < 0.05),])
+#DEGs = the number rows in the dataframe, nrow(result_hot34v25DEG)
+#upregualted DEGs
+upreg_hot34v25DEG<-
+  data.frame(result_hot34v25DEG[which(result_hot34v25DEG$log2FoldChange > 1),])
+#extract downregulated DEGs
+downreg_hot34v25DEG<-
+  data.frame(result_hot34v25DEG[which(result_hot34v25DEG$log2FoldChange < 1),])
+
+# Contrast example: Cold 10º vs Control 25º
+res_cold10v25 <- results(dds, contrast=c('condition','Cold10','Control25')) 
+dim(res_cold10v25)
+res_cold10v25 <- res_cold10v25[complete.cases(res_cold10v25),]  #remove any rows with NA
+dim(res_cold10v25)
+#order by p adjusted value
+result_cold10v25 <- res_cold10v25[order(res_cold10v25$padj), ]
+head(result_cold10v25)
+# extract DEGs
+result_cold10v25DEG<-
+data.frame(result_cold10v25[which(abs(result_cold10v25$log2FoldChange) > 1 & result_cold10v25$padj < 0.05),])
+#upregualted DEGs
+upreg_cold10v25DEG<-
+  data.frame(result_cold10v25DEG[which(result_cold10v25DEG$log2FoldChange > 1),])
+#extract downregulated DEGs
+downreg_cold10v25DEG<-
+  data.frame(result_cold10v25DEG[which(result_cold10v25DEG$log2FoldChange < 1),])
+
+# Contrast example: Cold 4º vs Control 25º
+res_cold4v25 <- results(dds, contrast=c('condition','Cold4','Control25'))
+dim(res_cold4v25)
+res_cold4v25 <- res_cold4v25[complete.cases(res_cold4v25),]  #remove any rows with NA
+dim(res_cold4v25)
+#order by p adjusted value
+result_cold4v25 <- res_cold4v25[order(res_cold4v25$padj), ]
+head(result_cold4v25)
+# extract DEGs
+result_cold4v25DEG<-
+data.frame(result_cold4v25[which(abs(result_cold4v25$log2FoldChange) > 1 & result_cold4v25$padj < 0.05),])
+
+# extract upregulatedDEGs
+upreg_cold4v25DEG<-
+  data.frame(result_cold4v25DEG[which(result_cold4v25DEG$log2FoldChange > 1),])
+#extract downregulated DEGs
+downreg_cold4v25DEG<-
+  data.frame(result_cold4v25DEG[which(result_cold4v25DEG$log2FoldChange < 1),])
+```
+# Make a dataframe called DEGdata with three cols, treatment,variable: up/down, number
+```{r}
+list1<- list("result_cold4v25DEG"= result_cold4v25DEG, "result_cold10v25DEG"= result_cold10v25DEG, "result_hot34v25DEG"=result_hot34v25DEG, "result_hot37v25DEG"= result_hot37v25DEG)
+
+deg_data<- data.frame("treat"= c(names(list1)), "up" = NA, "down"= NA)
+deg_data$treat<- gsub("result_", "", deg_data$treat)
+deg_data$treat<- gsub("v25DEG", "", deg_data$treat)
+
+for(i in 1:4){
+  deg_data$up[i]<- length(which(list1[[i]][["log2FoldChange"]] >= 1))
+    deg_data$down[i]<- length(which(list1[[i]][["log2FoldChange"]] <= -1))
+}
+
+deg_data<- melt(deg_data)
+deg_data$treat <- factor( deg_data$treat, levels= c("cold4", "cold10", "hot34", "hot37"))
+
+p<- ggplot(deg_data, aes(x= treat, y= value, fill= variable)) + geom_bar(position=position_dodge(), aes(y=value), stat="identity") +
+  geom_text(aes(label=value), vjust=-0.25, color="black", position = position_dodge(0.9), size=3.5) + theme_bw()  + scale_y_continuous(limits = c(0, 1790), expand = c(0,0)) + ggtitle("DEGs Relative to 25ºC Control") + scale_fill_manual(values= c("red", "lightblue"))
+# + scale_fill_manual(values=colors))
+p
+#View(p) to show the plot
+```
+
+## VOLCANO PLOTS
+## Highlight DEGs in volcano plots
+```{r Enhanced Volcano plots, warning=FALSE, echo=FALSE, cache= T} 
+# Repeat for each condition (must highlight and run each separately)
+# Hot 37º vs Control 25º
+res_37v25 <- lfcShrink(dds, contrast=c('condition','Hot37','Control25'), type = "normal") 
+
+data<- res_37v25
+title<- "Hot 37º vs Control 25º"
+
+# Hot 34º vs Control 25º
+res_34v25 <- lfcShrink(dds, contrast=c('condition','Hot34','Control25'), type = "normal") 
+
+data<- res_34v25
+title<- "Hot 34º vs Control 25º"
+
+# Cold 10º vs Control 25º
+res_10v25 <- lfcShrink(dds, contrast=c('condition','Cold10','Control25'), type = "normal") 
+
+data<- res_10v25
+title<- "Cold 10º vs Control 25º"
+
+# Cold 4º vs Control 25º
+res_4v25 <- lfcShrink(dds, contrast=c('condition','Cold4','Control25'), type = "normal") 
+
+data<- res_4v25
+title<- "Cold 4º vs Control 25º"
+
+###############################
+
+FC <- 1
+p <- 5e-2
+
+keyvals <- rep('grey50', nrow(data))
+names(keyvals) <- rep('NS', nrow(data))
+
+keyvals[which(abs(data$log2FoldChange) > FC & data$padj > p)] <- 'grey50'
+names(keyvals)[which(abs(data$log2FoldChange) > FC & data$padj > p)] <- 'log2FoldChange'
+
+keyvals[which(abs(data$log2FoldChange) < FC & data$padj < p)] <- 'grey50'
+names(keyvals)[which(abs(data$log2FoldChange)  < FC & data$padj < p)] <- '-Log10Q'
+
+keyvals[which(data$log2FoldChange < -FC & data$padj < p)] <- 'red2'
+names(keyvals)[which(data$log2FoldChange  < -FC & data$padj < p)] <- 'Signif. down-regulated'
+
+keyvals[which(data$log2FoldChange > FC & data$padj < p)] <- 'red2'
+names(keyvals)[which(data$log2FoldChange > FC & data$padj < p)] <- 'Signif. up-regulated'
+
+unique(keyvals)
+unique(names(keyvals))
+
+# plot
+volcano <- EnhancedVolcano(data,
+                           lab = rownames(data),
+                           x = 'log2FoldChange',
+                           y = 'pvalue',
+                           selectLab = NULL,
+                           ylim = c(0,20),
+                           xlim = c(-3,3),
+                           xlab = bquote(~Log[2]~ 'fold change'),
+                           ylab = bquote(~-Log[10] ~ italic(P)),
+                           title = paste0(title),
+                           pCutoff = 5e-2,
+                           FCcutoff = 1,
+                           pointSize = 1,
+                           labSize = 3.0,
+                           labCol = 'black',
+                           labFace = 'bold',
+                           boxedLabels = F,
+                           #shape = c(6, 4, 2, 11, 15),
+                           colCustom = keyvals,
+                           colAlpha = 1,
+                           legendPosition = 'right',
+                           legendLabSize = 5,
+                           legendIconSize = 5.0,
+                           drawConnectors = FALSE,
+                           widthConnectors = 0.5,
+                           colConnectors = 'grey50',
+                           gridlines.major = FALSE,
+                           gridlines.minor = FALSE,
+                           border = 'partial',
+                           borderWidth = 0.5,
+                           borderColour = 'black')
+
+volcano
+
+
+# Change axes, colors and labeling within the plotting function
+```
+
+## Make a histogram of your DEGs
+```{r Histogram of up and down DEGs at each temperature}
+# use ggplot to make a histogram of your DEGs -- there are many ways to do this!
+#y is counts, x is based on the log2 fold change if it >1 or <1
+
+# My simple bar plot for one comparison
+
+bar_plot_df<-result_hot37v25DEG%>%
+  summarise(up_reg=log2FoldChange>1,
+            down_reg=log2FoldChange<1)
+#%>%
+  #group_by(up_reg)%>%summarize(count=n())  #this distills it to just the counts
+
+bar_plot_df%>%
+  ggplot(aes(up_reg))+
+  geom_bar()+scale_x_discrete(labels=c("TRUE"="up_reg","FALSE"="down_reg"),name="Number DEGs up or down regulated")
+
+# Sophie's Data (from slack for bar graphs with all data altogether) ----
+# repeat 2 plots above
+
+```
+
+## Clustered heatmap of DEG expression
+```{r clustered heatmap of DEGs, warning=FALSE, echo= F, cache= T}
+# look at expression patterns of genes that cluster in the different conditions - favor the DEGs only
+
+
+# Concatenate all the unique DEGs identified in each of the contrasts -- gene names are stored in the result_* objects in the row names
+uniquedeg<- unique(c(row.names(result_cold4v25DEG), row.names(result_cold10v25DEG), row.names(result_hot34v25DEG), row.names(result_hot37v25DEG)))
+
+# Write list of DEGs to a file
+write.table(uniquedeg,"rRNA_DEGs.csv", row.names=FALSE,col.names=FALSE)
+
+# normalize data (uses edgeR)
+y <- DGEList(counts=counts,group=condition)
+y <- calcNormFactors(y)
+
+lcpm <- cpm(y, log=TRUE) #log cpm
+# subset the unique degs
+filtered <- lcpm[intersect(row.names(lcpm), as.character(uniquedeg)),]
+
+#add annotations
+condition <- factor(c(rep("Cold10", 3),  rep("Control25",3), rep("Hot34", 3), rep("Hot37",3), rep("Cold4",3)))
+anno = data.frame("category" = condition)
+
+rownames(anno) = colnames(filtered)
+
+# plot heatmap with kmeans to get clusters
+out <- pheatmap(filtered, 
+          cluster_rows = T, 
+          cluster_cols = T, 
+          clustering_method = "mcquitty", 
+          clustering_distance_rows = "euclidean",  
+          show_rownames = F, 
+          annotation_col = anno, 
+          scale = "row", 
+          show_colnames = F, 
+          cutree_rows = 3,
+          color= colorRampPalette(rev(brewer.pal(n = 7, name ="RdBu")))(100),
+          clustering_distance_cols = "correlation",
+          annotation_names_col = F,
+          angle_col = "45", 
+          kmeans_k = 3 # need to break means into clusters
+          )
+
+clusters <- cutree(out$tree_row, k=3)[out$tree_row[["order"]]]
+
+annot_row <- data.frame(row.names = names(clusters),
+                        cluster = as.factor(clusters))
+ann_color= list(category= c(Cold4= "#357EBDFF", Cold10= "#46B8DAFF", Control25= "#5CB85CFF", Hot34= "#EEA236FF", Hot37= "#D43F3AFF" ))
+
+pheatmap(filtered, 
+          cluster_rows = T, 
+          cluster_cols = T, 
+          clustering_method = "mcquitty", 
+          clustering_distance_rows = "euclidean",  
+          show_rownames = F, 
+          annotation_col = anno, 
+          scale = "row",
+          show_colnames = F,
+          cutree_rows = 3,
+          color= colorRampPalette(rev(brewer.pal(n = 7, name ="RdBu")))(100),
+          clustering_distance_cols = "correlation",
+          annotation_names_col = F,
+          angle_col = "45",
+        # annotation_row = annot_row, 
+         main = "Expression of DEGs",
+         annotation_colors = ann_color[1]
+          )
+
+geneclusters <- out[["kmeans"]][["cluster"]]
+
+# Get cluster genes from the heatmap -- note the number of clusters will vary
+
+# get cluster1 genes
+cl1 <- geneclusters[geneclusters==1]
+cl1 <- as.data.frame(cl1)
+cluster1 <- row.names(cl1)
+head(cluster1)
+length(cluster1)
+
+#get cluster2 genes
+cl2 <- geneclusters[geneclusters==2]
+cl2 <- as.data.frame(cl2)
+cluster2 <- row.names(cl2)
+head(cluster2)
+length(cluster2)
+
+#get cluster3 genes
+cl3 <- geneclusters[geneclusters==3]
+cl3 <- as.data.frame(cl3)
+cluster3 <- row.names(cl3)
+head(cluster3)
+length(cluster3)
+
+#get cluster4 genes
+cl4 <- geneclusters[geneclusters==4]
+cl4 <- as.data.frame(cl4)
+cluster4 <- row.names(cl4)
+head(cluster4)
+length(cluster4)
+
+#get cluster5 genes
+cl5 <- geneclusters[geneclusters==5]
+cl5 <- as.data.frame(cl5)
+cluster5 <- row.names(cl5)
+head(cluster5)
+length(cluster5)
+
+#make dataframe of all cluster genes to easily pull a cluster for pathway
+cluster_df <- as.data.frame(geneclusters)
+#write.csv(cluster_df, "fly_geneclusters.csv", quote= F)
+```
+
+## Create a csv of a table containing all degs by condition
+```{r}
+# make a new df for each condition containing all DEGs and add a col saying 
+#   from which comparison they came from 
+comparison_list<- list("cold4v25"= result_cold4v25DEG, 
+             "cold10v25"= result_cold10v25DEG, 
+             "hot34v25"=result_hot34v25DEG, 
+             "hot37v25"= result_hot37v25DEG)
+
+for (i in names(comparison_list)){
+  print(i)
+  deseq_obj=paste("result_",i,"DEG", sep="")
+  df_name=(paste(i,"_df",sep=""))
+  df<-comparison_list[[i]] # make a new df from one of the DEG dfs in comparison_list
+  df$comparison<-c(i) # add a new column telling you the name of the comparison
+  assign(df_name,df) #assigns the corresponding comparison name to the df
+  # would be nice to add each newly made df to a list of dfs and 
+  # then i could just bind all the dfs in the list
+}
+
+# For each condition, then group all rows together into a larger df
+degs_by_condition<-rbind(cold4v25_df,cold10v25_df,hot34v25_df,hot37v25_df)
+
+# Write to a csv
+write.table(degs_by_condition,"rRNA_degs_by_condtion.csv", sep=',',
+            quote=FALSE)
+```
+
+
+

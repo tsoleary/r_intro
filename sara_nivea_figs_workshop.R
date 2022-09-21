@@ -12,7 +12,7 @@ require(ggrepel)
 # Load data
 dds <- readRDS("student_data/reu_workshop_nivea_dds_rRNA.rds")
 
-# Load specific result comparisions
+# Load specific result comparisons
 res_37 <- results(dds,
                   name = "condition_Hot37_vs_Control",
                   alpha = 0.05)

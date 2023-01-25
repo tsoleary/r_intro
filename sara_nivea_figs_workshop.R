@@ -10,7 +10,7 @@ require(DESeq2)
 require(ggrepel)
 
 # Load data
-dds <- readRDS("student_data/reu_workshop_nivea_dds_rRNA.rds")
+dds <- readRDS(here::here("student_data/reu_workshop_nivea_dds_rRNA.rds"))
 
 # Load specific result comparisons
 res_37 <- results(dds,

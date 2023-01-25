@@ -1585,190 +1585,691 @@ Literature
 ```{r}
 # ------------------------------------------------------------------------------
 # Alex's Survival Data Analysis with Workshop
-# July 20, 2022
-# TS O'Leary
-# ------------------------------------------------------------------------------
+# Alex Lewis
+#----------------------------------------------------------------------------
 
-# Load libraries
+#Load Libraries
 require(tidyverse)
 require(drc)
 
 # Load data
-df <- read_csv("student_data/reu_data_alex.csv") %>%
-  dplyr::select(-survival)
+surv <- read_csv(here::here("student_data/raw_survival_alex_25JUL2022.csv"))
+lock_surv <- read_delim(here::here("student_data/raw_survival_lockwood_et_al_2018.txt"),
+                        delim = "\t") %>%
+  dplyr::rename(Genotype = genotype,
+         Eggs = eggs,
+         Hatched_48 = hatched,
+         Temperature = temperature) 
 
-# Analyze data
-df %>%
-  group_by(Genotype, Temperature) %>%
-  summarize(prop_hatch = sum(Hatched_48)/sum(Eggs))
+# Combine data
+surv <- bind_rows(surv, lock_surv)
 
-# But this is obviously not linear
-df %>%
-  filter(Genotype == "CH") %>%
+# LT50-----------------------------------------------------------------------
+lt_surv_curv <- surv %>%
+  filter(!str_detect(Genotype, "Canton")) %>%
+  group_by(Genotype) %>%
+  nest() %>%
+  mutate(fit = map(data, ~ drm(Hatched_48/Eggs ~ Temperature, 
+                               data = .x, 
+                               weight = Eggs,
+                               fct = LL.3(names = c("slope", 
+                                                    "upper limit", 
+                                                    "LT50")),
+                               type = "binomial")),
+         lt_s = map(fit, ~ ED(.x, 
+                              c(10, 50, 90), 
+                              interval = "delta",
+                              display = FALSE))) %>%
+  mutate(tidy_fit = map(fit, broom::tidy))  %>%
+  mutate(lt_10 = lt_s[[1]][[1]],
+         lt_50 = lt_s[[1]][[2]],
+         lt_90 = lt_s[[1]][[3]])
+
+# Calcu.ate mean and sd from locale groups
+lt_surv_curv %>%
+  filter(!str_detect(Genotype, "X")) %>%
+  mutate(locale = case_when(str_detect(Genotype, "FLCK") ~ "Florida",
+                            str_detect(Genotype, "VT") |
+                              str_detect(Genotype, "BEA") |
+                              str_detect(Genotype, "RFM") ~ "Temperate",
+                            str_detect(Genotype, "JP") ~ "Japan",
+                            str_detect(Genotype, "FR") ~ "France",
+                            TRUE ~ "Tropical")) %>%
+  group_by(locale) %>%
+  summarise(lt50_mean = mean(lt_50),
+            lt50_sd = sd(lt_50),
+            count = n()) %>%
+  mutate(lt50_se = lt50_sd/sqrt(count),
+         lt50_95ci = lt50_se*1.96)
+
+lt_surv_curv
+
+
+# Plot survival curve for one genotype (FLCK)------------------------------------------
+surv %>%
+  filter(str_detect(Genotype, "FLCK")) %>%
+  mutate(Prop_Hatched = Hatched_48/Eggs) %>%
   ggplot(aes(x = Temperature,
-             y = Hatched_48/Eggs)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-
-# Lets fit a dose response curve to the data instead...
-# And let's make it a little pretty
-df %>%
-  filter(Genotype == "CH") %>%
-  ggplot(aes(x = Temperature,
-             y = Hatched_48/Eggs)) +
-  geom_point() +
-  geom_smooth(method = drm,
-              method.args = list(fct = LL.3()),
-              se = FALSE)
-
-# Final pretty  figure for Chiapas
-#   The Mexican state that border Belize & Guatemala
-df %>%
-  filter(Genotype == "CH") %>%
-  ggplot(aes(x = Temperature,
-             y = Hatched_48/Eggs)) +
-  geom_smooth(method = drm,
-              method.args = list(fct = LL.3()),
-              se = FALSE,
-              color = "lavenderblush2") +
-  geom_jitter(width = 0.1,
-              shape = 21,
-              size = 2,
-              fill = "lavenderblush2",
-              alpha = 0.8) +
-  geom_hline(yintercept = 0.5,
-             color = "grey80",
-             linetype = 1) +
-  theme_classic() +
-  labs(x = "Acute heat shock temperature (°C)",
-       y = "Proportion hatched") +
-  theme(panel.grid.major.y = element_line(color = "grey85",
-                                          linetype = 3),
-        axis.line = element_line(color = "grey70"),
-        axis.ticks = element_line(color = "grey70"))
-
-# Chiapas & VTECK_8
-df %>%
-  filter(Genotype == "CH" | Genotype == "VTECK_8") %>%
-  ggplot(aes(x = Temperature,
-             y = Hatched_48/Eggs,
+             y = Prop_Hatched,
              color = Genotype,
              fill = Genotype)) +
+  geom_jitter(width = 0.1,
+              shape = 21,
+              alpha = 0.6,
+              size = 2,
+              color = "grey23") +
   geom_smooth(method = drm,
               method.args = list(fct = LL.3()),
               se = FALSE) +
-  geom_jitter(width = 0.1,
-              shape = 21,
-              size = 2,
-              color = "grey70",
-              alpha = 0.8) +
   geom_hline(yintercept = 0.5,
-             color = "grey80",
-             linetype = 1) +
-  scale_color_manual(values = c("lavenderblush2",
-                                "azure3")) +
-  scale_fill_manual(values = c("lavenderblush2",
-                                "azure3")) +
-  theme_classic() +
-  labs(x = "Acute heat shock temperature (°C)",
-       y = "Proportion hatched") +
+             color = "grey50",
+             linetype = 2) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  scale_x_continuous(limits = c(24, 37),
+                     breaks = seq(from = 24, to = 38, by = 2)) +
+  theme_classic(base_size = 16) +
   theme(panel.grid.major.y = element_line(color = "grey85",
                                           linetype = 3),
         axis.line = element_line(color = "grey70"),
         axis.ticks = element_line(color = "grey70"))
 
-# With two genotypes from Alex's data
-df %>%
-  filter(Genotype == "FLCK 06" | Genotype == "FRMO-01") %>%
+# ggsave("flck_final.png", 
+#        height = 6, 
+#        width = 9)
+
+
+
+# Renormalize to 25°C hatching success ----------------------------------------
+surv %>%
+  filter(str_detect(Genotype, "FLCK")) %>%
+  group_by(Genotype, Temperature) %>%
+  summarise(Prop_Hatched = sum(Hatched_48)/sum(Eggs)) %>%
+  mutate(Prop_Hatched_norm = Prop_Hatched/Prop_Hatched[Temperature == 25]) %>%
   ggplot(aes(x = Temperature,
-             y = Hatched_48/Eggs,
-             color = Genotype,
-             fill = Genotype,
-             shape = Genotype)) +
-  geom_smooth(aes(linetype = Genotype),
-              method = drm,
+             y = Prop_Hatched_norm,
+             color = Genotype)) +
+  geom_smooth(method = drm,
               method.args = list(fct = LL.3()),
               se = FALSE) +
-  geom_jitter(width = 0.1,
-              size = 3,
-              color = "grey70",
-              alpha = 0.8) +
   geom_hline(yintercept = 0.5,
-             color = "grey80",
-             linetype = 1) +
-  scale_color_manual(values = c("lavenderblush2",
-                                "azure3")) +
-  scale_fill_manual(values = c("lavenderblush2",
-                               "azure3")) +
-  scale_shape_manual(values = c(21, 22)) +
-  scale_x_continuous(breaks = c(26, 28, 30, 32, 34, 36)) +
-  theme_classic() +
-  labs(x = "Acute heat shock temperature (°C)",
-       y = "Proportion hatched") +
-  theme(panel.grid.major.y = element_line(color = "grey85",
-                                          linetype = 3),
-        axis.line = element_line(color = "grey70"),
-        axis.ticks = element_line(color = "grey70"))
+             color = "grey50",
+             linetype = 2) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Hatched at 48 hours\n(Normalized to 25°C Hatching Success)") +
+  ylim(c(0, 1)) +
+  theme_minimal()
 
 
-# What does it look like for a bunch of genotypes at the same time?
-df %>%
-  mutate(region = ifelse(is.na(region),
+
+#Combined surv curve-----------------------------------------------------------
+surv %>%
+  mutate(region = ifelse(is.na (region),
                          case_when(str_detect(Genotype, "FLCK") ~ "Florida",
                                    str_detect(Genotype, "FR") ~ "France",
                                    str_detect(Genotype, "JP") ~ "Japan"),
                          str_to_sentence(region))) %>%
-  mutate(region = factor(region, levels = c("Japan",
-                                            "France",
-                                            "Florida",
-                                            "Temperate",
-                                            "Tropical")), level=TRUE) %>%
-  filter(!str_detect(Genotype, "Canton") & !str_detect(Genotype, "X")) %>%
-  #arrange(desc(region)) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "Japan", "France", "Florida"))) %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X")) %>%
   ggplot(aes(x = Temperature,
              y = Hatched_48/Eggs,
              color = region)) +
-  geom_hline(yintercept = 0.5,
-             color = "grey80",
-             linetype = 1) +
-  geom_smooth(aes(group = Genotype),
-              method = drm,
-              method.args = list(fct = LL.3()),
-              se = FALSE) +
+  geom_smooth (aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  geom_smooth (aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
   scale_color_manual(values = c("skyblue",
                                 "pink",
                                 "green",
                                 "orange",
                                 "firebrick"),
-                     name = "Locale") +
+                     name = "Local") +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Hatched") +
   theme_classic() +
-  labs(x = "Acute heat shock temperature (°C)",
-       y = "Proportion hatched") +
   theme(panel.grid.major.y = element_line(color = "grey85",
                                           linetype = 3),
         axis.line = element_line(color = "grey70"),
         axis.ticks = element_line(color = "grey70"))
 
-# Let's do some math and stats
-surv_curv <- df %>%
-  group_by(Genotype) %>%
-  nest() %>%
-  mutate(fit = map(data, ~ drm(Hatched_48/Eggs ~ Temperature,
-                               data = .x,
-                               weight = Eggs,
-                               fct = LL.3(names = c("slope",
-                                                    "upper limit",
-                                                    "LT50")),
-                               type = "binomial"))) %>%
-  mutate(tidy_fit = map(fit, broom::tidy))
+
+
+# Box plot of LT50s (Japan together)------------------------------------------------------------
+lt_surv_curv %>%
+  filter(!str_detect(Genotype, "X")) %>%
+  mutate(region = case_when(str_detect(Genotype, "FLCK") ~ "New Genotypes",
+                            str_detect(Genotype, "VT") |
+                              str_detect(Genotype, "BEA") |
+                              str_detect(Genotype, "RFM") ~ "North American Temperate",
+                            str_detect(Genotype, "JP") ~ "New Genotypes",
+                            str_detect(Genotype, "FR") ~ "New Genotypes",
+                            TRUE ~ "Tropical")) %>%
+  ggplot() +
+  geom_boxplot(aes(x = region, 
+                   y = lt_50,
+                   fill = region,
+                   color = region)) +
+  scale_fill_manual("Locale", values = c( "New Genotypes" = "darkseagreen",
+                               "North American Temperate" = "#8CC2EA",
+                               "Tropical" = "#FF2E91")) +
+  scale_color_manual("Locale", values = c("New Genotypes" = "grey23",
+                                "North American Temperate" = "grey23",
+                                "Tropical" = "grey23")) +
+  labs(x = "Locale",
+       y = "Embryo LT50 (°C)") +
+  ylim(c(33, 37)) +
+  theme_classic(base_size = 15) +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey50"),
+        axis.ticks = element_line(color = "grey50"))
+
+# ggsave("boxplot_final_pres.png",
+#        height = 6,
+#        width = 9)
+
+#Box Plot LT50s (Japan Split)--------------------------------------------------
+lt_surv_curv %>%
+  filter(!str_detect(Genotype, "X")) %>%
+  mutate(region = case_when(str_detect(Genotype, "FLCK") ~ "Florida",
+                            str_detect(Genotype, "VT") |
+                              str_detect(Genotype, "BEA") |
+                              str_detect(Genotype, "RFM") ~ "Temperate",
+                            str_detect(Genotype, "JPOK") ~ "Okinawa, Japan",
+                            str_detect(Genotype, "JPSC") ~ "Nagano, Japan", 
+                            str_detect(Genotype, "FR") ~ "France",
+                            TRUE ~ "Tropical")) %>%
+  ggplot() +
+  geom_boxplot(aes(x = region, 
+                   y = lt_50,
+                   fill = region,
+                   color = region)) +
+  scale_fill_manual("Region", values = c("Florida" = "sienna1",
+                               "France" = "mediumpurple1",
+                               "Okinawa, Japan" = "darkseagreen",
+                               "Nagano, Japan" = "seagreen",
+                               "Temperate" = "#8CC2EA",
+                               "Tropical" = "#FF2D8F")) +
+  scale_color_manual("Region", values = c("Florida" = "grey23",
+                                "France" = "grey23",
+                                "Okinawa, Japan" = "grey23",
+                                "Nagano, Japan" = "grey23",
+                                "Temperate" = "grey23",
+                                "Tropical" = "grey23")) +
+  labs(x = "Region",
+       y = "Embryo LT50 (°C)") +
+  ylim(c(33, 37)) +
+  theme_classic()
+
+
+# New data----------------------------------------------------------------------
+surv %>%
+  filter(Genotype == "FRMO-01" | 
+           Genotype == "FRMO-02" | 
+           Genotype == "JPSC" | 
+           Genotype == "JPOK") %>%
+  ggplot(aes(x = Temperature,
+             y = Hatched_48/Eggs,
+             color = Genotype,
+             fill = Genotype)) +
+  geom_smooth (method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  geom_jitter(width = 0.1,
+              shape = 21,
+              alpha = 0.6,
+              size = 2,
+              color = "grey23") +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_color_manual(values = c("slateblue4",
+                                "slateblue1",
+                                "#92CC8F",
+                                "#136F63"),
+                     labels = c("France 1",
+                                "France 2",
+                                "Okinawa, Japan",
+                                "Nagano, Japan")) +
+  scale_fill_manual(values = c("slateblue4",
+                               "slateblue1",
+                               "#92CC8F",
+                               "#136F63"),
+                    labels = c("France 1",
+                               "France 2",
+                               "Okinawa, Japan",
+                               "Nagano, Japan")) +
+  scale_x_continuous(limits = c(25, 40),
+                     breaks = seq(from = 26, to = 40, by = 2)) +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  theme_classic(base_size = 16) +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70"))
+
+# ggsave("fr_jp_final.png", 
+#        height = 6, 
+#        width = 9)
+
+# Temperate vs new data---------------------------------------------------------
+surv %>%
+  mutate(region = ifelse(is.na (region),
+                         case_when(str_detect(Genotype, "FLCK") ~ "Florida",
+                                   str_detect(Genotype, "FR") ~ "France",
+                                   str_detect(Genotype, "JPOK") ~ "Okinawa",
+                                   str_detect(Genotype, "JPSC") ~ "Nagano"),
+                         str_to_sentence(region))) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "Japan", "France", "Florida"))) %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X") &
+           !str_detect(region, "Tropical")) %>%
+  ggplot(aes(x = Temperature,
+             y = Hatched_48/Eggs,
+             color = region,
+             linetype = region)) +
+  geom_smooth (aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_color_manual(values = c("#8CC2EA",
+                                "slateblue4",
+                                "slateblue4",
+                                "slateblue4",
+                                "slateblue4"),
+                     name = "Local") +
+  scale_linetype_manual(values = c(3,
+                                   1,
+                                   1,
+                                   1)) +
+  scale_x_continuous(limits = c(25, 40)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Hatched") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70")) +
+  theme(axis.line.y = element_blank(),
+        legend.position = "none") 
+
+# Tropical vs new data----------------------------------------------------------
+surv %>%
+  mutate(region = ifelse(is.na (region),
+                         case_when(str_detect(Genotype, "FLCK") ~ "Florida",
+                                   str_detect(Genotype, "FR") ~ "France",
+                                   str_detect(Genotype, "JP") ~ "Japan"),
+                         str_to_sentence(region))) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "Japan", "France", "Florida"))) %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X") &
+           !str_detect(region, "Temperate")) %>%
+  ggplot(aes(x = Temperature,
+             y = Hatched_48/Eggs,
+             color = region,
+             linetype = region)) +
+  geom_smooth (aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  scale_color_manual(values = c("#FF2E91",
+                                "slateblue4",
+                                "slateblue4",
+                                "slateblue4"),
+                     name = "Locale") +
+  scale_linetype_manual(values = c(3,
+                                   1,
+                                   1,
+                                   1),
+                        name = "Locale") +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_x_continuous(limits = c(25, 40),
+                     breaks = seq(from = 26, to = 40, by = 2)) +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70"))
+
+# Correct legends --------------------------------------------------------------
+surv %>%
+  mutate(region = ifelse(is.na (region),
+                         case_when(str_detect(Genotype, "FLCK") |
+                                   str_detect(Genotype, "FR") |
+                                   str_detect(Genotype, "JP") ~ "New Genotypes"),
+                         str_to_sentence(region))) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "New Genotypes"))) %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X") &
+           !str_detect(region, "Temperate")) %>%
+  ggplot(aes(x = Temperature,
+             y = Hatched_48/Eggs,
+             color = region,
+             linetype = region)) +
+  geom_smooth (aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  scale_color_manual(values = c("#FF2E91", "slateblue4"),
+                     name = "Locale") +
+  scale_linetype_manual(values = c(3, 1),
+                        name = "Locale") +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_x_continuous(limits = c(25, 40),
+                     breaks = seq(from = 26, to = 40, by = 2)) +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  theme_classic(base_size = 16) +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70"))
+
+
+# ggsave("new_data_vs_tropical_final.png", 
+#        height = 6, 
+#        width = 9)
+
+# New and Temperate ------------------------------------------------------------
+surv %>%
+  mutate(region = ifelse(is.na (region),
+                         case_when(str_detect(Genotype, "FLCK") |
+                                     str_detect(Genotype, "FR") |
+                                     str_detect(Genotype, "JP") ~ "New Genotypes"),
+                         str_to_sentence(region))) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "New Genotypes"))) %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X") &
+           !str_detect(region, "Tropical")) %>%
+  ggplot(aes(x = Temperature,
+             y = Hatched_48/Eggs,
+             color = region,
+             linetype = region)) +
+  geom_smooth (aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  scale_color_manual(values = c("#8CC2EA", "slateblue4"),
+                     name = "Locale") +
+  scale_linetype_manual(values = c(3, 1),
+                        name = "Locale") +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_x_continuous(limits = c(25, 40),
+                     breaks = seq(from = 26, to = 40, by = 2)) +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  theme_classic(base_size = 16) +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70"))
+
+# ggsave("new_data_vs_temperate_final.png", 
+#        height = 6, 
+#        width = 9)
+
+
+# Normalized to 25°C survival (tropical) --------------------------------------
+surv %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X")) %>%
+  group_by(Genotype, Temperature) %>%
+  summarise(Prop_Hatched = sum(Hatched_48)/sum(Eggs)) %>%
+  mutate(Prop_Hatched_norm = Prop_Hatched/Prop_Hatched[Temperature == min(Temperature)]) %>%
+  mutate(region = case_when(str_detect(Genotype, "FLCK") |
+                                     str_detect(Genotype, "FR") |
+                                     str_detect(Genotype, "JP") ~ "New Genotypes",
+                                   str_detect(Genotype, "FLCK") |
+                                     str_detect(Genotype, "MU") | 
+                                     str_detect(Genotype, "CH") |
+                                     str_detect(Genotype, "GH") |
+                                     str_detect(Genotype, "SK") |
+                                     str_detect(Genotype, "GU") ~ "Tropical",
+                                   str_detect(Genotype, "VTECK_") |
+                                     str_detect(Genotype, "BEA") | 
+                                     str_detect(Genotype, "RFM") ~ "Temperate")) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "New Genotypes"))) %>%
+  filter(region != "Temperate") %>%
+  ggplot(aes(x = Temperature,
+             y = Prop_Hatched_norm,
+             color = region)) +
+  geom_smooth(aes(group = Genotype),
+               method = drm,
+               method.args = list(fct = LL.3()),
+               se = FALSE) +
+  scale_color_manual(values = c("#FF2E91", "slateblue4"),
+                     name = "Locale") +
+  scale_linetype_manual(values = c(3, 1),
+                        name = "Locale") +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_x_continuous(limits = c(25, 40),
+                     breaks = seq(from = 26, to = 40, by = 2)) +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70"))
+
+
+# Normalized to 25°C survival (temperate) --------------------------------------
+surv %>%
+  filter(!str_detect(Genotype, "Canton") & 
+           !str_detect(Genotype, "X")) %>%
+  group_by(Genotype, Temperature) %>%
+  summarise(Prop_Hatched = sum(Hatched_48)/sum(Eggs)) %>%
+  mutate(Prop_Hatched_norm = Prop_Hatched/Prop_Hatched[Temperature == min(Temperature)]) %>%
+  mutate(region = case_when(str_detect(Genotype, "VTECK_") |
+                              str_detect(Genotype, "BEA") | 
+                              str_detect(Genotype, "RFM") ~ "Temperate",
+                            str_detect(Genotype, "FLCK") |
+                              str_detect(Genotype, "FR") |
+                              str_detect(Genotype, "JP") ~ "New Genotypes",
+                            str_detect(Genotype, "FLCK") |
+                              str_detect(Genotype, "MU") | 
+                              str_detect(Genotype, "CH") |
+                              str_detect(Genotype, "GH") |
+                              str_detect(Genotype, "SK") |
+                              str_detect(Genotype, "GU") ~ "Tropical")) %>%
+  mutate(region = factor(region, levels = c("Temperate", "Tropical", 
+                                            "New Genotypes"))) %>%
+  filter(region != "Tropical") %>%
+  ggplot(aes(x = Temperature,
+             y = Prop_Hatched_norm,
+             color = region)) +
+  geom_smooth(aes(group = Genotype),
+              method = drm,
+              method.args = list(fct = LL.3()),
+              se = FALSE) +
+  scale_color_manual(values = c("#FF2E91", "slateblue4"),
+                     name = "Locale") +
+  scale_linetype_manual(values = c(3, 1),
+                        name = "Locale") +
+  geom_hline (yintercept = 0.50,
+              color = "grey50",
+              linetype = 2) +
+  scale_x_continuous(limits = c(25, 40),
+                     breaks = seq(from = 26, to = 40, by = 2)) +
+  scale_y_continuous(limits = c(0, 1.01),
+                     breaks = seq(from = 0, to = 1, by = 0.25)) +
+  labs(x = "Heat Shock Temperature (°C)",
+       y = "Proportion Survived") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "grey85",
+                                          linetype = 3),
+        axis.line = element_line(color = "grey70"),
+        axis.ticks = element_line(color = "grey70"))
+
+
+# ------------------------------------------------------------------------------
+# Stat time
+lts_df <- lt_surv_curv  %>%
+  filter(!str_detect(Genotype, "X")) %>%
+  mutate(locale = case_when(str_detect(Genotype, "FLCK") ~ "Florida",
+                            str_detect(Genotype, "VT") |
+                              str_detect(Genotype, "BEA") |
+                              str_detect(Genotype, "RFM") ~ "Temperate",
+                            str_detect(Genotype, "JP") ~ "Japan",
+                            str_detect(Genotype, "FR") ~ "France",
+                            TRUE ~ "Tropical"))
+
+# ANOVA regular style
+mod_aov <- aov(lt_50 ~ locale, data = lts_df)
+summary(mod_aov)
+
+TukeyHSD(mod_aov)
+
+# Combining all new stuff to the same locale
+lts_df_new <- lt_surv_curv  %>%
+  filter(!str_detect(Genotype, "X")) %>%
+  mutate(locale = case_when(str_detect(Genotype, "FLCK") ~ "New Genotype",
+                            str_detect(Genotype, "VT") |
+                              str_detect(Genotype, "BEA") |
+                              str_detect(Genotype, "RFM") ~ "Temperate",
+                            str_detect(Genotype, "JP") ~ "New Genotype",
+                            str_detect(Genotype, "FR") ~ "New Genotype",
+                            TRUE ~ "Tropical"))
+
+# ANOVA regular style
+mod_aov_new <- aov(lt_50 ~ locale, data = lts_df_new)
+summary(mod_aov_new)
+
+TukeyHSD(mod_aov_new)
+
+# Kruskal-Wallis -- 
+mod_aov_ks <- kruskal.test(lt_50 ~ locale, data = lts_df)
+mod_aov_ks
+
+pairwise.wilcox.test(x = lts_df$lt_50, g = lts_df$locale)
 ```
 
 
 ## Catherine & Caleb
 
+```{r}
+# ------------------------------------------------------------------------------
+# Catherine & Caleb data
+# July 19, 2022
+# TS O'Leary
+# ------------------------------------------------------------------------------
+
+# Load libraries
+require(tidyverse)
+
+# Load data
+df <- read_csv("student_data/changes_in_AA.csv")
+
+# Plot data
+
+# Minimal plot
+ggplot(data = df,
+       aes(y = value,
+           x = Adult_Acclimation_State,
+           fill = Direction)) +
+  ylab("Number of differentially expressed genes") +
+  geom_bar(stat = "identity")
+
+# With the position dodge
+ggplot(data = df,
+       aes(y = value,
+           x = Adult_Acclimation_State,
+           fill = Direction)) +
+  ylab("Number of differentially\nexpressed genes") +
+  geom_bar(stat = "identity",
+           position = "dodge") +
+  theme_classic(base_size = 16)
+
+# Those underscores kinda stink
+ggplot(data = df,
+       aes(y = value,
+           x = Adult_Acclimation_State,
+           fill = Direction)) +
+  geom_bar(stat = "identity",
+           position = "dodge") +
+  scale_x_discrete(labels = c("18°C", "30°C")) +
+  ylab("Number of differentially\nexpressed genes") +
+  xlab("Adult Acclimation State") +
+  theme_classic(base_size = 16)
+
+
+# Okay lets try the thing where the directions depend on the directions
+df %>%
+  mutate(value = ifelse(Direction == "Down", -value, value)) %>%
+  ggplot(aes(x = value,
+             y = Adult_Acclimation_State,
+             fill = Direction)) +
+  geom_bar(stat = "identity",
+           position = "identity",
+           width = 0.5) +
+  geom_vline(xintercept = 0) +
+  geom_text(aes(label = abs(value),
+                hjust = 1)) +
+  scale_y_discrete(labels = c("18°C", "30°C"),
+                   name = "Adult Acclimation State") +
+  scale_x_continuous(position = "top",
+                     name = "Number of differentially expressed genes",
+                     limits = c(-500, 500),
+                     breaks = seq(from = -400, to = 400, by = 200),
+                     labels = abs(seq(from = -400, to = 400, by = 200))) +
+  scale_fill_manual(values = c("#F58161", "#B3D89C")) +
+  theme_classic(base_size = 16) +
+  theme(axis.line.y = element_blank(),
+        legend.position = "none",
+        panel.grid.major.x = element_line(color = "grey95"),
+        axis.title.x = element_blank())
+
+# ggsave("cath_cal_fig.pdf", height = 4, width = 7)
+
+```
 
 ```{r}
+# ------------------------------------------------------------------------------
+# Catherine & Caleb data
+# July 19, 2022
+# TS O'Leary
+# ------------------------------------------------------------------------------
+
 # Load data
 df <- read_csv("student_data/changes_in_HS_CS_at_AA.csv")
 
@@ -1935,8 +2436,6 @@ df %>%
                                         size = 0.5),
         panel.grid.minor.x = element_line(color = "grey90", 
                                         size = 0.5)) 
-
-
 ```
 
 ## Nivea & Sara
@@ -1977,6 +2476,196 @@ df %>%
   ylim(c(0, 140)) +
   theme_minimal() +
   theme(legend.position = "none")
+```
+
+```{r}
+# ------------------------------------------------------------------------------
+# Nivea & Sara -- rRNA depl data -- figs and stuff
+# July 21, 2022
+# TS O'Leary
+# ------------------------------------------------------------------------------
+
+# Load libraries
+require(tidyverse)
+require(DESeq2)
+require(ggrepel)
+
+# Load data
+dds <- readRDS(here::here("student_data/reu_workshop_nivea_dds_rRNA.rds"))
+
+# Load specific result comparisons
+res_37 <- results(dds,
+                  name = "condition_Hot37_vs_Control",
+                  alpha = 0.05)
+res_34 <- results(dds,
+                  name = "condition_Hot34_vs_Control",
+                  alpha = 0.05)
+res_10 <- results(dds,
+                  name = "condition_Cold10_vs_Control",
+                  alpha = 0.05)
+res_04 <- results(dds,
+                  name = "condition_Cold4_vs_Control",
+                  alpha = 0.05)
+
+# Take a peak at the summary values
+summary(res_37)
+summary(res_34)
+summary(res_10)
+summary(res_04)
+
+# Convert to a tibble because TSO likes that format better
+res_37 <- res_37 %>%
+  as_tibble(rownames = "FBgn")
+res_34 <- res_34 %>%
+  as_tibble(rownames = "FBgn")
+res_10 <- res_10 %>%
+  as_tibble(rownames = "FBgn")
+res_04 <- res_04 %>%
+  as_tibble(rownames = "FBgn")
+
+# Combine all these results together
+res <- bind_rows(list("res_37" = res_37,
+                      "res_34" = res_34,
+                      "res_10" = res_10,
+                      "res_04" = res_04),
+                 .id = "temp")
+
+# Let's count 'em up
+res %>%
+  filter(padj < 0.05) %>%
+  group_by(temp, log2FoldChange > 0) %>%
+  tally() %>%
+  dplyr::rename(direction = `log2FoldChange > 0`) %>%
+  mutate(direction = ifelse(direction, "Up", "Down"))
+
+# Volcano Plots --
+# Cold only
+res %>%
+  filter(temp == "res_10" | temp == "res_04") %>%
+  mutate(temp = case_when(temp == "res_04" ~ "4°C vs 25°C",
+                          temp == "res_10" ~ "10°C vs 25°C",
+                          temp == "res_34" ~ "34°C vs 25°C",
+                          temp == "res_37" ~ "37°C vs 25°C")) %>%
+  mutate(temp = factor(temp, levels = c("4°C vs 25°C",
+                                        "10°C vs 25°C",
+                                        "34°C vs 25°C",
+                                        "37°C vs 25°C"))) %>%
+  filter(!is.na(padj)) %>%
+  ggplot() +
+  geom_point(aes(x = log2FoldChange,
+                 y = -log10(padj),
+                 color = padj < 0.05)) +
+  geom_vline(xintercept = 0,
+             color = "grey70") +
+  geom_hline(yintercept = -log10(0.05),
+             color = "grey70") +
+  scale_color_manual(values = c("grey70",
+                                "firebrick",
+                                "grey80"),
+                     name = "Differentially expressed genes",
+                     label = c("Not signigicant", "Significant")) +
+  xlim(c(-14,14)) +
+  theme_classic() +
+  theme(legend.position = "top") +
+  facet_wrap(~ temp)
+
+# Hot only
+res %>%
+  filter(temp == "res_34" | temp == "res_37") %>%
+  mutate(temp = case_when(temp == "res_04" ~ "4°C vs 25°C",
+                          temp == "res_10" ~ "10°C vs 25°C",
+                          temp == "res_34" ~ "34°C vs 25°C",
+                          temp == "res_37" ~ "37°C vs 25°C")) %>%
+  mutate(temp = factor(temp, levels = c("4°C vs 25°C",
+                                        "10°C vs 25°C",
+                                        "34°C vs 25°C",
+                                        "37°C vs 25°C"))) %>%
+  filter(!is.na(padj)) %>%
+  ggplot() +
+  geom_point(aes(x = log2FoldChange,
+                 y = -log10(padj),
+                 color = padj < 0.05)) +
+  geom_vline(xintercept = 0,
+             color = "grey70") +
+  geom_hline(yintercept = -log10(0.05),
+             color = "grey70") +
+  scale_color_manual(values = c("grey70",
+                                "firebrick",
+                                "grey80"),
+                     name = "Differentially expressed genes",
+                     label = c("Not signigicant", "Significant")) +
+  xlim(c(-14,14)) +
+  theme_classic() +
+  theme(legend.position = "top") +
+  facet_wrap(~ temp)
+
+# All four comparisons
+res %>%
+  mutate(temp = case_when(temp == "res_04" ~ "4°C vs 25°C",
+                          temp == "res_10" ~ "10°C vs 25°C",
+                          temp == "res_34" ~ "34°C vs 25°C",
+                          temp == "res_37" ~ "37°C vs 25°C")) %>%
+  mutate(temp = factor(temp, levels = c("4°C vs 25°C",
+                                        "10°C vs 25°C",
+                                        "34°C vs 25°C",
+                                        "37°C vs 25°C"))) %>%
+  filter(!is.na(padj)) %>%
+  ggplot() +
+  geom_point(aes(x = log2FoldChange,
+                 y = -log10(padj),
+                 color = padj < 0.05)) +
+  geom_vline(xintercept = 0,
+             color = "grey70") +
+  geom_hline(yintercept = -log10(0.05),
+             color = "grey70",
+             linetype = 2) +
+  scale_color_manual(values = c("grey70",
+                                "firebrick",
+                                "grey80"),
+                     name = "Differentially expressed genes",
+                     label = c("Not signigicant", "Significant")) +
+  xlim(c(-14,14)) +
+  theme_classic() +
+  theme(legend.position = "top") +
+  facet_wrap(~ temp)
+
+
+
+# Let's convert to gene symbol from FBgn
+library(AnnotationDbi)
+library(org.Dm.eg.db)
+
+res$symbol <- mapIds(org.Dm.eg.db,
+                     keys = res$FBgn,
+                     column = "SYMBOL",
+                     keytype = "FLYBASE",
+                     multiVals = "first")
+
+
+# Let's try and add symbols to the volcano plot
+res %>%
+  filter(temp == "res_37") %>%
+  filter(!is.na(padj)) %>%
+  ggplot(aes(x = log2FoldChange,
+             y = -log10(padj))) +
+  geom_point(aes(color = padj < 0.05)) +
+  geom_vline(xintercept = 0,
+             color = "grey70") +
+  geom_hline(yintercept = -log10(0.05),
+             color = "grey70") +
+  geom_text_repel(data = res %>%
+                    filter(temp == "res_37") %>%
+                    arrange(padj) %>%
+                    head(10),
+                  aes(label = symbol)) +
+  scale_color_manual(values = c("grey70",
+                                "firebrick",
+                                "grey80"),
+                     name = "Differentially expressed genes",
+                     label = c("Not signigicant", "Significant")) +
+  xlim(c(-14,14)) +
+  theme_classic() +
+  theme(legend.position = "top")
 ```
 
 

@@ -98,7 +98,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -111,7 +111,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -229,7 +229,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="tidyverse.html"><a href="tidyverse.html#pipe-operator"><i class="fa fa-check"></i><b>4.7</b> Pipe <code>%&gt;%</code> operator</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="tidyverse.html"><a href="tidyverse.html#a-fun-example-from-r-for-data-science"><i class="fa fa-check"></i><b>4.7.1</b> A fun example from <span>R for data science</span></a></li>
+<li class="chapter" data-level="4.7.1" data-path="tidyverse.html"><a href="tidyverse.html#a-fun-example-from-r-for-data-science"><i class="fa fa-check"></i><b>4.7.1</b> A fun example from R for data science</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="tidyverse.html"><a href="tidyverse.html#arrange"><i class="fa fa-check"></i><b>4.8</b> <code>arrange</code></a></li>
 <li class="chapter" data-level="4.9" data-path="tidyverse.html"><a href="tidyverse.html#summarise"><i class="fa fa-check"></i><b>4.9</b> <code>summarise</code></a></li>
@@ -509,23 +509,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are a bunch of functions that come by default with R in the <code>base</code> package.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="more-base-ics-in-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List 20 random objects in the base package in R</span></span>
 <span id="cb34-2"><a href="more-base-ics-in-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>), <span class="at">size =</span> <span class="dv">20</span>)</span>
-<span id="cb34-3"><a href="more-base-ics-in-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] &quot;duplicated.default&quot;      &quot;print.default&quot;          </span></span>
-<span id="cb34-4"><a href="more-base-ics-in-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  [3] &quot;readBin&quot;                 &quot;prmatrix&quot;               </span></span>
-<span id="cb34-5"><a href="more-base-ics-in-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [5] &quot;getNamespaceImports&quot;     &quot;options&quot;                </span></span>
-<span id="cb34-6"><a href="more-base-ics-in-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  [7] &quot;is.element&quot;              &quot;all.equal.formula&quot;      </span></span>
-<span id="cb34-7"><a href="more-base-ics-in-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  [9] &quot;restartFormals&quot;          &quot;drop&quot;                   </span></span>
-<span id="cb34-8"><a href="more-base-ics-in-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [11] &quot;as.character.srcref&quot;     &quot;as.matrix.POSIXlt&quot;      </span></span>
-<span id="cb34-9"><a href="more-base-ics-in-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [13] &quot;as.data.frame.difftime&quot;  &quot;attributes&quot;             </span></span>
-<span id="cb34-10"><a href="more-base-ics-in-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [15] &quot;tempdir&quot;                 &quot;transform.default&quot;      </span></span>
-<span id="cb34-11"><a href="more-base-ics-in-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [17] &quot;quarters&quot;                &quot;namespaceImportFrom&quot;    </span></span>
-<span id="cb34-12"><a href="more-base-ics-in-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [19] &quot;print.NativeRoutineList&quot; &quot;as.character.factor&quot;</span></span>
-<span id="cb34-13"><a href="more-base-ics-in-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="more-base-ics-in-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># How many are there?</span></span>
-<span id="cb34-15"><a href="more-base-ics-in-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>))</span>
-<span id="cb34-16"><a href="more-base-ics-in-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1257</span></span>
-<span id="cb34-17"><a href="more-base-ics-in-r.html#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="more-base-ics-in-r.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:stats&quot;</span>))</span>
-<span id="cb34-19"><a href="more-base-ics-in-r.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 452</span></span></code></pre></div>
+<span id="cb34-3"><a href="more-base-ics-in-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] &quot;path.package&quot;      &quot;allowInterrupts&quot;   &quot;dir.exists&quot;       </span></span>
+<span id="cb34-4"><a href="more-base-ics-in-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  [4] &quot;rowsum.default&quot;    &quot;withAutoprint&quot;     &quot;agrepl&quot;           </span></span>
+<span id="cb34-5"><a href="more-base-ics-in-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [7] &quot;tan&quot;               &quot;is.atomic&quot;         &quot;row.names.default&quot;</span></span>
+<span id="cb34-6"><a href="more-base-ics-in-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [10] &quot;validEnc&quot;          &quot;emptyenv&quot;          &quot;as.list.default&quot;  </span></span>
+<span id="cb34-7"><a href="more-base-ics-in-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [13] &quot;Sys.time&quot;          &quot;pcre_config&quot;       &quot;unclass&quot;          </span></span>
+<span id="cb34-8"><a href="more-base-ics-in-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [16] &quot;is.array&quot;          &quot;Summary.ordered&quot;   &quot;gregexpr&quot;         </span></span>
+<span id="cb34-9"><a href="more-base-ics-in-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [19] &quot;format.default&quot;    &quot;qr.fitted&quot;</span></span>
+<span id="cb34-10"><a href="more-base-ics-in-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="more-base-ics-in-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># How many are there?</span></span>
+<span id="cb34-12"><a href="more-base-ics-in-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:base&quot;</span>))</span>
+<span id="cb34-13"><a href="more-base-ics-in-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1257</span></span>
+<span id="cb34-14"><a href="more-base-ics-in-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="more-base-ics-in-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ls</span>(<span class="st">&quot;package:stats&quot;</span>))</span>
+<span id="cb34-16"><a href="more-base-ics-in-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 452</span></span></code></pre></div>
 <p>These include some of the useful functions that we have looked at so far, <code>class()</code>, <code>length()</code>, <code>summary()</code>, as well as a bunch of others.</p>
 <p>These are super useful functions with which to get acquainted – because it is important to fully understand the fundamental properties of your data before you go on to do any statiscs or data visualization.</p>
 <ul>
